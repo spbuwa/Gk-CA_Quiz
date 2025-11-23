@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Printable Quiz Paper</title>
+    <style>
+        body { 
+            font-family: 'Times New Roman', Times, serif; /* Serif looks better for exams */
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding: 40px; 
+            color: #000;
+        }
+
+        h1, h2 { text-align: center; text-transform: uppercase; border-bottom: 2px solid black; padding-bottom: 10px; margin-bottom: 30px;}
+        
+        /* CONTROLS (Screen Only) */
+        .controls { 
+            background: #e3f2fd; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin-bottom: 30px; 
+            text-align: center; 
+            font-family: sans-serif;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        button { 
+            padding: 10px 20px; 
+            cursor: pointer; 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            font-size: 16px; 
+            margin: 0 10px;
+        }
+        button:hover { background: #0056b3; }
+
+        /* QUESTION PAPER STYLES */
+        .question-block {
+            margin-bottom: 25px;
+            page-break-inside: avoid; /* Keep question and options on same page */
+        }
+        .q-text { font-weight: bold; font-size: 1.1em; margin-bottom: 8px; }
+        
+        .media-placeholder {
+            font-style: italic;
+            font-size: 0.9em;
+            color: #444;
+            border: 1px dashed #999;
+            padding: 5px 10px;
+            display: inline-block;
+            margin: 5px 0;
+            background: #f9f9f9;
+        }
+        
+        .print-image {
+            max-width: 300px;
+            max-height: 200px;
+            display: block;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+
+        .options-grid {
+            margin-left: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns for options to save paper */
+            gap: 8px;
+        }
+        .opt-row { display: flex; align-items: center; }
+        .bubble {
+            height: 15px; width: 15px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        /* ANSWER KEY STYLES */
+        .answer-section { margin-top: 0; }
+        .key-row {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            page-break-inside: avoid;
+        }
+        .key-header { font-weight: bold; }
+        .key-correct { color: #000; font-weight: bold; }
+        .key-explain { 
+            display: block; 
+            margin-top: 5px; 
+            font-style: italic; 
+            color: #333; 
+            font-size: 0.95em;
+        }
+
+        /* PRINT MEDIA QUERIES */
+        @media print {
+            .controls { display: none !important; }
+            body { padding: 0; margin: 0; max-width: 100%; }
+            
+            /* The Magic Page Break */
+            .page-break { page-break-before: always; }
+            
+            /* Toggle visibility based on user choice */
+            body.print-questions-only #answer-container { display: none; }
+            body.print-key-only #question-container { display: none; }
+            body.print-key-only h2 { margin-top: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <a href="dashboard.html" style="display:block; margin-bottom:15px; color:#333; font-weight:bold; text-decoration:none;">&larr; Return to Dashboard</a>
+        <h3>🖨️ Print Manager</h3>
+        <p>Choose what you want to send to the printer:</p>
+        <button onclick="setPrintMode('all')">Print Entire Quiz (Paper + Key)</button>
+        <button onclick="setPrintMode('questions')">Print Question Paper Only</button>
+        <button onclick="setPrintMode('key')">Print Answer Key Only</button>
+    </div>
+
+    <div id="question-container">
+        <h1>General Knowledge Quiz</h1>
+        <p style="text-align:center; margin-bottom: 30px;">Name: __________________________ &nbsp;&nbsp; Date: ______________</p>
+        <div id="q-list"></div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div id="answer-container" class="answer-section">
+        <h2>Answer Key & Explanations</h2>
+        <div id="a-list"></div>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        const qList = document.getElementById('q-list');
+        const aList = document.getElementById('a-list');
+
+        function renderPaper() {
+            if (typeof quizDatabase === 'undefined') return alert("data.js not found!");
+
+            quizDatabase.forEach((item, index) => {
+                const qNum = index + 1;
+
+                // --- 1. BUILD QUESTION PAPER ---
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question-block';
+
+                // Media Handling
+                let mediaHTML = '';
+                if(item.type === 'image' && item.media) {
+                    mediaHTML = `<img src="${item.media}" class="print-image" alt="Question Image">`;
+                } else if (item.media) {
+                    mediaHTML = `<div class="media-placeholder">[Media Ref: ${item.type.toUpperCase()} - ${item.media}]</div>`;
+                }
+
+                // Options Generation
+                let optionsHTML = '<div class="options-grid">';
+                item.options.forEach(opt => {
+                    optionsHTML += `
+                        <div class="opt-row">
+                            <span class="bubble"></span> ${opt}
+                        </div>
+                    `;
+                });
+                optionsHTML += '</div>';
+
+                qDiv.innerHTML = `
+                    <div class="q-text">${qNum}. ${item.question}</div>
+                    ${mediaHTML}
+                    ${optionsHTML}
+                `;
+                qList.appendChild(qDiv);
+
+
+                // --- 2. BUILD ANSWER KEY ---
+                const aDiv = document.createElement('div');
+                aDiv.className = 'key-row';
+
+                // Handle Explanation Text
+                let expText = "No explanation provided.";
+                if(item.explanation) {
+                    if(typeof item.explanation === 'string') expText = item.explanation;
+                    else if(item.explanation.text) expText = item.explanation.text;
+                }
+
+                aDiv.innerHTML = `
+                    <span class="key-header">Q${qNum}:</span> 
+                    <span class="key-correct">${item.answer}</span>
+                    <span class="key-explain">📝 ${expText}</span>
+                `;
+                aList.appendChild(aDiv);
+            });
+        }
+
+        // --- PRINT LOGIC ---
+        function setPrintMode(mode) {
+            // Reset Classes
+            document.body.classList.remove('print-questions-only', 'print-key-only');
+
+            // Apply specific class if needed
+            if (mode === 'questions') {
+                document.body.classList.add('print-questions-only');
+            } else if (mode === 'key') {
+                document.body.classList.add('print-key-only');
+            }
+
+            // Trigger Print Dialog
+            window.print();
+        }
+
+        // Initialize
+        renderPaper();
+    </script>
+</body>
+</html>
