@@ -55,7 +55,7 @@ GitHub is **case-sensitive**.
 * ✅ `assets/tiger.jpg` will work.
 * ❌ `assets/Tiger.JPG` will **break** (if the code expects lowercase).
 * *Always ensure filenames in `data.js` match the actual file names exactly.*
-
+---
 ## About the .md format - Markdown
 Markdown is a lightweight markup language that many technical professionals use to create and edit technical documents. 
 With Markdown, you write text in a plain text editor (such as vi or Emacs), inserting special characters to create 
