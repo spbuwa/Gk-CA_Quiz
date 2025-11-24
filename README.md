@@ -25,13 +25,14 @@ These are the files visible to the public:
 * `script.js`: The game logic engine.
 * `data.js`: The question database (JSON format).
 * `assets/`: Folder containing images and media files.
+* `paper-quiz.html`: Generates printable PDF exam papers and answer keys.
+
 
 ### 2. Offline Tools (Admin Only)
 *These files are kept locally on the administrator's computer:*
 * `dashboard.html`: The central hub for managing the quiz.
 * `builder.html`: Tool to add new questions or import from CSV.
 * `manager.html`: Tool to tag and categorize existing questions.
-* `paper-quiz.html`: Generates printable PDF exam papers and answer keys.
 
 ---
 
