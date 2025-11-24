@@ -62,6 +62,7 @@ With Markdown, you write text in a plain text editor (such as vi or Emacs), inse
 headers, boldface, bullets, and so on. For example, the following example shows a simple technical document formatted with Markdown:
 
 * [Click here to take a tutorial about the Markdown format.](https://www.markdowntutorial.com/)
+* [Learn from Github documentation page.](https://guides.github.com/features/mastering-markdown/)
 
 
 ---
