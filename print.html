@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Database Printable View</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #333; }
+        
+        h1 { text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px; }
+        .stats { text-align: center; color: #666; margin-bottom: 30px; }
+
+        .q-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            page-break-inside: avoid;
+        }
+
+        .q-header { font-weight: bold; font-size: 1.1em; display: flex; justify-content: space-between; }
+        .q-type { font-size: 0.8em; background: #eee; padding: 2px 8px; border-radius: 4px; }
+        
+        .media-ref { font-style: italic; color: #555; margin: 5px 0; font-size: 0.9em; }
+
+        .options-list { margin-top: 10px; padding-left: 20px; }
+        .options-list li { margin-bottom: 5px; }
+
+        .correct-ans { font-weight: bold; color: #008000; text-decoration: underline; }
+        
+        .explanation { 
+            margin-top: 10px; 
+            padding: 10px; 
+            background-color: #f9f9f9; 
+            border-left: 4px solid #999; 
+            font-size: 0.9em; 
+        }
+
+        .controls { text-align: center; margin-bottom: 20px; background: #e0f7fa; padding: 15px; border-radius: 8px; }
+        button { padding: 10px 20px; cursor: pointer; background: #007bff; color: white; border: none; font-size: 1em; border-radius: 4px; }
+        button:hover { background: #0056b3; }
+
+        @media print {
+            .controls { display: none; }
+            body { max-width: 100%; padding: 0; }
+            .q-card { border: none; border-bottom: 1px solid #ddd; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <h3>Database Manager</h3>
+        <p>This page lists all questions currently in your <b>data.js</b> file.</p>
+        <button onclick="window.print()">🖨️ Print List / Save as PDF</button>
+    </div>
+
+    <h1>Master Question List</h1>
+    <div class="stats" id="stats">Loading...</div>
+
+    <div id="list-container"></div>
+
+    <script src="data.js"></script>
+    <script>
+        const container = document.getElementById('list-container');
+        const stats = document.getElementById('stats');
+
+        if (typeof quizDatabase !== 'undefined') {
+            stats.innerText = `Total Questions: ${quizDatabase.length}`;
+
+            quizDatabase.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'q-card';
+
+                // 1. Header
+                let html = `
+                    <div class="q-header">
+                        <span>Q${index + 1}: ${item.question}</span>
+                        <span class="q-type">${item.type.toUpperCase()}</span>
+                    </div>
+                `;
+
+                // 2. Question Media
+                if (item.type !== 'text' && item.media) {
+                    html += `<div class="media-ref">[Attached Media: ${item.media}]</div>`;
+                }
+
+                // 3. Options
+                html += `<ol class="options-list">`;
+                item.options.forEach(opt => {
+                    const isCorrect = (opt === item.answer);
+                    const cssClass = isCorrect ? 'class="correct-ans"' : '';
+                    const marker = isCorrect ? ' (Correct)' : '';
+                    html += `<li ${cssClass}>${opt}${marker}</li>`;
+                });
+                html += `</ol>`;
+
+                // 4. Explanation
+                if(item.explanation) {
+                    let expText = "";
+                    let expMedia = "";
+                    let expYoutube = "";
+
+                    if(typeof item.explanation === 'string') {
+                        expText = item.explanation;
+                    } else {
+                        expText = item.explanation.text || "";
+                        if(item.explanation.media) {
+                            expMedia = `<br><span class="media-ref">[Explanation Image: ${item.explanation.media}]</span>`;
+                        }
+                        if(item.explanation.youtube) {
+                            expYoutube = `<br><span class="media-ref">[YouTube Video: ${item.explanation.youtube}]</span>`;
+                        }
+                    }
+                    
+                    if(expText || expMedia || expYoutube) {
+                        html += `<div class="explanation"><b>Explanation:</b> ${expText} ${expMedia} ${expYoutube}</div>`;
+                    }
+                }
+
+                card.innerHTML = html;
+                container.appendChild(card);
+            });
+        } else {
+            container.innerHTML = "<h3 style='color:red; text-align:center'>Error: data.js not found or empty.</h3>";
+        }
+    </script>
+</body>
+</html>

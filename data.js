@@ -1,0 +1,606 @@
+const quizDatabase = [
+    {
+        "id": 1763889773469,
+        "type": "text",
+        "question": "Who is the current US Vice President? (as of November 2025)",
+        "options": [
+            "Hillary Clinton",
+            "J. D. Vance",
+            "Stephen Miller",
+            "James Blair"
+        ],
+        "answer": "J. D. Vance",
+        "explanation": {
+            "text": "James David Vance (born James Donald Bowman,[a] August 2, 1984) is an American politician and author who is the 50th vice president of the United States. A member of the Republican Party, he represented Ohio in the United States Senate from 2023 to 2025.\n\nBorn and raised in Middletown, Ohio, Vance enlisted in the U.S. Marine Corps in 2003 and was a military journalist throughout his four-year tenure until 2007. He earned a bachelor's degree from Ohio State University and a Juris Doctor from Yale Law School. After briefly working as a corporate lawyer, Vance became a venture capitalist at Peter Thiel's Mithril Capital. In 2016, he published Hillbilly Elegy, a bestselling memoir that brought him national attention.\n\n",
+            "link": "https://en.wikipedia.org/wiki/JD_Vance",
+            "type": "image",
+            "media": "assets/JDVance.jpg"
+        },
+        "category": "Current affairs"
+    },
+    {
+        "id": 1763890809701,
+        "type": "image",
+        "question": "Who is the person sitting between PM Indira Gandhi and Mrs Pupul Jaykar?",
+        "options": [
+            "Narsimha Rao",
+            "Arjun Singh",
+            "J. Krishnamurty",
+            "R. K. Dhawan"
+        ],
+        "answer": "J. Krishnamurty",
+        "media": "assets/JK.jpg",
+        "explanation": {
+            "text": "Krishnamurti is regarded globally as one of the greatest thinkers and religious teachers of all time. From the time of his break with the Theosophical Society in 1929 (dissolution speech) until his death in 1986, Krishnamurti spoke throughout the world to large audiences and to individuals about the need for a radical change in mankind. The talks and discussions are accessible here through a timeline and world map, along with biographical information and introductions to Krishnamurti and his teachings.\n\n",
+            "link": "https://jkrishnamurti.org/",
+            "type": "image",
+            "media": "assets/JKrishnamurti.jpg"
+        },
+        "category": "Indian Politics"
+    },
+    {
+        "id": 1763905420303,
+        "type": "image",
+        "question": "\"आता थांबायचा नाय\" या मराठी चित्रपटाचे दिग्दर्शक कोण आहेत ?",
+        "options": [
+            "शिवराज वायचळ",
+            "ओंकार गोखले",
+            "अरविंद जगताप",
+            "तुषार हिरानंदानी"
+        ],
+        "answer": "शिवराज वायचळ",
+        "media": "assets/Ata_Thambaycha_Naay.jpg",
+        "explanation": {
+            "text": "\"आता थांबायचा नाय! \" ( अनुवाद:  आता, थांबायचे नाही! ) हा २०२५ चा भारतीय मराठी भाषेतील नाट्य चित्रपट आहे जो शिवराज वायचळ यांनी सह-लेखन आणि दिग्दर्शित केला आहे आणि चॉक अँड चीज फिल्म्स, फिल्म जाझ आणि झी स्टुडिओज यांनी निर्मित केला आहे . [ 3 ] [ 4 ] या चित्रपटात भरत जाधव , सिद्धार्थ जाधव , आशुतोष गोवारीकर , प्राजक्ता हनमघर, किरण खोजे, पर्ण पेठे , ओम भुतकर आणि रोहिणी हट्टंगडी यांच्यासारख्या कलाकारांचा समावेश आहे. [ 5 ] [ 6 ] एका सत्य घटनेवर आधारित, ही कथा मुंबई महानगरपालिकेच्या कर्मचाऱ्यांच्या समर्पणावर आणि जीवनावर प्रकाश टाकते . [ 7 ] ही कथा २०१६ मध्ये बीएमसीमध्ये घडलेल्या एका घटनेपासून प्रेरित आहे जिथे त्या वर्षी २३ वर्ग चतुर्थ श्रेणी कामगारांनी दहावीची बोर्ड परीक्षा उत्तीर्ण केली होती.\n\n",
+            "link": "https://en.wikipedia.org/wiki/Ata_Thambaycha_Naay!"
+        },
+        "category": "Arts, literature, culture, movies, sports"
+    },
+    {
+        "id": 1763905957884,
+        "type": "text",
+        "question": "'iGOT Karmayogi' is a learning platform in India for  _____________.",
+        "options": [
+            "Yogis",
+            "Tribals",
+            "Government Employees",
+            "Adult learners"
+        ],
+        "answer": "Government Employees",
+        "explanation": {
+            "text": "Karmayogi Bharat, a Special Purpose Vehicle (SPV), is a crucial part of this framework. It was incorporated on 31.01.2022 under Section 8 of the Companies Act, 2013 as a 100% Government owned not-for-profit Company.\n\nIts responsibility is to operate and manage the iGOT Karmayogi platform, ensuring anytime, anywhere, any-device learning for civil service officials to enhance their competency. The SPV will own, manage, maintain, and improve the digital assets, including the IPR of all software, content, process etc. on behalf of the Government with an annual subscription-based revenue model.\n\n",
+            "link": "https://igotkarmayogi.gov.in/#/"
+        },
+        "category": "Current affairs"
+    },
+    {
+        "id": 1763913955086,
+        "category": "Commerce and Economy",
+        "type": "text",
+        "question": "The DICGC - Deposit Insurance and Credit Guarantee Corporation protects deposits of Rs. __________ per depositor, per bank, covering both principal and interest.",
+        "options": [
+            "10 lakh",
+            "9 lakh",
+            "7 lakh",
+            "5 lakh"
+        ],
+        "answer": "5 lakh",
+        "explanation": {
+            "text": "Coverage Limit: The current deposit insurance coverage limit with effect from February 4, 2020 is ₹5,00,000/- (approx. USD 6,000) per depositor.",
+            "link": "https://www.dicgc.org.in/"
+        }
+    },
+    {
+        "id": 1763914307799,
+        "category": "Commerce and Economy",
+        "type": "text",
+        "question": "In which of the following country the Indian Rupee is strongest?",
+        "options": [
+            "Nepal",
+            "Cambodia",
+            "Vietnam",
+            "Indonesia"
+        ],
+        "answer": "Vietnam",
+        "explanation": {
+            "text": "Vietnam tops the list, with 1 INR equivalent to around 300 Vietnamese Dong (VND). That means everything from street food to scenic tours becomes incredibly affordable for Indian travellers. Whether you’re exploring Ha Long Bay, walking through Hanoi’s Old Quarter, or enjoying a cup of local coffee in Ho Chi Minh City, your rupee goes a long way. The combination of affordability, natural beauty, and culture makes Vietnam one of the most value-packed destinations in Asia.\n\n",
+            "link": "https://indianexpress.com/article/lifestyle/destination-of-the-week/top-5-countries-where-the-indian-rupee-is-strongest-10356690/?fbclid=IwY2xjawOQEKlleHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeevTLHuc2gp3EPR_0xYuDrOJUCm2xORVJcFXxQb060XfiDI12L9EzVrOX4hM_aem_0fFG4ukcQQTr-h6J4GKY4g"
+        }
+    },
+    {
+        "id": 1765021838533,
+        "category": "Technology",
+        "type": "text",
+        "question": "What is the primary purpose of a \"firewall\" in computer networking?",
+        "options": [
+            "To protect against physical fires in data centers",
+            "To block unauthorized access to a network by monitoring incoming and outgoing traffic",
+            "To automatically back up files to the cloud",
+            "To speed up internet downloads by caching popular websites"
+        ],
+        "answer": "To block unauthorized access to a network by monitoring incoming and outgoing traffic"
+    },
+    {
+        "id": 1765022258145,
+        "category": "Technology",
+        "type": "text",
+        "question": "In the context of online privacy, what is \"two-factor authentication\" (2FA) designed to prevent?",
+        "options": [
+            "Websites from loading too slowly on your browser",
+            "Hackers from accessing your account even if they know your password",
+            "Your device from overheating during heavy use",
+            "Emails from being flagged as spam by filters"
+        ],
+        "answer": "Hackers from accessing your account even if they know your password",
+        "explanation": {
+            "text": "2FA adds an extra layer of security by requiring a second verification step, like a code sent to your phone or a fingerprint scan, beyond just a password."
+        }
+    },
+    {
+        "id": 1767176494662,
+        "category": "Technology",
+        "type": "text",
+        "question": "In the context of Generative AI, what does the term 'Hallucination' refer to?",
+        "options": [
+            "The visual distortion on a computer screen caused by overheating.",
+            "The AI confidently generating incorrect or made-up information as if it were true.",
+            "The AI refusing to answer a question due to ethical constraints.",
+            "The AI becoming conscious and dreaming."
+        ],
+        "answer": "The AI confidently generating incorrect or made-up information as if it were true.",
+        "explanation": {
+            "text": "Hallucinations occur when an AI model perceives patterns that aren't there and presents false data as factual."
+        }
+    },
+    {
+        "id": 1767176595861,
+        "category": "Technology",
+        "type": "text",
+        "question": "Why are 'Solid-State Batteries' considered the next big leap for Electric Vehicles (EVs) over current Lithium-Ion batteries?",
+        "options": [
+            "They allow the car to fly.",
+            "They are transparent and can be used as windows.",
+            "They offer higher energy density, faster charging, and lower fire risk.",
+            "They are made entirely of liquid, making them easier to pour into the car."
+        ],
+        "answer": "They offer higher energy density, faster charging, and lower fire risk."
+    },
+    {
+        "id": 1767177267014,
+        "category": "Technology",
+        "type": "text",
+        "question": "What is a 'Digital Twin' in industries like manufacturing or healthcare?",
+        "options": [
+            "A virtual replica of a physical object or system used to run simulations and tests.",
+            "A robot that looks exactly like a human worker.",
+            "A second monitor screen for a computer.",
+            "A backup copy of a word document."
+        ],
+        "answer": "A virtual replica of a physical object or system used to run simulations and tests.",
+        "explanation": {
+            "text": "<href=\"https://www.siemens.com/global/en/products/automation/topic-areas/digital-enterprise/digital-twin.html\" target=\"_blank\">Siemens website</a> "
+        }
+    },
+    {
+        "id": 1767178422047,
+        "category": "Technology",
+        "type": "text",
+        "question": "What distinguishes 'Green Hydrogen' from other fuel sources?",
+        "options": [
+            "It is produced by splitting water using renewable energy like wind or solar, leaving no carbon footprint.",
+            "It is radioactive and glows green.",
+            "It is hydrogen gas dyed green for branding.",
+            "It is made from crushing green plants."
+        ],
+        "answer": "It is produced by splitting water using renewable energy like wind or solar, leaving no carbon footprint.",
+        "explanation": {
+            "text": "Green hydrogen is defined by its clean production method, unlike 'grey' hydrogen made from natural gas.  See <a href=\"https://www.abb.com/global/en/company/stories/hydrogen\" target=\"_blank\">ABB website</a> for more information."
+        }
+    },
+    {
+        "id": 1767179074311,
+        "category": "Technology",
+        "type": "text",
+        "question": "What is the key characteristic of 'Level 5' Autonomous Driving?",
+        "options": [
+            "The car can only drive itself in parking lots.",
+            "Full automation where the vehicle can drive itself in all conditions without any human intervention (no steering wheel required).",
+            "The car requires a human to keep their hands on the wheel at all times.",
+            "The car can fly over traffic jams."
+        ],
+        "answer": "Full automation where the vehicle can drive itself in all conditions without any human intervention (no steering wheel required).",
+        "explanation": {
+            "text": "Level 5 is the theoretical maximum of self-driving where a human driver is entirely unnecessary.  <a href=\"https://www.imaginationtech.com/future-of-automotive/when-will-autonomous-cars-be-available/what-are-the-levels-of-autonomy-in-self-driving-cars/\" target=\"_blank\">More info...</a>"
+        }
+    },
+    {
+        "id": 1767183835165,
+        "category": "Technology",
+        "type": "text",
+        "question": "CRISPR technology has advanced significantly by 2025. What is its primary use?",
+        "options": [
+            "To edit genes precisely, allowing for the potential cure of genetic diseases.",
+            "To build faster computer processors.",
+            "To improve the resolution of smartphone cameras.",
+            "To create crispier potato chips."
+        ],
+        "answer": "To edit genes precisely, allowing for the potential cure of genetic diseases.",
+        "explanation": {
+            "text": "CRISPR (pronounced \"CRIS-per,\" rhyming with \"whisper\") is an acronym for Clustered Regularly Interspaced Short Palindromic Repeats, a revolutionary gene-editing tool that works like a molecular \"cut-and-paste\" system for DNA, allowing scientists to modify genes in living organisms with precision to correct genetic defects or add new traits. To pronounce \"CRISPR Gene Engineering,\" you say: CRIS-per (like \"crisper\") and then Gene (like the word \"gene\") Engineering (en-jin-eer-ing). ",
+            "link": "https://youtu.be/FNp2wR4mK1Q?si=a1nXzG-PJK2-t430"
+        }
+    },
+    {
+        "id": 1767184543025,
+        "category": "Technology",
+        "type": "text",
+        "question": "What is 'Neuromorphic Computing'?",
+        "options": [
+            "Using a computer to do brain surgery.",
+            "Computers that are made of organic brain tissue.",
+            "A video game controlled by your thoughts.",
+            "Computer chips designed to mimic the structure and function of the human brain."
+        ],
+        "answer": "Computer chips designed to mimic the structure and function of the human brain.",
+        "explanation": {
+            "text": "Neuromorphic computing is a brain-inspired computing paradigm that designs hardware and software to mimic the human brain's structure and function, using artificial neurons and synapses for highly efficient, low-power information processing, moving beyond traditional von Neumann architectures by integrating memory and processing to enable real-time learning, perception, and complex cognitive tasks for AI. ",
+            "link": "https://en.wikipedia.org/wiki/Neuromorphic_computing"
+        }
+    },
+    {
+        "id": 1767185105249,
+        "category": "Technology",
+        "type": "text",
+        "question": "What is the main advantage of 'Vertical Farming' in urban areas?",
+        "options": [
+            "It allows crops to grow sideways.",
+            "It grows taller corn stalks than normal farms.",
+            "It uses stacked layers and controlled environments to grow food indoors with less land and water.",
+            "It is purely decorative for skyscrapers."
+        ],
+        "answer": "It uses stacked layers and controlled environments to grow food indoors with less land and water.",
+        "explanation": {
+            "text": "Vertical farming grows crops in vertically stacked layers, often indoors, using controlled-environment agriculture (CEA) with techniques like hydroponics, aeroponics, or aquaponics to optimize light, temperature, nutrients, and humidity for high-yield, year-round production with less land and water than traditional farming. This innovative approach uses less space, reduces water usage significantly, offers protection from weather and pests, and allows for localized food production, addressing challenges like food security and climate change impacts. ",
+            "link": "https://youtu.be/YtPFe9nx9lc?si=JD7_5Rd1aStHi2kY"
+        }
+    },
+    {
+        "id": 1767186249039,
+        "category": "Technology",
+        "type": "text",
+        "question": "What is 'Li-Fi' and how does it differ from Wi-Fi?",
+        "options": [
+            "It uses sound waves to transmit data.",
+            "It is a lie detector app for phones.",
+            "It is exactly the same as Wi-Fi but cheaper.",
+            "It uses light waves (from LED bulbs) to transmit data, often faster than radio-based Wi-Fi."
+        ],
+        "answer": "It uses light waves (from LED bulbs) to transmit data, often faster than radio-based Wi-Fi.",
+        "explanation": {
+            "text": "Li-Fi, or Light Fidelity, is a wireless communication technology that uses light (like LED bulbs) to transmit high-speed, secure data, acting as a light-based alternative to Wi-Fi's radio waves, allowing devices to connect to the internet by modulating light intensity to send binary code (1s and 0s). It offers greater bandwidth, less interference, and better security for applications in places where radio waves are problematic, like hospitals or aircraft. "
+        }
+    },
+    {
+        "id": 1767186646258,
+        "category": "Technology",
+        "type": "text",
+        "question": "What is 'Algorithmic Bias' in Artificial Intelligence?",
+        "options": [
+            "When an AI prefers one brand of computer over another.",
+            "Systematic and unfair errors in AI outcomes, often resulting from prejudiced training data.",
+            "The preference of a programmer to use Python code.",
+            "When the algorithm runs too slowly."
+        ],
+        "answer": "Systematic and unfair errors in AI outcomes, often resulting from prejudiced training data.",
+        "explanation": {
+            "text": "Algorithmic bias occurs when systematic errors in machine learning algorithms produce unfair or discriminatory outcomes. It often reflects or reinforces existing socioeconomic, racial and gender biases.  Artificial intelligence (AI) systems use algorithms to discover patterns and insights in data, or to predict output values from a given set of input variables. Biased algorithms can impact these insights and outputs in ways that lead to harmful decisions or actions, promote or perpetuate discrimination and inequality, and erode trust in AI and the institutions that use AI. These impacts can create legal and financial risks for businesses. For example, per the EU AI Act, non-compliance with its prohibited AI practices can mean fines up to EUR 35,000,000 or 7% of worldwide annual turnover, whichever is higher.",
+            "link": "https://www.ibm.com/think/topics/algorithmic-bias"
+        }
+    },
+    {
+        "id": 1767186975401,
+        "category": "Technology",
+        "type": "text",
+        "question": "What is the core concept behind 'Web3'?",
+        "options": [
+            "A decentralized internet where users own their data and identity, often using blockchain.",
+            "3D graphics on all websites.",
+            "Having three monitors to browse the web.",
+            "The third version of the Google Chrome browser."
+        ],
+        "answer": "A decentralized internet where users own their data and identity, often using blockchain.",
+        "explanation": {
+            "text": "Web1 was 'Read-only', Web2 was 'Read-Write' (Social Media), Web3 is 'Read-Write-Own'. - Web3 aims to move away from big centralized tech companies controlling user data.  Web1, Web2, and Web3 represent the internet's evolution: Web1 (Read-Only) was static info sites (early 90s-00s); Web2 (Social Web) brought user content, social media, and interaction (mid-2000s-present), but centralized power; Web3 (Decentralized Web) aims to give users ownership & control via blockchain, decentralization, and crypto.  ",
+            "link": "https://www.geeksforgeeks.org/blogs/web-1-0-web-2-0-and-web-3-0-with-their-difference/"
+        }
+    },
+    {
+        "id": 1767187402567,
+        "category": "Technology",
+        "type": "text",
+        "question": "What is 'Carbon Capture' technology?",
+        "options": [
+            "A camera that takes pictures of coal.",
+            "Technology that traps carbon dioxide emissions from the air or factories and stores it underground.",
+            "A filter for coffee machines.",
+            "Capturing diamonds (made of carbon) from enemies."
+        ],
+        "answer": "Technology that traps carbon dioxide emissions from the air or factories and stores it underground.",
+        "explanation": {
+            "text": "The goal is to prevent CO2 from entering the atmosphere to combat climate change.  carbon capture, utilization, and storage (CCUS) will play a key role in global efforts to reduce emissions.  CCUS technologies capture CO2 emissions at source or directly from the air. The captured emissions are then transported away and stored deep underground or turned into useful products.",
+            "link": "https://www.aramco.com/en/what-we-do/energy-innovation/advancing-energy-solutions/carbon-capture-utilization-and-storage"
+        }
+    },
+    {
+        "id": 1767188355109,
+        "category": "Technology",
+        "type": "text",
+        "question": "What is a 'Brain-Computer Interface' (BCI)?",
+        "options": [
+            "A helmet that massages your head while you work.",
+            "A website that teaches you psychology.",
+            "A keyboard that is shaped like a brain.",
+            "A direct communication pathway between the brain's electrical signals and an external device."
+        ],
+        "answer": "A direct communication pathway between the brain's electrical signals and an external device.",
+        "explanation": {
+            "text": "BCIs allow users (often with paralysis) to control cursors or robotic limbs just by thinking.  ",
+            "link": "https://www.youtube.com/watch?v=PxITzQKmAcY"
+        }
+    },
+    {
+        "id": 1767188899805,
+        "category": "Technology",
+        "type": "text",
+        "question": "Why are Quantum Computers expected to be powerful?",
+        "options": [
+            "They are bigger and use more electricity.",
+            "They use 'qubits' which can exist in multiple states at once, allowing them to solve specific complex problems exponentially faster.",
+            "They have 100 screens.",
+            "They can predict the future with magic."
+        ],
+        "answer": "They use 'qubits' which can exist in multiple states at once, allowing them to solve specific complex problems exponentially faster.",
+        "explanation": {
+            "text": "Classical bits are 0 or 1; Qubits use superposition to process vast possibilities simultaneously.",
+            "link": "https://epb.com/get-connected/tech-support/do-quantum-computers-exist/"
+        }
+    },
+    {
+        "id": 1767189158904,
+        "category": "Technology",
+        "type": "text",
+        "question": "What is an 'eSIM'?",
+        "options": [
+            "A small robot that lives in your phone.",
+            "An electronic simulation video game.",
+            "A credit card for buying electronics.",
+            "A digital SIM card embedded directly into the phone, removing the need for a physical plastic card."
+        ],
+        "answer": "An electronic simulation video game.",
+        "explanation": {
+            "text": "It allows you to switch carriers via software settings without swapping tiny plastic chips and Yes, eSIMs are widely available in India from major operators like Jio, Airtel, and Vi (Vodafone Idea), supporting both residents converting physical SIMs and tourists using data-only plans, with options from international providers like Airalo and Holafly for seamless connectivity without physical cards, activated via apps or QR codes. ",
+            "link": "https://www.jio.com/jcms/esim/"
+        }
+    },
+    {
+        "id": 1767189498535,
+        "category": "Technology",
+        "type": "text",
+        "question": "What Ransomware does to your computer?",
+        "options": [
+            "It makes your computer run faster.",
+            "It steals your physical laptop.",
+            "It encrypts your files so you cannot open them, then demands payment to unlock them.",
+            "It shows you too many advertisements."
+        ],
+        "answer": "It encrypts your files so you cannot open them, then demands payment to unlock them.",
+        "explanation": {
+            "text": "It holds your digital life hostage until you pay a ransom.  software used to extort money from an individual or organization by encrypting or otherwise blocking access to applications or files on a computer system until a sum of money is paid. \"although ransomware is usually aimed at individuals, it's only a matter of time before business is targeted as well\"",
+            "link": "https://www.fbi.gov/how-we-can-help-you/scams-and-safety/common-frauds-and-scams/ransomware"
+        }
+    },
+    {
+        "id": 1767190325720,
+        "category": "Technology",
+        "type": "text",
+        "question": "In 2025, 'Generative AI' is a common term. What is the primary function of this technology?",
+        "options": [
+            "It physically repairs broken hardware inside a computer.",
+            "It is used solely to increase the battery life of smartphones.",
+            "It creates new content, such as text, images, and audio, based on patterns it has learned.",
+            "It strictly organizes existing databases alphabetically."
+        ],
+        "answer": "It physically repairs broken hardware inside a computer.",
+        "explanation": {
+            "text": "Generative AI is defined by its ability to generate novel output that mimics human creation, rather than just analyzing existing data.",
+            "link": "https://www.outsystems.com/1/gartner-report-generative-ai/"
+        }
+    },
+    {
+        "id": 1767374426492,
+        "category": "Current affairs",
+        "type": "text",
+        "question": "One Nation One Data (ONOD) is a government initiative in India designed to streamline data management, primarily within the ___________.",
+        "options": [
+            "Armed forces",
+            "Central Government Administration",
+            "Higher Education sector.",
+            "Private sector software industries"
+        ],
+        "answer": "Higher Education sector.",
+        "explanation": {
+            "text": "One Nation One Data (ONOD) is a government initiative in India designed to streamline data management, primarily within the Higher Education sector.  The core concept is \"Submit Once, Use Everywhere.\" It aims to replace the current system where colleges and universities must submit the same data multiple times to different regulatory bodies (like NAAC, NIRF, and AICTE), often leading to discrepancies and heavy administrative burdens.",
+            "link": "https://onod.aicte-india.org/"
+        }
+    },
+    {
+        "id": 1767375879003,
+        "category": "Current affairs",
+        "type": "text",
+        "question": "The National Fingerprint Number given under NAFIS has _______ digits.",
+        "options": [
+            "10",
+            "12",
+            "14",
+            "16"
+        ],
+        "answer": "10",
+        "explanation": {
+            "text": "The 10-digit NFN code is the National Fingerprint Number assigned to individuals arrested for a crime in India, as part of the National Automated Fingerprint Identification System (NAFIS).  The NAFIS system, managed by the National Crime Records Bureau (NCRB), uses this unique 10-digit number to track an individual's criminal history across different crimes and jurisdictions for their entire lifetime.   NAFIS assigns a 10-digit NFN to every arrested person. This allows police to link multiple FIRs across different states to the same individual.",
+            "link": "https://abhinavpahal.nic.in/uploads/5wuevudtOKNAFIS.pdf"
+        }
+    },
+    {
+        "id": 1767376199036,
+        "category": "Commerce and Economy",
+        "type": "text",
+        "question": "Which of the following scenarios best illustrates the economic concept of Information Asymmetry?",
+        "options": [
+            "A teacher and a student both read the same chapter of a textbook before a lecture.",
+            "Two stock traders sitting at different computers read the same public earnings report at the exact same time.",
+            "A used car seller knows a vehicle has a hidden engine defect, but the potential buyer acts on the belief that the car is in perfect condition.",
+            "A farmer sells corn to a distributor at a price determined by the global market rate, which is known to both parties."
+        ],
+        "answer": "A used car seller knows a vehicle has a hidden engine defect, but the potential buyer acts on the belief that the car is in perfect condition.",
+        "explanation": {
+            "text": "This is the classic 'Market for Lemons' example. One party (the seller) possesses private information that the other party (the buyer) lacks, creating an imbalance."
+        }
+    },
+    {
+        "id": 1767409991188,
+        "category": "International relations",
+        "type": "text",
+        "question": "Security And Growth for All in the Region - The SAGAR doctrine, India's foreign policy initiative, launched in 2015, is mainly related to which of the following regions?",
+        "options": [
+            "South China Sea",
+            "Central Asia",
+            "Himalayan border region",
+            "Indian Ocean Region"
+        ],
+        "answer": "Indian Ocean Region",
+        "explanation": {
+            "text": "Modi christened India’s vision for the Indian Ocean Region as SAGAR which in the Indian language of Hindi means the ‘sea’ and when expanded, stands for – Security And Growth for All in the Region. According to this vision[3], India would do everything to safeguard its mainland and islands and defend its interests. Further, India will also work to ensure a safe, secure and stable IOR.   The Indian Ocean has over forty littoral states bearing over 40 per cent of the world’s population. It is through the IOR that two-thirds of the world’s oil shipments; one-third of the world’s bulk cargo; and half of the world’s container traffic transit. Also 90 per cent of India’s trade by volume and 90 per cent of its energy imports transit through these waters. Peace and security in the Indian Ocean is thus critical for both economic prosperity and social stability of most nations in the world, including India.",
+            "link": "https://maritimeindia.org/revisiting-sagar-indias-template-for-cooperation-in-the-indian-ocean-region/"
+        }
+    },
+    {
+        "id": 1767412359468,
+        "category": "Geography",
+        "type": "text",
+        "question": "The Persian Gulf is connected to the Arabian Sea through which strait?",
+        "options": [
+            "Strait of Hormuz",
+            "Strait of Magellan",
+            "Strait of Messina",
+            "Strait of Malacca"
+        ],
+        "answer": "Strait of Hormuz",
+        "explanation": {
+            "text": "The Strait of Hormuz is a strait between the Persian Gulf and the Gulf of Oman. It provides the only sea passage from the Persian Gulf to the open ocean. The narrow Strait of Hormuz is considered one of the world’s most-strategic straits of water.  On the north coast lies Iran, and on the south coast the United Arab Emirates and Musandam, an exclave of Oman.  In geography, a strait is a narrow, natural waterway connecting two larger bodies of water (like seas or oceans) and typically separating two landmasses, acting as a crucial, often strategic, channel for maritime trade and navigation, like the Strait of Gibraltar, connecting the Atlantic and Mediterranean. ",
+            "link": "https://www.morethanshipping.com/the-worlds-top-10-strategic-straits-and-channels",
+            "media": "assets/StraitOfHormuz.png",
+            "type": "image"
+        }
+    },
+    {
+        "id": 1767414267861,
+        "category": "Geography",
+        "type": "text",
+        "question": "Which of the following countries border both Atlantic and Indian Oceans?",
+        "options": [
+            "Namibia",
+            "South Africa",
+            "Madagascar",
+            "Angola"
+        ],
+        "answer": "South Africa",
+        "explanation": {
+            "media": "assets/countries_with_multiple_oceans.png",
+            "type": "image"
+        }
+    },
+    {
+        "id": 1767414587101,
+        "category": "Geography",
+        "type": "text",
+        "question": "What is the highest mountain in Africa?",
+        "options": [
+            "Mount Kenya",
+            "Mount Kilimanjaro",
+            "Mount Stanley",
+            "Atlas Mountains"
+        ],
+        "answer": "Mount Kilimanjaro",
+        "explanation": {
+            "text": "Mount Kilimanjaro - 5895 meters - The \"highest free-standing mountain\" refers to a mountain that rises dramatically and individually from relatively flat surrounding terrain, rather than being part of a continuous mountain range, with Mount Kilimanjaro in Tanzania often cited as the world's largest example by this definition, standing tall from the plains below. It's a standalone volcanic peak, distinct from mountains that are just high points within a chain like the Himalayas, and is known for its prominence and isolation from other major peaks."
+        }
+    },
+    {
+        "id": 1767414867883,
+        "category": "Geography",
+        "type": "text",
+        "question": "Which is the largest country in Africa by land area?",
+        "options": [
+            "Sudan",
+            "Democratic Republic of Congo",
+            "Algeria",
+            "Libya"
+        ],
+        "answer": "Algeria",
+        "explanation": {
+            "media": "assets/Africa.png",
+            "type": "image"
+        }
+    },
+    {
+        "id": 1767415362281,
+        "category": "Geography",
+        "type": "text",
+        "question": "Which of the following is the capital city of Nigeria ?",
+        "options": [
+            "Niamey",
+            "Abuja",
+            "N'Djamena",
+            "Yaoundé"
+        ],
+        "answer": "Abuja",
+        "explanation": {
+            "text": "Lagos was formerly the capital city of Nigeria, but it has since been replaced by Abuja. Abuja officially became the capital of Nigeria on 12 December 1991, although the decision to move the federal capital had been made fifteen years earlier, in Act No. 6 of 1976.",
+            "link": "https://maps.app.goo.gl/r11aRoHcQyJ6AeMW9",
+            "media": "assets/Abuja.png",
+            "type": "image"
+        }
+    },
+    {
+        "id": 1767416709345,
+        "category": "Geography",
+        "type": "text",
+        "question": "How many countries are there in Africa?",
+        "options": [
+            "40",
+            "60",
+            "57",
+            "54"
+        ],
+        "answer": "54",
+        "explanation": {
+            "link": "https://www.worldometers.info/geography/how-many-countries-in-africa/"
+        }
+    },
+    {
+        "id": 1767417393425,
+        "category": "Geography",
+        "type": "text",
+        "question": "The Nile River flows northward through northeastern Africa and finally empties into the _____________. ",
+        "options": [
+            "Mediterranean Sea",
+            "Read Sea",
+            "Arabian Sea",
+            "Black Sea"
+        ],
+        "answer": "Mediterranean Sea",
+        "explanation": {
+            "youtube": "https://www.youtube.com/shorts/fRGWtxcVdaQ"
+        }
+    }
+];
