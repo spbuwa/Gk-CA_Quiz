@@ -10,7 +10,7 @@ const MASTER_CLASS_LIST = [
 ];
 
 // State Variables
-let gameMode = 'classroom'; // 'classroom' or 'single'
+let gameMode = 'classroom'; 
 let teams = [];          
 let teamQueue = [];      
 let currentRound = 1;
@@ -48,31 +48,35 @@ const leaderboardBody = document.getElementById('leaderboard-body');
 window.onload = function() {
     if(typeof quizDatabase === 'undefined') return;
     
-    // 1. Populate Teams Checkboxes
-    let teamHtml = `<label class="cat-option" style="grid-column: span 2; border-bottom:1px solid #eee; padding-bottom:5px;">
-                        <input type="checkbox" onchange="toggleAllTeams(this)"> <b>Select All Classes</b>
-                    </label>`;
-    MASTER_CLASS_LIST.forEach((name, index) => {
-        const checked = index < 2 ? 'checked' : ''; 
-        teamHtml += `<label class="cat-option">
-                        <input type="checkbox" class="team-chk" value="${name}" ${checked}> ${name}
-                     </label>`;
-    });
-    teamList.innerHTML = teamHtml;
+    // 1. Populate Teams Checkboxes (Bootstrap List Group Item)
+    if(teamList) {
+        let teamHtml = `<label class="list-group-item bg-light fw-bold">
+                            <input class="form-check-input me-2" type="checkbox" onchange="toggleAllTeams(this)"> Select All
+                        </label>`;
+        MASTER_CLASS_LIST.forEach((name, index) => {
+            const checked = index < 2 ? 'checked' : ''; 
+            teamHtml += `<label class="list-group-item">
+                            <input class="form-check-input me-2 team-chk" type="checkbox" value="${name}" ${checked}> ${name}
+                         </label>`;
+        });
+        teamList.innerHTML = teamHtml;
+    }
 
     // 2. Populate Categories
     const cats = new Set();
     quizDatabase.forEach(q => cats.add(q.category || "Uncategorized"));
     
-    let catHtml = `<label class="cat-option" style="grid-column: span 2; border-bottom:1px solid #eee; padding-bottom:5px;">
-                    <input type="checkbox" checked onchange="toggleAllCats(this)"> <b>Select All Categories</b>
-                </label>`;
-    cats.forEach(cat => {
-        catHtml += `<label class="cat-option">
-                    <input type="checkbox" class="cat-chk" value="${cat}" checked> ${cat}
-                 </label>`;
-    });
-    categoryList.innerHTML = catHtml;
+    if(categoryList) {
+        let catHtml = `<label class="list-group-item bg-light fw-bold">
+                        <input class="form-check-input me-2" type="checkbox" checked onchange="toggleAllCats(this)"> Select All
+                    </label>`;
+        cats.forEach(cat => {
+            catHtml += `<label class="list-group-item">
+                        <input class="form-check-input me-2 cat-chk" type="checkbox" value="${cat}" checked> ${cat}
+                     </label>`;
+        });
+        categoryList.innerHTML = catHtml;
+    }
 }
 
 // --- UTILITIES ---
@@ -80,32 +84,53 @@ function playSound(id) {
     const audio = document.getElementById(id);
     if(audio) {
         audio.currentTime = 0;
-        audio.play().catch(e => console.log("Audio play failed (user interaction required first)"));
+        audio.play().catch(e => console.log("Audio play failed"));
+    }
+}
+
+function getYouTubeId(url) {
+    if (!url || typeof url !== 'string') return null;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+}
+
+// Bootstrap Responsive Embed
+function createYouTubeEmbed(url) {
+    try {
+        const vidId = getYouTubeId(url);
+        if(!vidId) return "";
+        // Using Bootstrap 'ratio' class for responsive video
+        return `<div class="ratio ratio-16x9 mt-3"><iframe src="https://www.youtube.com/embed/${vidId}" allowfullscreen></iframe></div>`;
+    } catch (e) {
+        return "";
     }
 }
 
 function setGameMode(mode) {
     gameMode = mode;
-    document.getElementById('btn-mode-class').classList.toggle('active', mode === 'classroom');
-    document.getElementById('btn-mode-single').classList.toggle('active', mode === 'single');
+    const btnClass = document.getElementById('btn-mode-class');
+    const btnSingle = document.getElementById('btn-mode-single');
     
     if(mode === 'classroom') {
-        document.getElementById('classroom-panel').classList.remove('hidden');
-        document.getElementById('single-panel').classList.add('hidden');
+        btnClass.classList.add('active', 'bg-primary', 'text-white');
+        btnSingle.classList.remove('active', 'bg-primary', 'text-white');
+        document.getElementById('classroom-panel').classList.remove('d-none');
+        document.getElementById('single-panel').classList.add('d-none');
     } else {
-        document.getElementById('classroom-panel').classList.add('hidden');
-        document.getElementById('single-panel').classList.remove('hidden');
+        btnSingle.classList.add('active', 'bg-primary', 'text-white');
+        btnClass.classList.remove('active', 'bg-primary', 'text-white');
+        document.getElementById('classroom-panel').classList.add('d-none');
+        document.getElementById('single-panel').classList.remove('d-none');
     }
 }
 
 function toggleAllTeams(source) {
-    const checkboxes = document.querySelectorAll('.team-chk');
-    checkboxes.forEach(cb => cb.checked = source.checked);
+    document.querySelectorAll('.team-chk').forEach(cb => cb.checked = source.checked);
 }
 
 function toggleAllCats(source) {
-    const checkboxes = document.querySelectorAll('.cat-chk');
-    checkboxes.forEach(cb => cb.checked = source.checked);
+    document.querySelectorAll('.cat-chk').forEach(cb => cb.checked = source.checked);
 }
 
 function toggleFullScreen() {
@@ -117,66 +142,56 @@ function toggleFullScreen() {
 }
 
 function toggleLeaderboard() {
-    if(!startScreen.classList.contains('hidden') && quizScreen.classList.contains('hidden')) return;
+    if(!startScreen.classList.contains('d-none') && quizScreen.classList.contains('d-none')) return;
     
-    if (leaderboardScreen.classList.contains('hidden')) {
+    if (leaderboardScreen.classList.contains('d-none')) {
         updateLeaderboardUI();
-        quizScreen.classList.add('hidden');
-        leaderboardScreen.classList.remove('hidden');
+        quizScreen.classList.add('d-none');
+        leaderboardScreen.classList.remove('d-none');
     } else {
         closeLeaderboard();
     }
 }
 
 function closeLeaderboard() {
-    leaderboardScreen.classList.add('hidden');
-    if(currentRound > MAX_ROUNDS) resultScreen.classList.remove('hidden');
-    else quizScreen.classList.remove('hidden');
+    leaderboardScreen.classList.add('d-none');
+    if(currentRound > MAX_ROUNDS) resultScreen.classList.remove('d-none');
+    else quizScreen.classList.remove('d-none');
 }
 
 // --- GAME LOGIC ---
 function startGame() {
-    errorMsg.style.display = 'none';
+    errorMsg.classList.add('d-none');
 
-    // 1. Configure Mode
     if(gameMode === 'classroom') {
         const teamCheckboxes = document.querySelectorAll('.team-chk:checked');
         if(teamCheckboxes.length === 0) {
             errorMsg.innerText = "Please select at least one class/team.";
-            errorMsg.style.display = 'block';
+            errorMsg.classList.remove('d-none');
             return;
         }
         teams = Array.from(teamCheckboxes).map(cb => ({ name: cb.value, score: 0 }));
     } else {
-        // Single Player Mode
         teams = [{ name: "Player 1", score: 0 }];
     }
 
-    // 2. Filter DB
     const catCheckboxes = document.querySelectorAll('.cat-chk:checked');
     const allowedCats = Array.from(catCheckboxes).map(cb => cb.value);
     if(allowedCats.length === 0) {
         errorMsg.innerText = "Please select at least one category!";
-        errorMsg.style.display = 'block';
+        errorMsg.classList.remove('d-none');
         return;
     }
     const filteredDB = quizDatabase.filter(q => allowedCats.includes(q.category || "Uncategorized"));
     
-    // 3. Questions Count
-    let totalQuestionsNeeded;
-    if(gameMode === 'classroom') {
-        totalQuestionsNeeded = teams.length * MAX_ROUNDS;
-    } else {
-        totalQuestionsNeeded = parseInt(document.getElementById('num-questions').value) || 10;
-    }
+    let totalQuestionsNeeded = (gameMode === 'classroom') ? teams.length * MAX_ROUNDS : (parseInt(document.getElementById('num-questions').value) || 10);
     
     if(filteredDB.length < totalQuestionsNeeded) {
         errorMsg.innerText = `Not enough questions! Need ${totalQuestionsNeeded}, found ${filteredDB.length}.`;
-        errorMsg.style.display = 'block';
+        errorMsg.classList.remove('d-none');
         return;
     }
 
-    // 4. Shuffle & Init
     const shuffled = [...filteredDB].sort(() => 0.5 - Math.random());
     selectedQuestions = shuffled.slice(0, totalQuestionsNeeded);
     
@@ -184,16 +199,14 @@ function startGame() {
     currentRound = 1;
     currentQuestionIndex = 0;
     
-    startScreen.classList.add('hidden');
-    resultScreen.classList.add('hidden');
-    leaderboardScreen.classList.add('hidden');
-    quizScreen.classList.remove('hidden');
+    startScreen.classList.add('d-none');
+    resultScreen.classList.add('d-none');
+    quizScreen.classList.remove('d-none');
     
     if(gameMode === 'classroom') {
         startNewRound();
     } else {
         turnBanner.innerText = "Single Player Mode";
-        turnBanner.style.backgroundColor = "#e0e0e0";
         roundDisplay.innerText = "Single Player";
         loadTurn();
     }
@@ -206,91 +219,93 @@ function startNewRound() {
 }
 
 function showRoundTransition(roundNum) {
-    quizScreen.classList.add('hidden');
-    overlay.classList.remove('hidden');
+    quizScreen.classList.add('d-none');
+    overlay.classList.remove('d-none');
     document.getElementById('trans-title').innerText = `ROUND ${roundNum}`;
     playSound('sfx-round');
 }
 
 function resumeGame() {
-    overlay.classList.add('hidden');
-    quizScreen.classList.remove('hidden');
+    overlay.classList.add('d-none');
+    quizScreen.classList.remove('d-none');
     startNewRound();
 }
 
 function loadTurn() {
-    if(gameMode === 'single') {
-        qRemaining.innerText = `Q: ${currentQuestionIndex + 1} / ${selectedQuestions.length}`;
-    } 
-    else {
+    if(gameMode === 'single' || teams.length === 1) {
+        if(qRemaining) qRemaining.innerText = `Q: ${currentQuestionIndex + 1} / ${selectedQuestions.length}`;
+    } else {
         if (teamQueue.length === 0) {
             currentRound++;
-            if (currentRound > MAX_ROUNDS) {
-                endGame();
-                return;
-            }
+            if (currentRound > MAX_ROUNDS) { endGame(); return; }
             showRoundTransition(currentRound);
             return;
         }
-
         currentTeamIndex = teamQueue.pop();
         const currentTeamName = teams[currentTeamIndex].name;
-        
         roundDisplay.innerText = `Round: ${currentRound} / ${MAX_ROUNDS}`;
-        qRemaining.innerText = `Q Left in Round: ${teamQueue.length + 1}`;
+        qRemaining.innerText = `Q Left: ${teamQueue.length + 1}`;
         turnBanner.innerText = `👉 ${currentTeamName}'s Turn 👈`;
-        turnBanner.style.backgroundColor = getTeamColor(currentTeamIndex);
     }
 
-    if(currentQuestionIndex === selectedQuestions.length - 1) {
-        lastQBanner.classList.remove('hidden');
-        playSound('sfx-final');
-    } else {
-        lastQBanner.classList.add('hidden');
+    if(lastQBanner) {
+        if(currentQuestionIndex === selectedQuestions.length - 1) {
+            lastQBanner.classList.remove('d-none');
+            playSound('sfx-final');
+        } else {
+            lastQBanner.classList.add('d-none');
+        }
     }
 
     resetState();
-    
     const currentData = selectedQuestions[currentQuestionIndex];
     questionText.innerText = currentData.question;
     qTag.innerText = currentData.category || "General"; 
     renderMedia(currentData, mediaContainer);
 
+    // Bootstrap Grid for Options
     currentData.options.forEach(opt => {
+        const col = document.createElement('div');
+        col.className = 'col-md-6'; // 2 columns on desktop, 1 on mobile
+        
         const button = document.createElement('button');
         button.innerText = opt;
-        button.classList.add('option-btn');
+        button.className = 'btn btn-outline-dark w-100 py-3 option-btn shadow-sm fw-semibold';
         button.onclick = () => selectAnswer(button, currentData);
-        optionsContainer.appendChild(button);
+        
+        col.appendChild(button);
+        optionsContainer.appendChild(col);
     });
 
     startTimer();
-}
-
-function getTeamColor(index) {
-    const colors = ['#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff', '#a0c4ff', '#bdb2ff', '#ffc6ff', '#fffffc', '#e5e5e5'];
-    return colors[index % colors.length];
 }
 
 function renderMedia(data, container) {
     container.innerHTML = '';
     if (!data.media) return;
     let html = '';
-    if (data.type === 'image') html = `<img src="${data.media}">`;
-    else if (data.type === 'video') html = `<video controls src="${data.media}"></video>`;
-    else if (data.type === 'audio') html = `<audio controls src="${data.media}"></audio>`;
+    
+    if (data.type === 'youtube') html = createYouTubeEmbed(data.media);
+    else if (data.type === 'image') html = `<img src="${data.media}" class="img-fluid rounded">`;
+    else if (data.type === 'video') html = `<video controls src="${data.media}" class="w-100 rounded"></video>`;
+    else if (data.type === 'audio') html = `<audio controls src="${data.media}" class="w-100"></audio>`;
+    
     container.innerHTML = html;
 }
 
 function startTimer() {
     clearInterval(timerInterval);
     timeLeft = 60;
-    timerDisplay.innerText = `${timeLeft}s`;
-    timerDisplay.classList.remove('timer-warning');
+    if(timerDisplay) {
+        timerDisplay.innerText = `${timeLeft}s`;
+        timerDisplay.classList.remove('timer-warning');
+    }
     timerInterval = setInterval(() => {
         timeLeft--;
-        timerDisplay.innerText = `${timeLeft}s`;
-        if (timeLeft <= 10) timerDisplay.classList.add('timer-warning');
+        if(timerDisplay) {
+            timerDisplay.innerText = `${timeLeft}s`;
+            if (timeLeft <= 10) timerDisplay.classList.add('timer-warning');
+        }
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
             timeIsUp();
@@ -299,63 +314,92 @@ function startTimer() {
 }
 
 function timeIsUp() {
-    const buttons = optionsContainer.querySelectorAll('.option-btn');
-    buttons.forEach(btn => btn.disabled = true);
-    revealBtn.classList.remove('hidden');
+    disableOptions();
+    if(revealBtn) revealBtn.classList.remove('d-none');
+    else if(userWantsExplanations) showExplanation(selectedQuestions[currentQuestionIndex]);
+    else nextBtn.classList.remove('d-none');
     playSound('sfx-wrong');
+}
+
+function disableOptions() {
+    const buttons = optionsContainer.querySelectorAll('button');
+    buttons.forEach(btn => btn.disabled = true);
 }
 
 function selectAnswer(selectedBtn, questionData) {
     clearInterval(timerInterval);
-    const correctAnswer = questionData.answer;
-    const buttons = optionsContainer.querySelectorAll('.option-btn');
-    buttons.forEach(btn => btn.disabled = true);
+    disableOptions();
     
-    if (selectedBtn.innerText === correctAnswer) {
+    if (selectedBtn.innerText === questionData.answer) {
+        selectedBtn.classList.remove('btn-outline-dark');
         selectedBtn.classList.add('correct');
         playSound('sfx-correct');
-        if(gameMode === 'classroom') teams[currentTeamIndex].score += POINTS_PER_Q;
+        
+        if(gameMode === 'classroom' && teams.length > 1) teams[currentTeamIndex].score += POINTS_PER_Q;
         else teams[0].score += POINTS_PER_Q;
 
         if(userWantsExplanations) showExplanation(questionData);
-        else nextBtn.classList.remove('hidden');
+        else nextBtn.classList.remove('d-none');
     } else {
+        selectedBtn.classList.remove('btn-outline-dark');
         selectedBtn.classList.add('wrong');
         playSound('sfx-wrong');
-        revealBtn.classList.remove('hidden');
+        
+        if(revealBtn) revealBtn.classList.remove('d-none');
+        else if(userWantsExplanations) showExplanation(questionData);
+        else nextBtn.classList.remove('d-none');
     }
 }
 
 function revealAnswer() {
     const currentData = selectedQuestions[currentQuestionIndex];
-    const correctAnswer = currentData.answer;
-    const buttons = optionsContainer.querySelectorAll('.option-btn');
+    const buttons = optionsContainer.querySelectorAll('button');
     buttons.forEach(btn => {
-        if (btn.innerText === correctAnswer) btn.classList.add('correct');
+        if (btn.innerText === currentData.answer) {
+            btn.classList.remove('btn-outline-dark');
+            btn.classList.add('correct');
+        }
     });
-    revealBtn.classList.add('hidden');
+    if(revealBtn) revealBtn.classList.add('d-none');
+    
     if(userWantsExplanations) showExplanation(currentData);
-    else nextBtn.classList.remove('hidden');
+    else nextBtn.classList.remove('d-none');
 }
 
 function showExplanation(data) {
     const explainBox = document.getElementById('explanation-container');
-    if(!data.explanation) { nextBtn.classList.remove('hidden'); return; }
+    const safeNextBtn = document.getElementById('next-btn');
+
+    if(!data.explanation || !explainBox) { 
+        if(safeNextBtn) safeNextBtn.classList.remove('d-none'); 
+        return; 
+    }
     
-    explainBox.classList.remove('hidden');
-    document.getElementById('explain-text').innerHTML = data.explanation.text || "No text.";
-    const expMedia = document.getElementById('explain-media');
-    const expLink = document.getElementById('explain-link');
-    
-    expMedia.innerHTML = '';
-    if(data.explanation.media) renderMedia({type: data.explanation.type, media: data.explanation.media}, expMedia);
-    
-    if(data.explanation.link) {
-        expLink.href = data.explanation.link;
-        expLink.classList.remove('hidden');
-    } else expLink.classList.add('hidden');
-    
-    nextBtn.classList.remove('hidden');
+    try {
+        explainBox.classList.remove('d-none');
+        document.getElementById('explain-text').innerHTML = data.explanation.text || "";
+
+        const expMedia = document.getElementById('explain-media');
+        const expLink = document.getElementById('explain-link');
+        
+        if(expMedia) {
+            expMedia.innerHTML = '';
+            if(data.explanation.media) renderMedia({type: data.explanation.type || 'image', media: data.explanation.media}, expMedia);
+            if(data.explanation.youtube) expMedia.innerHTML += createYouTubeEmbed(data.explanation.youtube);
+        }
+        
+        if(expLink) {
+            if(data.explanation.link) {
+                expLink.href = data.explanation.link;
+                expLink.classList.remove('d-none');
+            } else expLink.classList.add('d-none');
+        }
+
+    } catch (err) {
+        console.error("Error displaying explanation:", err);
+    } finally {
+        if(safeNextBtn) safeNextBtn.classList.remove('d-none');
+    }
 }
 
 function nextTurn() {
@@ -365,79 +409,55 @@ function nextTurn() {
 }
 
 function updateLeaderboardUI() {
+    if(!leaderboardBody) return;
     const sortedTeams = [...teams].sort((a, b) => b.score - a.score);
     let html = '';
     sortedTeams.forEach(team => {
-        html += `<div class="team-card">
-                    <span class="team-name">${team.name}</span>
-                    <span class="team-score">${team.score}</span>
-                 </div>`;
+        html += `<a class="list-group-item d-flex justify-content-between align-items-center">
+                    ${team.name}
+                    <span class="badge bg-primary rounded-pill">${team.score}</span>
+                 </a>`;
     });
     leaderboardBody.innerHTML = html;
 }
 
 function endGame() {
-    quizScreen.classList.add('hidden');
-    resultScreen.classList.remove('hidden');
-    
-    // Play Game Over Sound
+    quizScreen.classList.add('d-none');
+    resultScreen.classList.remove('d-none');
     playSound('sfx-gameover'); 
     
-    if(gameMode === 'single') {
+    const maxScore = selectedQuestions.length * POINTS_PER_Q;
+    const fw = document.getElementById('final-winner');
+    const fs = document.getElementById('final-standings');
+
+    if(gameMode === 'single' || teams.length === 1) {
         const finalScore = teams[0].score;
-        const maxScore = selectedQuestions.length * POINTS_PER_Q;
-        const percentage = (finalScore / maxScore) * 100;
-        
-        let feedback = "";
-        let color = "#007bff";
+        const percentage = (maxScore > 0) ? (finalScore / maxScore) * 100 : 0;
+        let color = "text-danger";
+        if(percentage >= 80) color = "text-success";
+        else if (percentage >= 60) color = "text-warning";
 
-        if(percentage >= 90) {
-            feedback = "Outstanding! 🌟";
-            color = "#28a745";
-        } else if (percentage >= 80) {
-            feedback = "Excellent Work! 👏";
-            color = "#17a2b8";
-        } else if (percentage >= 60) {
-            feedback = "Good Job! 👍";
-            color = "#ffc107";
-        } else {
-            feedback = "Keep Practicing! 📚";
-            color = "#dc3545";
-        }
-
-        document.getElementById('final-winner').innerText = feedback;
-        document.getElementById('final-winner').style.color = color;
-        document.getElementById('final-standings').innerHTML = 
-            `<div style="font-size:2rem; text-align:center; margin-top:20px;">
-                You scored <b>${finalScore}</b> out of <b>${maxScore}</b> (${Math.round(percentage)}%)
-             </div>`;
-             
+        fw.innerHTML = `<h2 class="${color} fw-bold">Score: ${finalScore} / ${maxScore}</h2>`;
+        fs.innerHTML = `<h4>(${Math.round(percentage)}%)</h4>`;
     } else {
         updateLeaderboardUI();
         const sortedTeams = [...teams].sort((a, b) => b.score - a.score);
         const winner = sortedTeams[0];
-        const tiedWinners = sortedTeams.filter(t => t.score === winner.score);
-        
-        if (tiedWinners.length > 1) {
-            document.getElementById('final-winner').innerText = `It's a Tie! (${winner.score} pts)`;
-        } else {
-            document.getElementById('final-winner').innerText = `Winner: ${winner.name}!`;
-        }
-        document.getElementById('final-winner').style.color = "#007bff";
-        document.getElementById('final-standings').innerHTML = leaderboardBody.innerHTML;
+        fw.innerHTML = `<h2 class="text-success fw-bold">Winner: ${winner.name}</h2>`;
+        fs.innerHTML = leaderboardBody.innerHTML;
     }
 }
 
 function restartGame() {
-    startScreen.classList.remove('hidden');
-    resultScreen.classList.add('hidden');
-    leaderboardScreen.classList.add('hidden');
+    startScreen.classList.remove('d-none');
+    resultScreen.classList.add('d-none');
+    leaderboardScreen.classList.add('d-none');
 }
 
 function resetState() {
-    nextBtn.classList.add('hidden');
-    revealBtn.classList.add('hidden');
-    document.getElementById('explanation-container').classList.add('hidden');
+    nextBtn.classList.add('d-none');
+    revealBtn.classList.add('d-none');
+    document.getElementById('explanation-container').classList.add('d-none');
     optionsContainer.innerHTML = '';
     mediaContainer.innerHTML = '';
     timerDisplay.innerText = '';

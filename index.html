@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Game Master</title>
+    <title>Quiz Game Master (Bootstrap)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    
-    <div style="position: absolute; top: 40px; right: 40px; display: flex; gap: 15px; z-index: 1000;">
-        <button onclick="toggleLeaderboard()" class="control-btn">🏆 Leaderboard</button>
-        <button onclick="toggleFullScreen()" class="control-btn">⛶ Full Screen</button>
-    </div>
+<body class="bg-light">
+
+    <nav class="navbar navbar-light bg-white shadow-sm mb-4">
+        <div class="container-fluid justify-content-end gap-2">
+            <button onclick="toggleLeaderboard()" class="btn btn-outline-primary btn-sm">🏆 Leaderboard</button>
+            <button onclick="toggleFullScreen()" class="btn btn-outline-dark btn-sm">⛶ Full Screen</button>
+        </div>
+    </nav>
 
     <audio id="sfx-round" src="round-change.mp3"></audio>
     <audio id="sfx-final" src="final-question.mp3"></audio>
@@ -19,108 +22,119 @@
     <audio id="sfx-wrong" src="wrong.mp3"></audio>
     <audio id="sfx-gameover" src="game-over.mp3"></audio>
 
-    <div id="transition-overlay" class="overlay hidden">
-        <div class="overlay-content">
-            <h1 id="trans-title">ROUND 2</h1>
-            <p>Get Ready!</p>
-            <button class="btn start-btn" onclick="resumeGame()">Start Round</button>
+    <div id="transition-overlay" class="overlay d-none">
+        <div class="overlay-content text-center text-white">
+            <h1 class="display-1 fw-bold mb-3" id="trans-title">ROUND 1</h1>
+            <p class="fs-3">Get Ready!</p>
+            <button class="btn btn-lg btn-warning mt-3 fw-bold" onclick="resumeGame()">Start Round</button>
         </div>
     </div>
 
-    <div class="container">
-        <div id="start-screen" class="screen">
-            <h1>Quiz Game Setup</h1>
+    <div class="container" style="max-width: 960px;">
+        
+        <div id="start-screen" class="card shadow-lg p-4">
+            <h1 class="text-center mb-4 text-primary fw-bold">Quiz Setup</h1>
 
-            <div class="mode-switcher">
-                <button id="btn-mode-class" class="mode-btn active" onclick="setGameMode('classroom')">🏫 Classroom Teams</button>
-                <button id="btn-mode-single" class="mode-btn" onclick="setGameMode('single')">👤 Single Player</button>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+                <button id="btn-mode-class" class="btn btn-outline-primary active" onclick="setGameMode('classroom')">🏫 Classroom</button>
+                <button id="btn-mode-single" class="btn btn-outline-primary" onclick="setGameMode('single')">👤 Single Player</button>
             </div>
-            
-            <div class="settings-grid">
-                
-                <div class="settings-col team-col">
+
+            <div class="row g-4">
+                <div class="col-md-6">
                     <div id="classroom-panel">
-                        <h3 class="col-title">1. Select Participating Classes</h3>
-                        <div id="team-list" class="cat-selection-box">
+                        <h4 class="mb-3">Select Classes</h4>
+                        <div id="team-list" class="list-group border p-2" style="max-height: 250px; overflow-y: auto;">
                             </div>
                     </div>
-
-                    <div id="single-panel" class="hidden">
-                        <h3 class="col-title">1. Game Settings</h3>
-                        <label style="font-weight:bold; display:block; margin-bottom:10px;">Number of Questions:</label>
-                        <input type="number" id="num-questions" value="10" min="1" max="50" style="width:100%; padding:15px; font-size:1.2rem;">
+                    <div id="single-panel" class="d-none">
+                        <h4 class="mb-3">Settings</h4>
+                        <label class="form-label fw-bold">Number of Questions:</label>
+                        <input type="number" id="num-questions" class="form-control form-control-lg" value="10" min="1" max="50">
                     </div>
                 </div>
 
-                <div class="settings-col cat-col">
-                    <h3 class="col-title">2. Select Categories</h3>
-                    <div id="category-list" class="cat-selection-box">
+                <div class="col-md-6">
+                    <h4 class="mb-3">Categories</h4>
+                    <div id="category-list" class="list-group border p-2" style="max-height: 250px; overflow-y: auto;">
                         </div>
                 </div>
             </div>
 
-            <div class="bottom-options">
-                <div class="setting-item checkbox-item">
-                    <input type="checkbox" id="show-explain" checked>
-                    <label for="show-explain">Show Explanations</label>
+            <div class="d-grid gap-2 mt-4">
+                <div class="form-check form-switch mx-auto">
+                    <input class="form-check-input" type="checkbox" id="show-explain" checked>
+                    <label class="form-check-label" for="show-explain">Show Explanations</label>
                 </div>
-                <button onclick="startGame()" class="btn start-btn">Start Game</button>
+                <button onclick="startGame()" class="btn btn-success btn-lg fw-bold">Start Game 🚀</button>
             </div>
-            
-            <p id="error-msg" style="color:red; display:none; margin-top:10px;">Error</p>
+            <div id="error-msg" class="alert alert-danger mt-3 d-none"></div>
         </div>
 
-        <div id="quiz-screen" class="screen hidden">
-            <div id="last-q-banner" class="hidden">⚠️ FINAL QUESTION! ⚠️</div>
+        <div id="quiz-screen" class="d-none">
+            <div id="last-q-banner" class="alert alert-warning text-center fw-bold mb-3 d-none">⚠️ FINAL QUESTION! ⚠️</div>
 
-            <div class="header">
-                <div class="stats-box">
-                    <span id="round-display">Round: 1 / 5</span>
-                    <span id="q-remaining">Questions Left: 0</span>
+            <div class="card mb-3 border-0 bg-transparent">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span id="round-display" class="badge bg-secondary fs-6">Round: 1</span>
+                        <span id="q-remaining" class="badge bg-info text-dark fs-6">Q: 1/10</span>
+                    </div>
+                    <div id="timer-display" class="fs-2 fw-bold text-primary">60s</div>
                 </div>
-                <div class="timer-box" id="timer-display">60s</div>
-            </div>
-            
-            <div id="turn-banner" class="turn-banner">
-                Team Name's Turn
             </div>
 
-            <div class="question-container">
-                <span id="q-tag" class="category-tag">General</span>
-                <h2 id="question-text">?</h2>
-                <div id="media-container"></div>
+            <div id="turn-banner" class="alert alert-light border text-center fw-bold fs-4 shadow-sm mb-4">
+                Player's Turn
             </div>
 
-            <div class="options-container" id="options-container"></div>
-
-            <div id="control-area">
-                <button id="reveal-btn" class="btn hidden reveal-color" onclick="revealAnswer()">👁 Show Answer</button>
+            <div class="card shadow-sm mb-4">
+                <div class="card-body text-center">
+                    <span id="q-tag" class="badge bg-light text-dark border mb-2">GENERAL</span>
+                    <h2 id="question-text" class="card-title mb-4 fw-bold">Question goes here?</h2>
+                    
+                    <div id="media-container" class="d-flex justify-content-center mb-3">
+                        </div>
+                </div>
             </div>
 
-            <div id="explanation-container" class="explanation-box hidden">
-                <h3>Explanation:</h3>
-                <p id="explain-text"></p>
-                <div id="explain-media"></div>
-                <a id="explain-link" href="#" target="_blank">Learn More</a>
+            <div id="options-container" class="row g-3">
+                </div>
+
+            <div class="text-center mt-4">
+                <button id="reveal-btn" class="btn btn-warning btn-lg d-none" onclick="revealAnswer()">👁 Show Answer</button>
             </div>
 
-            <button id="next-btn" class="btn hidden" onclick="nextTurn()">Next Question ➜</button>
+            <div id="explanation-container" class="card mt-4 border-info d-none">
+                <div class="card-header bg-info text-white fw-bold">Explanation</div>
+                <div class="card-body">
+                    <p id="explain-text" class="card-text fs-5"></p>
+                    <div id="explain-media" class="text-center mt-3"></div>
+                    <a id="explain-link" href="#" target="_blank" class="btn btn-sm btn-outline-info mt-3 d-none">Learn More</a>
+                </div>
+            </div>
+
+            <div class="d-grid mt-4">
+                <button id="next-btn" class="btn btn-primary btn-lg fw-bold d-none" onclick="nextTurn()">Next Question ➜</button>
+            </div>
         </div>
 
-        <div id="leaderboard-screen" class="screen hidden">
-            <h2>🏆 Team Standings 🏆</h2>
-            <div id="leaderboard-body" class="leaderboard-grid"></div>
-            <button onclick="closeLeaderboard()" class="btn start-btn">Return to Game</button>
+        <div id="leaderboard-screen" class="card shadow p-4 d-none">
+            <h2 class="text-center mb-4">🏆 Standings</h2>
+            <div id="leaderboard-body" class="list-group mb-4"></div>
+            <button onclick="closeLeaderboard()" class="btn btn-secondary">Return to Game</button>
         </div>
 
-        <div id="result-screen" class="screen hidden">
-            <h2>Game Over!</h2>
-            <div id="final-winner" class="final-score">Winner: Team X</div>
-            <div id="final-standings"></div>
-            <button onclick="restartGame()" class="btn start-btn">New Game</button>
+        <div id="result-screen" class="card shadow p-5 text-center d-none">
+            <h1 class="display-4 fw-bold mb-3">Game Over!</h1>
+            <div id="final-winner" class="mb-4"></div>
+            <div id="final-standings" class="mb-4"></div>
+            <button onclick="restartGame()" class="btn btn-primary btn-lg">Play Again 🔄</button>
         </div>
+
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
