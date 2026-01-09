@@ -602,5 +602,332 @@ const quizDatabase = [
         "explanation": {
             "youtube": "https://www.youtube.com/shorts/fRGWtxcVdaQ"
         }
+    },
+    {
+        "id": 1767849517190,
+        "category": "Arts, literature, culture, movies, sports",
+        "type": "text",
+        "question": "\"अंगारमळा\" हे कोणाचे आत्मचरित्र आहे ?",
+        "options": [
+            "शरद जोशी",
+            "राजू शेट्टी",
+            "शरद पवार",
+            "जयंत पाठील"
+        ],
+        "answer": "शरद जोशी",
+        "explanation": {
+            "media": "assets/अंगारमळा.png",
+            "type": "image"
+        }
+    },
+    {
+        "id": 1767850616635,
+        "category": "Technology",
+        "type": "text",
+        "question": "What is hotlinking?",
+        "options": [
+            "Downloading an image from another website and uploading it to your own web server to display it.",
+            "Creating a hyperlink that redirects a user to the homepage of another website",
+            "Embedding a file (such as an image or video) on your webpage by linking directly to the source on another website's server.",
+            "Using a thermal sensor to detect overheated links in a network diagram."
+        ],
+        "answer": "Embedding a file (such as an image or video) on your webpage by linking directly to the source on another website's server.",
+        "explanation": {
+            "text": "Hotlinking, or inline linking, is when one website directly links to media (like images or videos) hosted on another website, causing the media to display on the second site while using the first site's server and bandwidth, effectively \"stealing\" resources and increasing hosting costs for the original site owner. Instead of downloading and uploading the file, the linking site uses the original URL, forcing the original server to deliver the content to the new site's visitors. "
+        }
+    },
+    {
+        "id": 1767850884632,
+        "category": "Psychology",
+        "type": "text",
+        "question": "What is Dunning-Kruger effect?",
+        "options": [
+            "Intelligent people are more likely to suffer from anxiety regarding their decisions.",
+            "Experts tend to overestimate their own abilities while underestimating the abilities of others.",
+            "Individuals with low ability at a task overestimate their ability.",
+            "People generally perform better when they are confident in their abilities."
+        ],
+        "answer": "Individuals with low ability at a task overestimate their ability.",
+        "explanation": {
+            "text": "The Dunning-Kruger effect is a cognitive bias where people with low ability in a specific area overestimate their competence, while highly skilled individuals often underestimate theirs, believing the task is easier for others too.  This happens because incompetence robs people of the metacognitive skill needed to recognize their own mistakes, leading to inflated confidence, while experts often struggle to see how complex things are for others. It's not a general intelligence issue but specific to tasks, and it highlights that ignorance breeds confidence more often than knowledge."
+        }
+    },
+    {
+        "id": 1767851984161,
+        "category": "Current affairs",
+        "type": "text",
+        "question": "What do you mean by GYAN Pillars?",
+        "options": [
+            "Key focus areas of India's development under current government -",
+            "The Chardham - Gangotri, Yamnotri, Badrinarayan, Kedarnath",
+            "The Executive, Legislature, Judiciary and the Press",
+            "Badrinath, Dwarka, Puri and Rameshwar"
+        ],
+        "answer": "Key focus areas of India's development under current government -",
+        "explanation": {
+            "text": "\"Gyan Pillars\" refer to key focus areas for India's development under the current government, standing for Garib (Poor), Yuva (Youth), Annadata (Farmer/Food Provider), and Nari Shakti (Women Power), aiming for inclusive growth towards a developed India (Viksit Bharat). "
+        }
+    },
+    {
+        "id": 1767866132531,
+        "category": "History",
+        "type": "text",
+        "question": "\"Operation Polo\" was an Indian military operation to annex ____________.",
+        "options": [
+            "Kashmir",
+            "Junagarh",
+            "Hyderabad",
+            "Goa"
+        ],
+        "answer": "Hyderabad",
+        "explanation": {
+            "text": "Annexation of Hyderabad"
+        }
+    },
+    {
+        "id": 1767866212981,
+        "category": "Indian Politics",
+        "type": "text",
+        "question": "Which of the following states was created primarily based on ethnic and tribal identity?",
+        "options": [
+            "Chattisgarh",
+            "Telangana",
+            "Uttarakhand",
+            "Jharkhand"
+        ],
+        "answer": "Uttarakhand",
+        "explanation": {
+            "text": "Jharkhand was created out of Bihar primarily to address the distinct tribal and ethnic identity, economic neglect, and the concentration of tribal population in the southern plateau region."
+        }
+    },
+    {
+        "id": 1767874288646,
+        "category": "Indian Politics",
+        "type": "text",
+        "question": "One of the criteria for a political party to be recognised as a national party is,  ___________.",
+        "options": [
+            "it should be established for at least 50 years",
+            "It must have party offices in at least four states.",
+            "It must win majority of Loksabha seats in at least two states",
+            "it should secure at least 6% of valid votes in any four or more states "
+        ],
+        "answer": "it should secure at least 6% of valid votes in any four or more states ",
+        "explanation": {
+            "text": "This is one of the main criteria specified by the Election Commission of India for recognition as a National Party."
+        }
+    },
+    {
+        "id": 1767874785032,
+        "category": "Indian Politics",
+        "type": "text",
+        "question": "How many Municipal Corporations are there in Maharashtra",
+        "options": [
+            "25",
+            "29",
+            "36",
+            "32"
+        ],
+        "answer": "29",
+        "explanation": {
+            "link": "https://mahadma.maharashtra.gov.in/en/list-of-corporation-2/"
+        }
+    },
+    {
+        "id": 1767875572594,
+        "category": "Current affairs",
+        "type": "text",
+        "question": "The term “Einstein Visa” commonly refers to which category of U.S. visa?",
+        "options": [
+            "H-1B Skilled Worker Visa",
+            "O-1 Temporary Talent Visa",
+            ". EB-1A Extraordinary Ability Immigrant Visa",
+            "EB-2 National Interest Waiver"
+        ],
+        "answer": ". EB-1A Extraordinary Ability Immigrant Visa",
+        "explanation": {
+            "link": "https://www.uscis.gov/working-in-the-united-states/permanent-workers/employment-based-immigration-first-preference-eb-1"
+        }
+    },
+    {
+        "id": 1767876074660,
+        "category": "Arts, literature, culture, movies, sports",
+        "type": "text",
+        "question": "Leather pants are most commonly associated with which of the following cultural or social trends?",
+        "options": [
+            "Traditional rural attire in tropical regions",
+            " Industrial workwear designed primarily for heat protection",
+            "Fashion movements emphasising rebellion, counterculture, and stage performance",
+            "Formal diplomatic dress code in Western countries"
+        ],
+        "answer": "Fashion movements emphasising rebellion, counterculture, and stage performance",
+        "explanation": {
+            "text": "Leather pants are linked with rebellion and performance because they emerged in counter-cultures (rock, punk, biker scenes) where clothing was used to signal non-conformity, bold identity, and stage presence rather than everyday practicality."
+        }
+    },
+    {
+        "id": 1767889334922,
+        "category": "Personalities",
+        "type": "image",
+        "question": "Name the person in the image",
+        "options": [
+            "Junaid Khan",
+            "Pankaj Tripathi",
+            "Zohran Mamdani",
+            "Hamdi Ulukaya"
+        ],
+        "answer": "Zohran Mamdani",
+        "media": "assets/AsianAmerican.webp",
+        "explanation": {
+            "text": "Zohran Kwame Mamdani is an American politician who has served as the 112th mayor of New York City since January 1, 2026. He is New York's first Muslim and Asian American mayor as well as its first mayor from the borough of Queens"
+        }
+    },
+    {
+        "id": 1767889731553,
+        "category": "Personalities",
+        "type": "image",
+        "question": "Elon Musk is an immigrant in USA who was born in ______________.",
+        "options": [
+            "Canada",
+            "South Africa",
+            "Estonia",
+            "Israel"
+        ],
+        "answer": "South Africa",
+        "media": "assets/ElonMusk.jpg",
+        "explanation": {
+            "text": "Elon Musk is an immigrant who moved from South Africa to Canada and then to the United States, becoming a naturalized U.S. citizen in 2002 after moving to America in the early 1990s. He was born in South Africa, gained Canadian citizenship through his mother, and later immigrated to the U.S. for studies, starting his entrepreneurial journey in a situation described as a \"legal gray area\" by some reports, though Musk disputes this characterization."
+        }
+    },
+    {
+        "id": 1767890467866,
+        "category": "Arts, literature, culture, movies, sports",
+        "type": "text",
+        "question": "Chhath Pooja, an ancient festival celebrated in Bihar, Jharkhand, Eastern UP and Nepal's Mithila region is dedicated to Chhathi Maiya and ___________.",
+        "options": [
+            "Lord Shiva",
+            "Lord Krishna",
+            "Surya Dev",
+            "Lord Vishnu"
+        ],
+        "answer": "Lord Shiva",
+        "explanation": {
+            "text": "Chhath Puja (also spelled Chhath Pooja) is an ancient Hindu festival dedicated to Surya Dev (the Sun God) and Chhathi Maiya (considered to be the sister of Surya or a form of Goddess Usha). It’s one of the most important festivals in Bihar, Jharkhand, Eastern Uttar Pradesh, and Nepal’s Mithila region, and is increasingly celebrated across India by migrant communities."
+        }
+    },
+    {
+        "id": 1767890724314,
+        "category": "Arts, literature, culture, movies, sports",
+        "type": "text",
+        "question": "What is the defining characteristic of a musical 'jam session' compared to a formal rehearsal?",
+        "options": [
+            "The absence of a rhythm section",
+            "Focusing solely on recording a final track",
+            "Strict adherence to written sheet music",
+            "Improvisation and spontaneous creation"
+        ],
+        "answer": "Improvisation and spontaneous creation",
+        "explanation": {
+            "text": "Jamming in Music  Jamming is the act of improvising music spontaneously with other musicians, often without a pre-written arrangement. It's a form of musical collaboration that allows for creative exploration and can be used to develop new material, have fun, or simply connect with other musicians. In a jam, musicians will often find a groove and then improvise melodies or solos, with the result being a cohesive but spontaneous musical creation. "
+        }
+    },
+    {
+        "id": 1767891456110,
+        "category": "International relations",
+        "type": "text",
+        "question": "What is the meaning of \"Watermelons in the army\" in Myanmar?",
+        "options": [
+            "Soldiers working on agricultural projects",
+            "Military officials who invest in fruit export",
+            "Soldiers or public servants who wear the military uniform (green) but secretly support the democracy movement (red)",
+            "Military informants who infiltrate student unions to gather intelligence"
+        ],
+        "answer": "Soldiers or public servants who wear the military uniform (green) but secretly support the democracy movement (red)",
+        "explanation": {
+            "youtube": "https://youtu.be/w8cDs0FgHhc?si=zZuza4NR9Z6Zh-Kf"
+        }
+    },
+    {
+        "id": 1767892642292,
+        "category": "General",
+        "type": "text",
+        "question": "When is World Braille Day celebrated every year?",
+        "options": [
+            "4th January",
+            "30th November",
+            "7th July",
+            "16th August"
+        ],
+        "answer": "4th January",
+        "explanation": {
+            "text": "Why is World Braille Day on January 4th? The date, 4 January, is significant as it also marks Louis Braille's birthday in 1809. Louis first presented his tactile system of reading and writing in 1824 when he was just 15 years old and spent the rest of his life perfecting it."
+        }
+    },
+    {
+        "id": 1767925454078,
+        "category": "Environment",
+        "type": "text",
+        "question": "The International Day For Clean Energy is celebrated annually on __________________.",
+        "options": [
+            "26th January",
+            "8th March",
+            "24th December",
+            "5th September"
+        ],
+        "answer": "26th January",
+        "explanation": {
+            "link": "assets/CleanEnergyResolution.pdf"
+        }
+    },
+    {
+        "id": 1767926713006,
+        "category": "Arts, literature, culture, movies, sports",
+        "type": "image",
+        "question": "Name the person the image shown below",
+        "options": [
+            "Nitish Bharadwaj",
+            "Firoz Khan",
+            "Pankaj Dheer",
+            "Puneet Issar"
+        ],
+        "answer": "Pankaj Dheer",
+        "media": "assets/Pankaj.jpg",
+        "explanation": {
+            "text": "Veteran actor Pankaj Dheer passes away (October 2025) at the age of 68 after a prolonged battle with cancer.  He was best known for his iconic portrayal of Karna in BR Chopra’s 1988 television epic Mahabharat, which remains one of the most memorable performances in Indian television history.  Dheer had previously battled cancer and underwent major surgery, but the illness relapsed in recent months, leading to his hospitalization and eventual death. Apart from Mahabharat, Pankaj Dheer appeared in several television series including Chandrakanta, The Great Maratha, Yug, and Badho Bahu, and acted in films such as Sadak, Soldier, and Baadshah.  His legacy continues through his son Nikitin Dheer, a Bollywood actor, and daughter-in-law Kratika Sengar, a television actress   Facebook"
+        }
+    },
+    {
+        "id": 1767927500536,
+        "category": "Environment",
+        "type": "image",
+        "question": "Name the person in the image below",
+        "options": [
+            "Jane Goodall",
+            "Greta Thunberg",
+            "Jennifer Morgan",
+            "Marina Silva"
+        ],
+        "answer": "Jane Goodall",
+        "media": "assets/JaneGoodall.jpg",
+        "explanation": {
+            "text": "Her research on chimpanzees changed the understanding of our closest relative.  Dame Valerie Jane Morris Goodall - 3 April 1934 – 1 October 2025 - was an English primatologist and anthropologist. Regarded as a pioneer in primate ethology, and described by many publications as \"the world's preeminent chimpanzee expert\", she was best known for more than six decades of field research on the social and family life of wild chimpanzees in the Kasakela chimpanzee community at Gombe Stream National Park in Tanzania. Beginning in 1960, under the mentorship of the palaeontologist Louis Leakey, Goodall's research demonstrated that chimpanzees share many key traits with humans, such as using tools, having complex emotions, forming lasting social bonds, engaging in organised warfare, and passing on knowledge across generations, which redefined the traditional view that humans are uniquely different from other animals.",
+            "link": "https://en.wikipedia.org/wiki/Jane_Goodall"
+        }
+    },
+    {
+        "id": 1767929931027,
+        "category": "Personalities",
+        "type": "image",
+        "question": "Name the person in the image below",
+        "options": [
+            "Sonam Wangchuk",
+            "Phungsuk Wangdu",
+            "Chering Dorjay",
+            "Tsering Namgyal"
+        ],
+        "answer": "Sonam Wangchuk",
+        "media": "assets/phungsuk.jpeg",
+        "explanation": {
+            "link": "https://www.instagram.com/reels/C5Dti25SFZj/"
+        }
     }
 ];
