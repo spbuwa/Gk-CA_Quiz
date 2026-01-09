@@ -376,7 +376,7 @@ const quizDatabase = [
             "A credit card for buying electronics.",
             "A digital SIM card embedded directly into the phone, removing the need for a physical plastic card."
         ],
-        "answer": "An electronic simulation video game.",
+        "answer": "A digital SIM card embedded directly into the phone, removing the need for a physical plastic card.",
         "explanation": {
             "text": "It allows you to switch carriers via software settings without swapping tiny plastic chips and Yes, eSIMs are widely available in India from major operators like Jio, Airtel, and Vi (Vodafone Idea), supporting both residents converting physical SIMs and tourists using data-only plans, with options from international providers like Airalo and Holafly for seamless connectivity without physical cards, activated via apps or QR codes. ",
             "link": "https://www.jio.com/jcms/esim/"
@@ -695,7 +695,7 @@ const quizDatabase = [
             "Uttarakhand",
             "Jharkhand"
         ],
-        "answer": "Uttarakhand",
+        "answer": "Jharkhand",
         "explanation": {
             "text": "Jharkhand was created out of Bihar primarily to address the distinct tribal and ethnic identity, economic neglect, and the concentration of tribal population in the southern plateau region."
         }
@@ -709,9 +709,9 @@ const quizDatabase = [
             "it should be established for at least 50 years",
             "It must have party offices in at least four states.",
             "It must win majority of Loksabha seats in at least two states",
-            "it should secure at least 6% of valid votes in any four or more states "
+            "it should secure at least 6% of valid votes in any four or more states."
         ],
-        "answer": "it should secure at least 6% of valid votes in any four or more states ",
+        "answer": "it should secure at least 6% of valid votes in any four or more states.",
         "explanation": {
             "text": "This is one of the main criteria specified by the Election Commission of India for recognition as a National Party."
         }
@@ -809,7 +809,7 @@ const quizDatabase = [
             "Surya Dev",
             "Lord Vishnu"
         ],
-        "answer": "Lord Shiva",
+        "answer": "Surya Dev",
         "explanation": {
             "text": "Chhath Puja (also spelled Chhath Pooja) is an ancient Hindu festival dedicated to Surya Dev (the Sun God) and Chhathi Maiya (considered to be the sister of Surya or a form of Goddess Usha). It’s one of the most important festivals in Bihar, Jharkhand, Eastern Uttar Pradesh, and Nepal’s Mithila region, and is increasingly celebrated across India by migrant communities."
         }
