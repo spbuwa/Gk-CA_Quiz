@@ -20,6 +20,7 @@ let timerInterval;
 let timeLeft = 60;
 let userWantsExplanations = true;
 let currentTeamIndex = -1;
+let matchHistory = []; // NEW: Stores the log of every answer
 
 // CHART VARIABLES
 let leaderboardChartInstance = null;
@@ -46,6 +47,7 @@ const categoryList = document.getElementById('category-list');
 const teamList = document.getElementById('team-list');
 const errorMsg = document.getElementById('error-msg');
 const qTag = document.getElementById('q-tag');
+const answerSheetBody = document.getElementById('answer-sheet-body'); // NEW
 
 // --- INIT ---
 window.onload = function() {
@@ -136,7 +138,7 @@ function toggleLeaderboard() {
     if(!startScreen.classList.contains('d-none') && quizScreen.classList.contains('d-none')) return;
     
     if (leaderboardScreen.classList.contains('d-none')) {
-        updateLeaderboardGraph('leaderboardChart'); // Show Graph
+        updateLeaderboardGraph('leaderboardChart'); 
         quizScreen.classList.add('d-none');
         leaderboardScreen.classList.remove('d-none');
     } else {
@@ -189,6 +191,7 @@ function startGame() {
     userWantsExplanations = document.getElementById('show-explain').checked;
     currentRound = 1;
     currentQuestionIndex = 0;
+    matchHistory = []; // Reset history
     
     startScreen.classList.add('d-none');
     resultScreen.classList.add('d-none');
@@ -222,6 +225,8 @@ function resumeGame() {
 }
 
 function loadTurn() {
+    // Determine who is playing
+    let currentTeamName = "Player 1";
     if(gameMode === 'single' || teams.length === 1) {
         if(qRemaining) qRemaining.innerText = `Q: ${currentQuestionIndex + 1} / ${selectedQuestions.length}`;
     } else {
@@ -232,7 +237,7 @@ function loadTurn() {
             return;
         }
         currentTeamIndex = teamQueue.pop();
-        const currentTeamName = teams[currentTeamIndex].name;
+        currentTeamName = teams[currentTeamIndex].name;
         roundDisplay.innerText = `Round: ${currentRound} / ${MAX_ROUNDS}`;
         qRemaining.innerText = `Q Left: ${teamQueue.length + 1}`;
         turnBanner.innerText = `👉 ${currentTeamName}'s Turn 👈`;
@@ -251,7 +256,12 @@ function loadTurn() {
     qTag.innerText = currentData.category || "General"; 
     renderMedia(currentData, mediaContainer);
 
-    currentData.options.forEach(opt => {
+    // NEW: Randomize Options
+    // Create a copy so we don't mess up the original data
+    let shuffledOptions = [...currentData.options];
+    shuffledOptions.sort(() => Math.random() - 0.5);
+
+    shuffledOptions.forEach(opt => {
         const col = document.createElement('div');
         col.className = 'col-md-6';
         const button = document.createElement('button');
@@ -303,8 +313,25 @@ function startTimer() {
 
 function timeIsUp() {
     disableOptions();
+    
+    // RECORD RESULT (Time Out)
+    const currentQ = selectedQuestions[currentQuestionIndex];
+    let teamName = "Player 1";
+    if(gameMode === 'classroom' && teams.length > 0 && currentTeamIndex >= 0) {
+        teamName = teams[currentTeamIndex].name;
+    }
+    
+    matchHistory.push({
+        qNum: currentQuestionIndex + 1,
+        team: teamName,
+        question: currentQ.question,
+        selected: "Time Out",
+        correct: currentQ.answer,
+        isCorrect: false
+    });
+
     if(revealBtn) revealBtn.classList.remove('d-none');
-    else if(userWantsExplanations) showExplanation(selectedQuestions[currentQuestionIndex]);
+    else if(userWantsExplanations) showExplanation(currentQ);
     else nextBtn.classList.remove('d-none');
     playSound('sfx-wrong');
 }
@@ -317,18 +344,42 @@ function disableOptions() {
 function selectAnswer(selectedBtn, questionData) {
     clearInterval(timerInterval);
     disableOptions();
-    if (selectedBtn.innerText === questionData.answer) {
+    
+    let isCorrect = false;
+    let teamName = "Player 1";
+    if(gameMode === 'classroom' && teams.length > 0 && currentTeamIndex >= 0) {
+        teamName = teams[currentTeamIndex].name;
+    }
+
+    if (selectedBtn.innerText.trim() === questionData.answer.trim()) {
         selectedBtn.classList.remove('btn-outline-dark');
         selectedBtn.classList.add('correct');
         playSound('sfx-correct');
+        isCorrect = true;
+        
         if(gameMode === 'classroom' && teams.length > 1) teams[currentTeamIndex].score += POINTS_PER_Q;
         else teams[0].score += POINTS_PER_Q;
-        if(userWantsExplanations) showExplanation(questionData);
-        else nextBtn.classList.remove('d-none');
     } else {
         selectedBtn.classList.remove('btn-outline-dark');
         selectedBtn.classList.add('wrong');
         playSound('sfx-wrong');
+        isCorrect = false;
+    }
+    
+    // RECORD RESULT
+    matchHistory.push({
+        qNum: currentQuestionIndex + 1,
+        team: teamName,
+        question: questionData.question,
+        selected: selectedBtn.innerText,
+        correct: questionData.answer,
+        isCorrect: isCorrect
+    });
+
+    if(isCorrect) {
+        if(userWantsExplanations) showExplanation(questionData);
+        else nextBtn.classList.remove('d-none');
+    } else {
         if(revealBtn) revealBtn.classList.remove('d-none');
         else if(userWantsExplanations) showExplanation(questionData);
         else nextBtn.classList.remove('d-none');
@@ -339,7 +390,7 @@ function revealAnswer() {
     const currentData = selectedQuestions[currentQuestionIndex];
     const buttons = optionsContainer.querySelectorAll('button');
     buttons.forEach(btn => {
-        if (btn.innerText === currentData.answer) {
+        if (btn.innerText.trim() === currentData.answer.trim()) {
             btn.classList.remove('btn-outline-dark');
             btn.classList.add('correct');
         }
@@ -378,30 +429,18 @@ function nextTurn() {
 }
 
 // ==========================================
-// NEW: CHART GENERATION LOGIC
+// CHART GENERATION
 // ==========================================
 function updateLeaderboardGraph(canvasId) {
-    // 1. Sort teams by score
     const sortedTeams = [...teams].sort((a, b) => b.score - a.score);
     const names = sortedTeams.map(t => t.name);
     const scores = sortedTeams.map(t => t.score);
     
-    // 2. Destroy old chart to prevent "reuse" errors
-    if(canvasId === 'leaderboardChart' && leaderboardChartInstance) {
-        leaderboardChartInstance.destroy();
-    }
-    if(canvasId === 'finalChart' && finalChartInstance) {
-        finalChartInstance.destroy();
-    }
+    if(canvasId === 'leaderboardChart' && leaderboardChartInstance) leaderboardChartInstance.destroy();
+    if(canvasId === 'finalChart' && finalChartInstance) finalChartInstance.destroy();
 
-    // 3. Generate Colors
-    const bgColors = [
-        'rgba(255, 99, 132, 0.7)', 'rgba(54, 162, 235, 0.7)',
-        'rgba(255, 206, 86, 0.7)', 'rgba(75, 192, 192, 0.7)',
-        'rgba(153, 102, 255, 0.7)', 'rgba(255, 159, 64, 0.7)'
-    ];
+    const bgColors = ['rgba(255, 99, 132, 0.7)', 'rgba(54, 162, 235, 0.7)', 'rgba(255, 206, 86, 0.7)', 'rgba(75, 192, 192, 0.7)', 'rgba(153, 102, 255, 0.7)', 'rgba(255, 159, 64, 0.7)'];
 
-    // 4. Create New Chart
     const ctx = document.getElementById(canvasId);
     if(!ctx) return;
 
@@ -420,12 +459,8 @@ function updateLeaderboardGraph(canvasId) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            scales: {
-                y: { beginAtZero: true }
-            },
-            plugins: {
-                legend: { display: false } // Hide legend for cleaner look
-            }
+            scales: { y: { beginAtZero: true } },
+            plugins: { legend: { display: false } }
         }
     };
 
@@ -441,6 +476,10 @@ function endGame() {
     const maxScore = selectedQuestions.length * POINTS_PER_Q;
     const fw = document.getElementById('final-winner');
 
+    // 1. Generate Answer Sheet
+    renderAnswerSheet();
+
+    // 2. Winner Display
     if(gameMode === 'single' || teams.length === 1) {
         const finalScore = teams[0].score;
         const percentage = (maxScore > 0) ? (finalScore / maxScore) * 100 : 0;
@@ -448,17 +487,34 @@ function endGame() {
         if(percentage >= 80) color = "text-success";
         else if (percentage >= 60) color = "text-warning";
         fw.innerHTML = `<h2 class="${color} fw-bold">Score: ${finalScore} / ${maxScore}</h2><h4>(${Math.round(percentage)}%)</h4>`;
-        // Hide graph canvas for single player
         document.getElementById('finalChart').parentElement.style.display = 'none';
     } else {
         const sortedTeams = [...teams].sort((a, b) => b.score - a.score);
         const winner = sortedTeams[0];
         fw.innerHTML = `<h2 class="text-success fw-bold">Winner: ${winner.name}</h2>`;
-        
-        // Show Graph for teams
         document.getElementById('finalChart').parentElement.style.display = 'block';
-        setTimeout(() => updateLeaderboardGraph('finalChart'), 100); // Small delay to ensure visible
+        setTimeout(() => updateLeaderboardGraph('finalChart'), 100); 
     }
+}
+
+// NEW: Render Table
+function renderAnswerSheet() {
+    if(!answerSheetBody) return;
+    let html = '';
+    matchHistory.forEach(record => {
+        // Truncate long questions
+        let shortQ = record.question.length > 50 ? record.question.substring(0, 50) + "..." : record.question;
+        let rowClass = record.isCorrect ? 'table-success' : 'table-danger';
+        let icon = record.isCorrect ? '✅' : '❌';
+        
+        html += `<tr class="${rowClass}">
+                    <td>${record.qNum}</td>
+                    <td>${record.team}</td>
+                    <td>${shortQ}</td>
+                    <td>${icon}</td>
+                 </tr>`;
+    });
+    answerSheetBody.innerHTML = html;
 }
 
 function restartGame() {
@@ -485,42 +541,38 @@ function resetState() {
 // ==========================================
 
 function downloadCSV() {
-    // 1. Get current date for the filename
+    // UPDATED to download the detailed match history
     const now = new Date();
     const dateString = now.toLocaleDateString().replace(/\//g, '-');
-    const timeString = now.toLocaleTimeString().replace(/:/g, '-');
-    const filename = `Quiz_Results_${dateString}_${timeString}.csv`;
+    const filename = `Quiz_Report_${dateString}.csv`;
 
-    // 2. Prepare the Data
-    // Sort teams by score first
-    const sortedTeams = [...teams].sort((a, b) => b.score - a.score);
-    
-    // CSV Header
     let csvContent = "data:text/csv;charset=utf-8,";
-    csvContent += "Rank,Team Name,Score\n"; // Header Row
+    // Header
+    csvContent += "Q No,Team Name,Question,Selected Answer,Correct Answer,Result\n";
 
-    // CSV Rows
-    sortedTeams.forEach((team, index) => {
-        const row = `${index + 1},${team.name},${team.score}`;
+    matchHistory.forEach(rec => {
+        // Escape commas in text to prevent breaking CSV
+        const safeQ = `"${rec.question.replace(/"/g, '""')}"`;
+        const safeSel = `"${rec.selected.replace(/"/g, '""')}"`;
+        const safeAns = `"${rec.correct.replace(/"/g, '""')}"`;
+        const status = rec.isCorrect ? "Correct" : "Wrong";
+        
+        const row = `${rec.qNum},${rec.team},${safeQ},${safeSel},${safeAns},${status}`;
         csvContent += row + "\n";
     });
 
-    // 3. Trigger Download
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
     link.setAttribute("download", filename);
-    document.body.appendChild(link); // Required for Firefox
+    document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 }
 
 function downloadGraph() {
     if (finalChartInstance) {
-        // Convert the chart canvas to an image URL
         const imageLink = finalChartInstance.toBase64Image();
-        
-        // Trigger Download
         const link = document.createElement('a');
         link.download = 'Quiz_Graph_Result.png';
         link.href = imageLink;

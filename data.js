@@ -410,7 +410,7 @@ const quizDatabase = [
             "It creates new content, such as text, images, and audio, based on patterns it has learned.",
             "It strictly organizes existing databases alphabetically."
         ],
-        "answer": "It physically repairs broken hardware inside a computer.",
+        "answer": "It creates new content, such as text, images, and audio, based on patterns it has learned.",
         "explanation": {
             "text": "Generative AI is defined by its ability to generate novel output that mimics human creation, rather than just analyzing existing data.",
             "link": "https://www.outsystems.com/1/gartner-report-generative-ai/"
