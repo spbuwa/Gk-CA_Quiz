@@ -121,6 +121,10 @@
             <div style="position: relative; height: 300px; width: 100%; margin-bottom: 20px;">
                 <canvas id="finalChart"></canvas>
             </div>
+            <div class="d-flex justify-content-center gap-2 mb-4">
+                <button onclick="downloadCSV()" class="btn btn-success">📥 Save as Excel</button>
+                <button onclick="downloadGraph()" class="btn btn-outline-dark">📷 Save Graph Image</button>
+            </div>
             
             <button onclick="restartGame()" class="btn btn-primary btn-lg">Play Again 🔄</button>
         </div>

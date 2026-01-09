@@ -479,3 +479,53 @@ function resetState() {
     timerDisplay.innerText = '';
     clearInterval(timerInterval);
 }
+
+// ==========================================
+// NEW: SAVE / EXPORT FUNCTIONS
+// ==========================================
+
+function downloadCSV() {
+    // 1. Get current date for the filename
+    const now = new Date();
+    const dateString = now.toLocaleDateString().replace(/\//g, '-');
+    const timeString = now.toLocaleTimeString().replace(/:/g, '-');
+    const filename = `Quiz_Results_${dateString}_${timeString}.csv`;
+
+    // 2. Prepare the Data
+    // Sort teams by score first
+    const sortedTeams = [...teams].sort((a, b) => b.score - a.score);
+    
+    // CSV Header
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Rank,Team Name,Score\n"; // Header Row
+
+    // CSV Rows
+    sortedTeams.forEach((team, index) => {
+        const row = `${index + 1},${team.name},${team.score}`;
+        csvContent += row + "\n";
+    });
+
+    // 3. Trigger Download
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", filename);
+    document.body.appendChild(link); // Required for Firefox
+    link.click();
+    document.body.removeChild(link);
+}
+
+function downloadGraph() {
+    if (finalChartInstance) {
+        // Convert the chart canvas to an image URL
+        const imageLink = finalChartInstance.toBase64Image();
+        
+        // Trigger Download
+        const link = document.createElement('a');
+        link.download = 'Quiz_Graph_Result.png';
+        link.href = imageLink;
+        link.click();
+    } else {
+        alert("No graph available to save!");
+    }
+}
