@@ -61,3 +61,45 @@ body {
 h2#question-text {
     word-wrap: break-word;
 }
+
+/* =========================================
+   MOBILE IPHONE FIXES (Does not affect Laptop)
+   ========================================= */
+
+/* 1. Remove the "300ms Click Delay" on iPhones */
+html, body {
+    touch-action: manipulation; 
+}
+
+/* 2. ONLY FOR MOBILE PHONES */
+@media screen and (max-width: 768px) {
+    
+    /* Add empty space at the bottom so text isn't hidden behind buttons */
+    body {
+        padding-bottom: 100px; 
+    }
+
+    /* Make the NEXT button float at the bottom right so you don't have to scroll */
+    #next-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: auto !important;
+        z-index: 9999;
+        border-radius: 50px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    /* Make the REVEAL button float at the bottom center */
+    #reveal-btn {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto !important;
+        z-index: 9999;
+        border-radius: 50px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        white-space: nowrap;
+    }
+}
