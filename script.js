@@ -21,6 +21,10 @@ let timeLeft = 60;
 let userWantsExplanations = true;
 let currentTeamIndex = -1;
 
+// CHART VARIABLES
+let leaderboardChartInstance = null;
+let finalChartInstance = null;
+
 // DOM Elements
 const startScreen = document.getElementById('start-screen');
 const quizScreen = document.getElementById('quiz-screen');
@@ -28,12 +32,12 @@ const resultScreen = document.getElementById('result-screen');
 const leaderboardScreen = document.getElementById('leaderboard-screen');
 const overlay = document.getElementById('transition-overlay');
 const lastQBanner = document.getElementById('last-q-banner');
-
 const questionText = document.getElementById('question-text');
 const mediaContainer = document.getElementById('media-container');
 const optionsContainer = document.getElementById('options-container');
 const nextBtn = document.getElementById('next-btn');
 const revealBtn = document.getElementById('reveal-btn');
+const startTimerBtn = document.getElementById('start-timer-btn'); 
 const roundDisplay = document.getElementById('round-display');
 const qRemaining = document.getElementById('q-remaining');
 const timerDisplay = document.getElementById('timer-display');
@@ -42,13 +46,12 @@ const categoryList = document.getElementById('category-list');
 const teamList = document.getElementById('team-list');
 const errorMsg = document.getElementById('error-msg');
 const qTag = document.getElementById('q-tag');
-const leaderboardBody = document.getElementById('leaderboard-body');
 
 // --- INIT ---
 window.onload = function() {
     if(typeof quizDatabase === 'undefined') return;
     
-    // 1. Populate Teams Checkboxes (Bootstrap List Group Item)
+    // 1. Populate Teams Checkboxes
     if(teamList) {
         let teamHtml = `<label class="list-group-item bg-light fw-bold">
                             <input class="form-check-input me-2" type="checkbox" onchange="toggleAllTeams(this)"> Select All
@@ -95,16 +98,12 @@ function getYouTubeId(url) {
     return (match && match[2].length === 11) ? match[2] : null;
 }
 
-// Bootstrap Responsive Embed
 function createYouTubeEmbed(url) {
     try {
         const vidId = getYouTubeId(url);
         if(!vidId) return "";
-        // Using Bootstrap 'ratio' class for responsive video
         return `<div class="ratio ratio-16x9 mt-3"><iframe src="https://www.youtube.com/embed/${vidId}" allowfullscreen></iframe></div>`;
-    } catch (e) {
-        return "";
-    }
+    } catch (e) { return ""; }
 }
 
 function setGameMode(mode) {
@@ -125,27 +124,19 @@ function setGameMode(mode) {
     }
 }
 
-function toggleAllTeams(source) {
-    document.querySelectorAll('.team-chk').forEach(cb => cb.checked = source.checked);
-}
-
-function toggleAllCats(source) {
-    document.querySelectorAll('.cat-chk').forEach(cb => cb.checked = source.checked);
-}
+function toggleAllTeams(source) { document.querySelectorAll('.team-chk').forEach(cb => cb.checked = source.checked); }
+function toggleAllCats(source) { document.querySelectorAll('.cat-chk').forEach(cb => cb.checked = source.checked); }
 
 function toggleFullScreen() {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-    } else {
-        if (document.exitFullscreen) document.exitFullscreen();
-    }
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else if (document.exitFullscreen) document.exitFullscreen();
 }
 
 function toggleLeaderboard() {
     if(!startScreen.classList.contains('d-none') && quizScreen.classList.contains('d-none')) return;
     
     if (leaderboardScreen.classList.contains('d-none')) {
-        updateLeaderboardUI();
+        updateLeaderboardGraph('leaderboardChart'); // Show Graph
         quizScreen.classList.add('d-none');
         leaderboardScreen.classList.remove('d-none');
     } else {
@@ -203,9 +194,8 @@ function startGame() {
     resultScreen.classList.add('d-none');
     quizScreen.classList.remove('d-none');
     
-    if(gameMode === 'classroom') {
-        startNewRound();
-    } else {
+    if(gameMode === 'classroom') startNewRound();
+    else {
         turnBanner.innerText = "Single Player Mode";
         roundDisplay.innerText = "Single Player";
         loadTurn();
@@ -252,9 +242,7 @@ function loadTurn() {
         if(currentQuestionIndex === selectedQuestions.length - 1) {
             lastQBanner.classList.remove('d-none');
             playSound('sfx-final');
-        } else {
-            lastQBanner.classList.add('d-none');
-        }
+        } else { lastQBanner.classList.add('d-none'); }
     }
 
     resetState();
@@ -263,20 +251,28 @@ function loadTurn() {
     qTag.innerText = currentData.category || "General"; 
     renderMedia(currentData, mediaContainer);
 
-    // Bootstrap Grid for Options
     currentData.options.forEach(opt => {
         const col = document.createElement('div');
-        col.className = 'col-md-6'; // 2 columns on desktop, 1 on mobile
-        
+        col.className = 'col-md-6';
         const button = document.createElement('button');
         button.innerText = opt;
         button.className = 'btn btn-outline-dark w-100 py-3 option-btn shadow-sm fw-semibold';
         button.onclick = () => selectAnswer(button, currentData);
-        
+        if(gameMode === 'classroom') button.disabled = true;
         col.appendChild(button);
         optionsContainer.appendChild(col);
     });
 
+    if(gameMode === 'classroom') {
+        if(startTimerBtn) startTimerBtn.classList.remove('d-none');
+        timerDisplay.innerText = "60s"; 
+    } else startTimer();
+}
+
+function manualStartTimer() {
+    if(startTimerBtn) startTimerBtn.classList.add('d-none');
+    const buttons = optionsContainer.querySelectorAll('button');
+    buttons.forEach(btn => btn.disabled = false);
     startTimer();
 }
 
@@ -284,32 +280,24 @@ function renderMedia(data, container) {
     container.innerHTML = '';
     if (!data.media) return;
     let html = '';
-    
     if (data.type === 'youtube') html = createYouTubeEmbed(data.media);
     else if (data.type === 'image') html = `<img src="${data.media}" class="img-fluid rounded">`;
     else if (data.type === 'video') html = `<video controls src="${data.media}" class="w-100 rounded"></video>`;
     else if (data.type === 'audio') html = `<audio controls src="${data.media}" class="w-100"></audio>`;
-    
     container.innerHTML = html;
 }
 
 function startTimer() {
     clearInterval(timerInterval);
     timeLeft = 60;
-    if(timerDisplay) {
-        timerDisplay.innerText = `${timeLeft}s`;
-        timerDisplay.classList.remove('timer-warning');
-    }
+    if(timerDisplay) { timerDisplay.innerText = `${timeLeft}s`; timerDisplay.classList.remove('timer-warning'); }
     timerInterval = setInterval(() => {
         timeLeft--;
         if(timerDisplay) {
             timerDisplay.innerText = `${timeLeft}s`;
             if (timeLeft <= 10) timerDisplay.classList.add('timer-warning');
         }
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            timeIsUp();
-        }
+        if (timeLeft <= 0) { clearInterval(timerInterval); timeIsUp(); }
     }, 1000);
 }
 
@@ -329,22 +317,18 @@ function disableOptions() {
 function selectAnswer(selectedBtn, questionData) {
     clearInterval(timerInterval);
     disableOptions();
-    
     if (selectedBtn.innerText === questionData.answer) {
         selectedBtn.classList.remove('btn-outline-dark');
         selectedBtn.classList.add('correct');
         playSound('sfx-correct');
-        
         if(gameMode === 'classroom' && teams.length > 1) teams[currentTeamIndex].score += POINTS_PER_Q;
         else teams[0].score += POINTS_PER_Q;
-
         if(userWantsExplanations) showExplanation(questionData);
         else nextBtn.classList.remove('d-none');
     } else {
         selectedBtn.classList.remove('btn-outline-dark');
         selectedBtn.classList.add('wrong');
         playSound('sfx-wrong');
-        
         if(revealBtn) revealBtn.classList.remove('d-none');
         else if(userWantsExplanations) showExplanation(questionData);
         else nextBtn.classList.remove('d-none');
@@ -361,7 +345,6 @@ function revealAnswer() {
         }
     });
     if(revealBtn) revealBtn.classList.add('d-none');
-    
     if(userWantsExplanations) showExplanation(currentData);
     else nextBtn.classList.remove('d-none');
 }
@@ -369,37 +352,23 @@ function revealAnswer() {
 function showExplanation(data) {
     const explainBox = document.getElementById('explanation-container');
     const safeNextBtn = document.getElementById('next-btn');
-
-    if(!data.explanation || !explainBox) { 
-        if(safeNextBtn) safeNextBtn.classList.remove('d-none'); 
-        return; 
-    }
-    
+    if(!data.explanation || !explainBox) { if(safeNextBtn) safeNextBtn.classList.remove('d-none'); return; }
     try {
         explainBox.classList.remove('d-none');
         document.getElementById('explain-text').innerHTML = data.explanation.text || "";
-
         const expMedia = document.getElementById('explain-media');
         const expLink = document.getElementById('explain-link');
-        
         if(expMedia) {
             expMedia.innerHTML = '';
             if(data.explanation.media) renderMedia({type: data.explanation.type || 'image', media: data.explanation.media}, expMedia);
             if(data.explanation.youtube) expMedia.innerHTML += createYouTubeEmbed(data.explanation.youtube);
         }
-        
         if(expLink) {
-            if(data.explanation.link) {
-                expLink.href = data.explanation.link;
-                expLink.classList.remove('d-none');
-            } else expLink.classList.add('d-none');
+            if(data.explanation.link) { expLink.href = data.explanation.link; expLink.classList.remove('d-none'); } 
+            else expLink.classList.add('d-none');
         }
-
-    } catch (err) {
-        console.error("Error displaying explanation:", err);
-    } finally {
-        if(safeNextBtn) safeNextBtn.classList.remove('d-none');
-    }
+    } catch (err) { console.error(err); } 
+    finally { if(safeNextBtn) safeNextBtn.classList.remove('d-none'); }
 }
 
 function nextTurn() {
@@ -408,17 +377,60 @@ function nextTurn() {
     else loadTurn();
 }
 
-function updateLeaderboardUI() {
-    if(!leaderboardBody) return;
+// ==========================================
+// NEW: CHART GENERATION LOGIC
+// ==========================================
+function updateLeaderboardGraph(canvasId) {
+    // 1. Sort teams by score
     const sortedTeams = [...teams].sort((a, b) => b.score - a.score);
-    let html = '';
-    sortedTeams.forEach(team => {
-        html += `<a class="list-group-item d-flex justify-content-between align-items-center">
-                    ${team.name}
-                    <span class="badge bg-primary rounded-pill">${team.score}</span>
-                 </a>`;
-    });
-    leaderboardBody.innerHTML = html;
+    const names = sortedTeams.map(t => t.name);
+    const scores = sortedTeams.map(t => t.score);
+    
+    // 2. Destroy old chart to prevent "reuse" errors
+    if(canvasId === 'leaderboardChart' && leaderboardChartInstance) {
+        leaderboardChartInstance.destroy();
+    }
+    if(canvasId === 'finalChart' && finalChartInstance) {
+        finalChartInstance.destroy();
+    }
+
+    // 3. Generate Colors
+    const bgColors = [
+        'rgba(255, 99, 132, 0.7)', 'rgba(54, 162, 235, 0.7)',
+        'rgba(255, 206, 86, 0.7)', 'rgba(75, 192, 192, 0.7)',
+        'rgba(153, 102, 255, 0.7)', 'rgba(255, 159, 64, 0.7)'
+    ];
+
+    // 4. Create New Chart
+    const ctx = document.getElementById(canvasId);
+    if(!ctx) return;
+
+    const config = {
+        type: 'bar',
+        data: {
+            labels: names,
+            datasets: [{
+                label: 'Points',
+                data: scores,
+                backgroundColor: bgColors,
+                borderColor: bgColors.map(c => c.replace('0.7', '1')),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true }
+            },
+            plugins: {
+                legend: { display: false } // Hide legend for cleaner look
+            }
+        }
+    };
+
+    if(canvasId === 'leaderboardChart') leaderboardChartInstance = new Chart(ctx, config);
+    if(canvasId === 'finalChart') finalChartInstance = new Chart(ctx, config);
 }
 
 function endGame() {
@@ -428,7 +440,6 @@ function endGame() {
     
     const maxScore = selectedQuestions.length * POINTS_PER_Q;
     const fw = document.getElementById('final-winner');
-    const fs = document.getElementById('final-standings');
 
     if(gameMode === 'single' || teams.length === 1) {
         const finalScore = teams[0].score;
@@ -436,15 +447,17 @@ function endGame() {
         let color = "text-danger";
         if(percentage >= 80) color = "text-success";
         else if (percentage >= 60) color = "text-warning";
-
-        fw.innerHTML = `<h2 class="${color} fw-bold">Score: ${finalScore} / ${maxScore}</h2>`;
-        fs.innerHTML = `<h4>(${Math.round(percentage)}%)</h4>`;
+        fw.innerHTML = `<h2 class="${color} fw-bold">Score: ${finalScore} / ${maxScore}</h2><h4>(${Math.round(percentage)}%)</h4>`;
+        // Hide graph canvas for single player
+        document.getElementById('finalChart').parentElement.style.display = 'none';
     } else {
-        updateLeaderboardUI();
         const sortedTeams = [...teams].sort((a, b) => b.score - a.score);
         const winner = sortedTeams[0];
         fw.innerHTML = `<h2 class="text-success fw-bold">Winner: ${winner.name}</h2>`;
-        fs.innerHTML = leaderboardBody.innerHTML;
+        
+        // Show Graph for teams
+        document.getElementById('finalChart').parentElement.style.display = 'block';
+        setTimeout(() => updateLeaderboardGraph('finalChart'), 100); // Small delay to ensure visible
     }
 }
 
@@ -452,11 +465,14 @@ function restartGame() {
     startScreen.classList.remove('d-none');
     resultScreen.classList.add('d-none');
     leaderboardScreen.classList.add('d-none');
+    if(leaderboardChartInstance) leaderboardChartInstance.destroy();
+    if(finalChartInstance) finalChartInstance.destroy();
 }
 
 function resetState() {
-    nextBtn.classList.add('d-none');
-    revealBtn.classList.add('d-none');
+    if(nextBtn) nextBtn.classList.add('d-none');
+    if(revealBtn) revealBtn.classList.add('d-none');
+    if(startTimerBtn) startTimerBtn.classList.add('d-none');
     document.getElementById('explanation-container').classList.add('d-none');
     optionsContainer.innerHTML = '';
     mediaContainer.innerHTML = '';
