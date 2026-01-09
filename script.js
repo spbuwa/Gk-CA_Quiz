@@ -487,11 +487,20 @@ function endGame() {
         if(percentage >= 80) color = "text-success";
         else if (percentage >= 60) color = "text-warning";
         fw.innerHTML = `<h2 class="${color} fw-bold">Score: ${finalScore} / ${maxScore}</h2><h4>(${Math.round(percentage)}%)</h4>`;
-        document.getElementById('finalChart').parentElement.style.display = 'none';
+        
+        // --- FIX STARTS HERE ---
+        // Show the graph container even for single player
+        document.getElementById('finalChart').parentElement.style.display = 'block';
+        // Generate the graph (One big bar for the player)
+        setTimeout(() => updateLeaderboardGraph('finalChart'), 100); 
+        // --- FIX ENDS HERE ---
+
     } else {
         const sortedTeams = [...teams].sort((a, b) => b.score - a.score);
         const winner = sortedTeams[0];
         fw.innerHTML = `<h2 class="text-success fw-bold">Winner: ${winner.name}</h2>`;
+        
+        // Show Graph for teams
         document.getElementById('finalChart').parentElement.style.display = 'block';
         setTimeout(() => updateLeaderboardGraph('finalChart'), 100); 
     }
