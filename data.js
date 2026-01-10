@@ -1011,5 +1011,54 @@ const quizDatabase = [
         "explanation": {
             "text": "Individuals are now primarily engaged with society through the market and consumption choices rather than civic duties or production."
         }
+    },
+
+    {
+        "id": 1715420001,
+        "category": "International Politics",
+        "type": "text",
+        "question": "In the context of the United States government, what does the acronym 'ICE' stand for?",
+        "options": [
+            "International Customs and Exports",
+            "Immigration and Customs Enforcement",
+            "Internal Control and Emergency",
+            "Intelligence and Cyber Espionage"
+        ],
+        "answer": "Immigration and Customs Enforcement",
+        "explanation": {
+            "text": "ICE is a federal law enforcement agency under the U.S. Department of Homeland Security, responsible for cross-border crime and illegal immigration."
+        }
+    },
+    {
+        "id": 1715420002,
+        "category": "History",
+        "type": "text",
+        "question": "Mohammad Reza Pahlavi was the last monarch (Shah) of which country before the 1979 Revolution?",
+        "options": [
+            "Iraq",
+            "Saudi Arabia",
+            "Iran",
+            "Afghanistan"
+        ],
+        "answer": "Iran",
+        "explanation": {
+            "text": "He ruled Iran until he was overthrown by the Islamic Revolution in 1979, leading to the establishment of an Islamic Republic under Ayatollah Khomeini."
+        }
+    },
+    {
+        "id": 1715420003,
+        "category": "International Politics",
+        "type": "text",
+        "question": "What is the primary responsibility of the U.S. agency known as ICE?",
+        "options": [
+            "Enforcing federal laws governing border control and immigration",
+            "Regulating the stock market and trade",
+            "Managing national parks and wildlife",
+            "Conducting foreign intelligence operations"
+        ],
+        "answer": "Enforcing federal laws governing border control and immigration",
+        "explanation": {
+            "text": "ICE was created in 2003 (post-9/11) to combine the enforcement arms of the former Immigration and Naturalization Service (INS) and the U.S. Customs Service."
+        }
     }
 ];
