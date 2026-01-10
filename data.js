@@ -929,5 +929,87 @@ const quizDatabase = [
         "explanation": {
             "link": "https://www.instagram.com/reels/C5Dti25SFZj/"
         }
+    },
+    {
+        "id": 1768026796450,
+        "category": "Sociology",
+        "type": "text",
+        "question": "Who coined the term \"Liquid Modernity\" to describe the condition of the contemporary world?",
+        "options": [
+            "Anthony Giddens",
+            "Ulrich Beck ",
+            "Zygmunt Bauman",
+            " Pierre Bourdieu"
+        ],
+        "answer": "Zygmunt Bauman",
+        "explanation": {
+            "text": "The Polish sociologist Zygmunt Bauman introduced the term in his 2000 book Liquid Modernity to characterize the shift from \"heavy\" or \"solid\" modernity to a \"light\" or \"liquid\" phase.",
+            "media": "assets/liquidModernity.jpg",
+            "type": "image"
+        }
+    },
+    {
+        "id": 1768027728933,
+        "category": "Sociology",
+        "type": "text",
+        "question": "Which of the following best describes the central characteristic of \"Liquid Modernity\"?",
+        "options": [
+            "The strengthening of traditional social institutions like the nuclear family and labor unions.",
+            "A society defined by constant change, uncertainty, and the inability of forms to keep their shape for long.",
+            "The focus on heavy industrial production and long-term capital accumulation.",
+            "A political system where the state has total control over the private lives of individuals."
+        ],
+        "answer": "A society defined by constant change, uncertainty, and the inability of forms to keep their shape for long.",
+        "explanation": {
+            "text": "Liquid modernity is defined by \"flux.\" Unlike \"solid\" modernity, where structures (jobs, relationships, institutions) were stable, liquid modernity is characterized by provisional, fragile, and temporary bonds.   <p>It is so true that in liquid modernity freedom was, so to speak, let off the leash, and for a quite a number of years the freedom of choice was \"in principle\" unlimited. One result was the weakening of inter-human bonds, particularly inherited bonds, and the counterfactual assumption that individuals must and can fend for themselves. - Zygmunt Bauman </p>"
+        }
+    },
+    {
+        "id": 1768027871363,
+        "category": "Sociology",
+        "type": "text",
+        "question": "In the context of Liquid Modernity, how does Bauman describe the shift in individual identity?",
+        "options": [
+            "Identity is fixed at birth by class and geography.",
+            "Identity is determined solely by the state.",
+            "Identity is a \"project\" that must be constantly reshaped and updated by the individual.",
+            "Identity is irrelevant in the modern world."
+        ],
+        "answer": "Identity is a \"project\" that must be constantly reshaped and updated by the individual.",
+        "explanation": {
+            "text": "In a liquid world, individuals are burdened with the responsibility of designing their own lives. Identities are no longer \"given\" but must be actively constructed (and frequently reconstructed) through consumption and lifestyle choices."
+        }
+    },
+    {
+        "id": 1768029664255,
+        "category": "Sociology",
+        "type": "text",
+        "question": "Which two figures does Bauman often use to illustrate the division of people in Liquid Modernity?",
+        "options": [
+            "The Bourgeoisie and the Proletariat",
+            "The Tourist and the Vagabond",
+            "The Fox and the Lion",
+            "The Scientist and the Politician"
+        ],
+        "answer": "The Tourist and the Vagabond",
+        "explanation": {
+            "text": "Bauman uses these metaphors to describe mobility. Tourists move because they want to (they have the resources to enjoy global mobility), while Vagabonds move because they have to (forced by poverty, war, or exclusion), but are often barred from entering secure places."
+        }
+    },
+    {
+        "id": 1768030215203,
+        "category": "Sociology",
+        "type": "text",
+        "question": "Bauman argues that in a liquid modern society, the 'citizen' is gradually replaced by which figure?",
+        "options": [
+            "The Consumer",
+            "The Producer",
+            "The Pilgrim",
+            "The Soldier"
+        ],
+        "answer": "The Consumer",
+        "explanation": {
+            "text": "Individuals are now primarily engaged with society through the market and consumption choices rather than civic duties or production."
+        }
     }
 ];
