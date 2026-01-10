@@ -38,20 +38,31 @@
                 <button id="btn-mode-class" class="btn btn-outline-primary active" onclick="setGameMode('classroom')">🏫 Classroom</button>
                 <button id="btn-mode-single" class="btn btn-outline-primary" onclick="setGameMode('single')">👤 Single Player</button>
             </div>
+            
             <div class="row g-4">
                 <div class="col-md-6">
                     <div id="classroom-panel">
                         <h4 class="mb-3">Select Classes</h4>
                         <div id="team-list" class="list-group border p-2" style="max-height: 250px; overflow-y: auto;"></div>
                     </div>
+                    
                     <div id="single-panel" class="d-none">
                         <h4 class="mb-3">Settings</h4>
+                        
+                        <label class="form-label fw-bold">Player Name:</label>
+                        <input type="text" id="player-name-input" class="form-control mb-3" placeholder="Enter Name">
+                        
                         <label class="form-label fw-bold">Number of Questions:</label>
                         <input type="number" id="num-questions" class="form-control form-control-lg" value="10" min="1" max="50">
                     </div>
                 </div>
+
                 <div class="col-md-6">
-                    <h4 class="mb-3">Categories</h4>
+                    <h4 class="mb-2">Select Year</h4>
+                    <div id="year-list" class="list-group border p-2 mb-4" style="max-height: 150px; overflow-y: auto;">
+                        </div>
+
+                    <h4 class="mb-2">Categories</h4>
                     <div id="category-list" class="list-group border p-2" style="max-height: 250px; overflow-y: auto;"></div>
                 </div>
             </div>

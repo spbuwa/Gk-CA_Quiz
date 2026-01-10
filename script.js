@@ -20,7 +20,7 @@ let timerInterval;
 let timeLeft = 60;
 let userWantsExplanations = true;
 let currentTeamIndex = -1;
-let matchHistory = []; // NEW: Stores the log of every answer
+let matchHistory = []; // Stores the log of every answer
 
 // CHART VARIABLES
 let leaderboardChartInstance = null;
@@ -47,7 +47,7 @@ const categoryList = document.getElementById('category-list');
 const teamList = document.getElementById('team-list');
 const errorMsg = document.getElementById('error-msg');
 const qTag = document.getElementById('q-tag');
-const answerSheetBody = document.getElementById('answer-sheet-body'); // NEW
+const answerSheetBody = document.getElementById('answer-sheet-body'); 
 
 // --- INIT ---
 window.onload = function() {
@@ -81,6 +81,24 @@ window.onload = function() {
                      </label>`;
         });
         categoryList.innerHTML = catHtml;
+    }
+
+    // 3. Populate Years (NEW)
+    const years = new Set();
+    quizDatabase.forEach(q => years.add(q.year || 2025)); // Default to 2025 if missing
+    
+    const yearList = document.getElementById('year-list');
+    if(yearList) {
+        let yearHtml = `<label class="list-group-item bg-light fw-bold">
+                        <input class="form-check-input me-2" type="checkbox" checked onchange="toggleAllYears(this)"> Select All
+                    </label>`;
+        // Sort years numerically
+        Array.from(years).sort().forEach(yr => {
+            yearHtml += `<label class="list-group-item">
+                        <input class="form-check-input me-2 year-chk" type="checkbox" value="${yr}" checked> ${yr}
+                     </label>`;
+        });
+        yearList.innerHTML = yearHtml;
     }
 }
 
@@ -128,6 +146,7 @@ function setGameMode(mode) {
 
 function toggleAllTeams(source) { document.querySelectorAll('.team-chk').forEach(cb => cb.checked = source.checked); }
 function toggleAllCats(source) { document.querySelectorAll('.cat-chk').forEach(cb => cb.checked = source.checked); }
+function toggleAllYears(source) { document.querySelectorAll('.year-chk').forEach(cb => cb.checked = source.checked); }
 
 function toggleFullScreen() {
     if (!document.fullscreenElement) document.documentElement.requestFullscreen();
@@ -156,6 +175,14 @@ function closeLeaderboard() {
 function startGame() {
     errorMsg.classList.add('d-none');
 
+    // 1. CAPTURE PLAYER NAME (Only for Single Player)
+    let playerNameInput = "Player 1";
+    const nameField = document.getElementById('player-name-input');
+    if (gameMode === 'single' && nameField && nameField.value.trim() !== "") {
+        playerNameInput = nameField.value.trim();
+    }
+
+    // 2. SETUP TEAMS
     if(gameMode === 'classroom') {
         const teamCheckboxes = document.querySelectorAll('.team-chk:checked');
         if(teamCheckboxes.length === 0) {
@@ -165,9 +192,10 @@ function startGame() {
         }
         teams = Array.from(teamCheckboxes).map(cb => ({ name: cb.value, score: 0 }));
     } else {
-        teams = [{ name: "Player 1", score: 0 }];
+        teams = [{ name: playerNameInput, score: 0 }];
     }
 
+    // 3. CHECK CATEGORIES
     const catCheckboxes = document.querySelectorAll('.cat-chk:checked');
     const allowedCats = Array.from(catCheckboxes).map(cb => cb.value);
     if(allowedCats.length === 0) {
@@ -175,7 +203,24 @@ function startGame() {
         errorMsg.classList.remove('d-none');
         return;
     }
-    const filteredDB = quizDatabase.filter(q => allowedCats.includes(q.category || "Uncategorized"));
+
+    // 4. CHECK YEARS
+    const yearCheckboxes = document.querySelectorAll('.year-chk:checked');
+    const allowedYears = Array.from(yearCheckboxes).map(cb => parseInt(cb.value));
+    
+    if(yearCheckboxes.length > 0 && allowedYears.length === 0) {
+        errorMsg.innerText = "Please select at least one Year!";
+        errorMsg.classList.remove('d-none');
+        return;
+    }
+
+    // 5. FILTER DATABASE
+    const filteredDB = quizDatabase.filter(q => {
+        const catMatch = allowedCats.includes(q.category || "Uncategorized");
+        const qYear = q.year || 2025; 
+        const yearMatch = (yearCheckboxes.length === 0) ? true : allowedYears.includes(qYear);
+        return catMatch && yearMatch;
+    });
     
     let totalQuestionsNeeded = (gameMode === 'classroom') ? teams.length * MAX_ROUNDS : (parseInt(document.getElementById('num-questions').value) || 10);
     
@@ -185,21 +230,24 @@ function startGame() {
         return;
     }
 
+    // 6. INITIALIZE GAME
     const shuffled = [...filteredDB].sort(() => 0.5 - Math.random());
     selectedQuestions = shuffled.slice(0, totalQuestionsNeeded);
     
     userWantsExplanations = document.getElementById('show-explain').checked;
     currentRound = 1;
     currentQuestionIndex = 0;
-    matchHistory = []; // Reset history
+    matchHistory = []; 
     
     startScreen.classList.add('d-none');
     resultScreen.classList.add('d-none');
     quizScreen.classList.remove('d-none');
     
-    if(gameMode === 'classroom') startNewRound();
-    else {
-        turnBanner.innerText = "Single Player Mode";
+    if(gameMode === 'classroom') {
+        startNewRound();
+    } else {
+        // --- THIS IS THE UPDATED MESSAGE ---
+        turnBanner.innerText = `All the best, ${teams[0].name}!`; 
         roundDisplay.innerText = "Single Player";
         loadTurn();
     }
@@ -228,6 +276,7 @@ function loadTurn() {
     // Determine who is playing
     let currentTeamName = "Player 1";
     if(gameMode === 'single' || teams.length === 1) {
+        currentTeamName = teams[0].name; // Use the stored name
         if(qRemaining) qRemaining.innerText = `Q: ${currentQuestionIndex + 1} / ${selectedQuestions.length}`;
     } else {
         if (teamQueue.length === 0) {
@@ -256,8 +305,7 @@ function loadTurn() {
     qTag.innerText = currentData.category || "General"; 
     renderMedia(currentData, mediaContainer);
 
-    // NEW: Randomize Options
-    // Create a copy so we don't mess up the original data
+    // Randomize Options
     let shuffledOptions = [...currentData.options];
     shuffledOptions.sort(() => Math.random() - 0.5);
 
@@ -314,9 +362,8 @@ function startTimer() {
 function timeIsUp() {
     disableOptions();
     
-    // RECORD RESULT (Time Out)
     const currentQ = selectedQuestions[currentQuestionIndex];
-    let teamName = "Player 1";
+    let teamName = teams[0].name; // Default for Single
     if(gameMode === 'classroom' && teams.length > 0 && currentTeamIndex >= 0) {
         teamName = teams[currentTeamIndex].name;
     }
@@ -346,7 +393,7 @@ function selectAnswer(selectedBtn, questionData) {
     disableOptions();
     
     let isCorrect = false;
-    let teamName = "Player 1";
+    let teamName = teams[0].name; // Default for Single
     if(gameMode === 'classroom' && teams.length > 0 && currentTeamIndex >= 0) {
         teamName = teams[currentTeamIndex].name;
     }
@@ -366,7 +413,6 @@ function selectAnswer(selectedBtn, questionData) {
         isCorrect = false;
     }
     
-    // RECORD RESULT
     matchHistory.push({
         qNum: currentQuestionIndex + 1,
         team: teamName,
@@ -488,30 +534,23 @@ function endGame() {
         else if (percentage >= 60) color = "text-warning";
         fw.innerHTML = `<h2 class="${color} fw-bold">Score: ${finalScore} / ${maxScore}</h2><h4>(${Math.round(percentage)}%)</h4>`;
         
-        // --- FIX STARTS HERE ---
-        // Show the graph container even for single player
         document.getElementById('finalChart').parentElement.style.display = 'block';
-        // Generate the graph (One big bar for the player)
         setTimeout(() => updateLeaderboardGraph('finalChart'), 100); 
-        // --- FIX ENDS HERE ---
 
     } else {
         const sortedTeams = [...teams].sort((a, b) => b.score - a.score);
         const winner = sortedTeams[0];
         fw.innerHTML = `<h2 class="text-success fw-bold">Winner: ${winner.name}</h2>`;
         
-        // Show Graph for teams
         document.getElementById('finalChart').parentElement.style.display = 'block';
         setTimeout(() => updateLeaderboardGraph('finalChart'), 100); 
     }
 }
 
-// NEW: Render Table
 function renderAnswerSheet() {
     if(!answerSheetBody) return;
     let html = '';
     matchHistory.forEach(record => {
-        // Truncate long questions
         let shortQ = record.question.length > 50 ? record.question.substring(0, 50) + "..." : record.question;
         let rowClass = record.isCorrect ? 'table-success' : 'table-danger';
         let icon = record.isCorrect ? '✅' : '❌';
@@ -546,21 +585,18 @@ function resetState() {
 }
 
 // ==========================================
-// NEW: SAVE / EXPORT FUNCTIONS
+// SAVE / EXPORT FUNCTIONS
 // ==========================================
 
 function downloadCSV() {
-    // UPDATED to download the detailed match history
     const now = new Date();
     const dateString = now.toLocaleDateString().replace(/\//g, '-');
     const filename = `Quiz_Report_${dateString}.csv`;
 
     let csvContent = "data:text/csv;charset=utf-8,";
-    // Header
     csvContent += "Q No,Team Name,Question,Selected Answer,Correct Answer,Result\n";
 
     matchHistory.forEach(rec => {
-        // Escape commas in text to prevent breaking CSV
         const safeQ = `"${rec.question.replace(/"/g, '""')}"`;
         const safeSel = `"${rec.selected.replace(/"/g, '""')}"`;
         const safeAns = `"${rec.correct.replace(/"/g, '""')}"`;

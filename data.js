@@ -1,6 +1,6 @@
 const quizDatabase = [
     {
-        "id": 1763889773469,
+        "year": 2025, "id": 1763889773469,
         "type": "text",
         "question": "Who is the current US Vice President? (as of November 2025)",
         "options": [
@@ -19,7 +19,7 @@ const quizDatabase = [
         "category": "Current affairs"
     },
     {
-        "id": 1763890809701,
+        "year": 2025, "id": 1763890809701,
         "type": "image",
         "question": "Who is the person sitting between PM Indira Gandhi and Mrs Pupul Jaykar?",
         "options": [
@@ -39,7 +39,7 @@ const quizDatabase = [
         "category": "Indian Politics"
     },
     {
-        "id": 1763905420303,
+        "year": 2025, "id": 1763905420303,
         "type": "image",
         "question": "\"आता थांबायचा नाय\" या मराठी चित्रपटाचे दिग्दर्शक कोण आहेत ?",
         "options": [
@@ -57,7 +57,7 @@ const quizDatabase = [
         "category": "Arts, literature, culture, movies, sports"
     },
     {
-        "id": 1763905957884,
+        "year": 2025, "id": 1763905957884,
         "type": "text",
         "question": "'iGOT Karmayogi' is a learning platform in India for  _____________.",
         "options": [
@@ -74,7 +74,7 @@ const quizDatabase = [
         "category": "Current affairs"
     },
     {
-        "id": 1763913955086,
+        "year": 2025, "id": 1763913955086,
         "category": "Commerce and Economy",
         "type": "text",
         "question": "The DICGC - Deposit Insurance and Credit Guarantee Corporation protects deposits of Rs. __________ per depositor, per bank, covering both principal and interest.",
@@ -91,7 +91,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1763914307799,
+        "year": 2025, "id": 1763914307799,
         "category": "Commerce and Economy",
         "type": "text",
         "question": "In which of the following country the Indian Rupee is strongest?",
@@ -108,7 +108,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1765021838533,
+        "year": 2025, "id": 1765021838533,
         "category": "Technology",
         "type": "text",
         "question": "What is the primary purpose of a \"firewall\" in computer networking?",
@@ -121,7 +121,7 @@ const quizDatabase = [
         "answer": "To block unauthorized access to a network by monitoring incoming and outgoing traffic"
     },
     {
-        "id": 1765022258145,
+        "year": 2025, "id": 1765022258145,
         "category": "Technology",
         "type": "text",
         "question": "In the context of online privacy, what is \"two-factor authentication\" (2FA) designed to prevent?",
@@ -137,7 +137,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767176494662,
+        "year": 2025, "id": 1767176494662,
         "category": "Technology",
         "type": "text",
         "question": "In the context of Generative AI, what does the term 'Hallucination' refer to?",
@@ -153,7 +153,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767176595861,
+        "year": 2025, "id": 1767176595861,
         "category": "Technology",
         "type": "text",
         "question": "Why are 'Solid-State Batteries' considered the next big leap for Electric Vehicles (EVs) over current Lithium-Ion batteries?",
@@ -166,7 +166,7 @@ const quizDatabase = [
         "answer": "They offer higher energy density, faster charging, and lower fire risk."
     },
     {
-        "id": 1767177267014,
+        "year": 2025, "id": 1767177267014,
         "category": "Technology",
         "type": "text",
         "question": "What is a 'Digital Twin' in industries like manufacturing or healthcare?",
@@ -182,7 +182,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767178422047,
+        "year": 2025, "id": 1767178422047,
         "category": "Technology",
         "type": "text",
         "question": "What distinguishes 'Green Hydrogen' from other fuel sources?",
@@ -198,7 +198,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767179074311,
+        "year": 2025, "id": 1767179074311,
         "category": "Technology",
         "type": "text",
         "question": "What is the key characteristic of 'Level 5' Autonomous Driving?",
@@ -214,7 +214,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767183835165,
+        "year": 2025, "id": 1767183835165,
         "category": "Technology",
         "type": "text",
         "question": "CRISPR technology has advanced significantly by 2025. What is its primary use?",
@@ -231,7 +231,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767184543025,
+        "year": 2025, "id": 1767184543025,
         "category": "Technology",
         "type": "text",
         "question": "What is 'Neuromorphic Computing'?",
@@ -248,7 +248,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767185105249,
+        "year": 2025, "id": 1767185105249,
         "category": "Technology",
         "type": "text",
         "question": "What is the main advantage of 'Vertical Farming' in urban areas?",
@@ -265,7 +265,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767186249039,
+        "year": 2025, "id": 1767186249039,
         "category": "Technology",
         "type": "text",
         "question": "What is 'Li-Fi' and how does it differ from Wi-Fi?",
@@ -281,7 +281,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767186646258,
+        "year": 2025, "id": 1767186646258,
         "category": "Technology",
         "type": "text",
         "question": "What is 'Algorithmic Bias' in Artificial Intelligence?",
@@ -298,7 +298,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767186975401,
+        "year": 2025, "id": 1767186975401,
         "category": "Technology",
         "type": "text",
         "question": "What is the core concept behind 'Web3'?",
@@ -315,7 +315,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767187402567,
+        "year": 2025, "id": 1767187402567,
         "category": "Technology",
         "type": "text",
         "question": "What is 'Carbon Capture' technology?",
@@ -332,7 +332,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767188355109,
+        "year": 2025, "id": 1767188355109,
         "category": "Technology",
         "type": "text",
         "question": "What is a 'Brain-Computer Interface' (BCI)?",
@@ -349,7 +349,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767188899805,
+        "year": 2025, "id": 1767188899805,
         "category": "Technology",
         "type": "text",
         "question": "Why are Quantum Computers expected to be powerful?",
@@ -366,7 +366,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767189158904,
+        "year": 2025, "id": 1767189158904,
         "category": "Technology",
         "type": "text",
         "question": "What is an 'eSIM'?",
@@ -383,7 +383,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767189498535,
+        "year": 2025, "id": 1767189498535,
         "category": "Technology",
         "type": "text",
         "question": "What Ransomware does to your computer?",
@@ -400,7 +400,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767190325720,
+        "year": 2025, "id": 1767190325720,
         "category": "Technology",
         "type": "text",
         "question": "In 2025, 'Generative AI' is a common term. What is the primary function of this technology?",
@@ -417,24 +417,24 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767374426492,
+        "year": 2025, "id": 1767374426492,
         "category": "Current affairs",
         "type": "text",
         "question": "One Nation One Data (ONOD) is a government initiative in India designed to streamline data management, primarily within the ___________.",
         "options": [
             "Armed forces",
             "Central Government Administration",
-            "Higher Education sector.",
+            "Higher Education sector",
             "Private sector software industries"
         ],
-        "answer": "Higher Education sector.",
+        "answer": "Higher Education sector",
         "explanation": {
             "text": "One Nation One Data (ONOD) is a government initiative in India designed to streamline data management, primarily within the Higher Education sector.  The core concept is \"Submit Once, Use Everywhere.\" It aims to replace the current system where colleges and universities must submit the same data multiple times to different regulatory bodies (like NAAC, NIRF, and AICTE), often leading to discrepancies and heavy administrative burdens.",
             "link": "https://onod.aicte-india.org/"
         }
     },
     {
-        "id": 1767375879003,
+        "year": 2025, "id": 1767375879003,
         "category": "Current affairs",
         "type": "text",
         "question": "The National Fingerprint Number given under NAFIS has _______ digits.",
@@ -451,7 +451,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767376199036,
+        "year": 2025, "id": 1767376199036,
         "category": "Commerce and Economy",
         "type": "text",
         "question": "Which of the following scenarios best illustrates the economic concept of Information Asymmetry?",
@@ -467,7 +467,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767409991188,
+        "year": 2025, "id": 1767409991188,
         "category": "International relations",
         "type": "text",
         "question": "Security And Growth for All in the Region - The SAGAR doctrine, India's foreign policy initiative, launched in 2015, is mainly related to which of the following regions?",
@@ -484,7 +484,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767412359468,
+        "year": 2025, "id": 1767412359468,
         "category": "Geography",
         "type": "text",
         "question": "The Persian Gulf is connected to the Arabian Sea through which strait?",
@@ -503,7 +503,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767414267861,
+        "year": 2025, "id": 1767414267861,
         "category": "Geography",
         "type": "text",
         "question": "Which of the following countries border both Atlantic and Indian Oceans?",
@@ -520,7 +520,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767414587101,
+        "year": 2025, "id": 1767414587101,
         "category": "Geography",
         "type": "text",
         "question": "What is the highest mountain in Africa?",
@@ -536,7 +536,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767414867883,
+        "year": 2025, "id": 1767414867883,
         "category": "Geography",
         "type": "text",
         "question": "Which is the largest country in Africa by land area?",
@@ -553,7 +553,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767415362281,
+        "year": 2025, "id": 1767415362281,
         "category": "Geography",
         "type": "text",
         "question": "Which of the following is the capital city of Nigeria ?",
@@ -572,7 +572,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767416709345,
+        "year": 2025, "id": 1767416709345,
         "category": "Geography",
         "type": "text",
         "question": "How many countries are there in Africa?",
@@ -588,7 +588,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767417393425,
+        "year": 2025, "id": 1767417393425,
         "category": "Geography",
         "type": "text",
         "question": "The Nile River flows northward through northeastern Africa and finally empties into the _____________. ",
@@ -604,7 +604,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767849517190,
+        "year": 2025, "id": 1767849517190,
         "category": "Arts, literature, culture, movies, sports",
         "type": "text",
         "question": "\"अंगारमळा\" हे कोणाचे आत्मचरित्र आहे ?",
@@ -621,7 +621,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767850616635,
+        "year": 2025, "id": 1767850616635,
         "category": "Technology",
         "type": "text",
         "question": "What is hotlinking?",
@@ -637,7 +637,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767850884632,
+        "year": 2025, "id": 1767850884632,
         "category": "Psychology",
         "type": "text",
         "question": "What is Dunning-Kruger effect?",
@@ -653,23 +653,23 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767851984161,
+        "year": 2025, "id": 1767851984161,
         "category": "Current affairs",
         "type": "text",
         "question": "What do you mean by GYAN Pillars?",
         "options": [
-            "Key focus areas of India's development under current government -",
+            "Key focus areas of India's development under current government - Poor, Youth, Farmer, Women",
             "The Chardham - Gangotri, Yamnotri, Badrinarayan, Kedarnath",
             "The Executive, Legislature, Judiciary and the Press",
             "Badrinath, Dwarka, Puri and Rameshwar"
         ],
-        "answer": "Key focus areas of India's development under current government -",
+        "answer": "Key focus areas of India's development under current government - Poor, Youth, Farmer, Women",
         "explanation": {
             "text": "\"Gyan Pillars\" refer to key focus areas for India's development under the current government, standing for Garib (Poor), Yuva (Youth), Annadata (Farmer/Food Provider), and Nari Shakti (Women Power), aiming for inclusive growth towards a developed India (Viksit Bharat). "
         }
     },
     {
-        "id": 1767866132531,
+        "year": 2025, "id": 1767866132531,
         "category": "History",
         "type": "text",
         "question": "\"Operation Polo\" was an Indian military operation to annex ____________.",
@@ -685,7 +685,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767866212981,
+        "year": 2025, "id": 1767866212981,
         "category": "Indian Politics",
         "type": "text",
         "question": "Which of the following states was created primarily based on ethnic and tribal identity?",
@@ -701,7 +701,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767874288646,
+        "year": 2025, "id": 1767874288646,
         "category": "Indian Politics",
         "type": "text",
         "question": "One of the criteria for a political party to be recognised as a national party is,  ___________.",
@@ -717,7 +717,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767874785032,
+        "year": 2025, "id": 1767874785032,
         "category": "Indian Politics",
         "type": "text",
         "question": "How many Municipal Corporations are there in Maharashtra",
@@ -733,7 +733,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767875572594,
+        "year": 2025, "id": 1767875572594,
         "category": "Current affairs",
         "type": "text",
         "question": "The term “Einstein Visa” commonly refers to which category of U.S. visa?",
@@ -749,7 +749,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767876074660,
+        "year": 2025, "id": 1767876074660,
         "category": "Arts, literature, culture, movies, sports",
         "type": "text",
         "question": "Leather pants are most commonly associated with which of the following cultural or social trends?",
@@ -765,7 +765,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767889334922,
+        "year": 2025, "id": 1767889334922,
         "category": "Personalities",
         "type": "image",
         "question": "Name the person in the image",
@@ -782,7 +782,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767889731553,
+        "year": 2025, "id": 1767889731553,
         "category": "Personalities",
         "type": "image",
         "question": "Elon Musk is an immigrant in USA who was born in ______________.",
@@ -799,7 +799,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767890467866,
+        "year": 2025, "id": 1767890467866,
         "category": "Arts, literature, culture, movies, sports",
         "type": "text",
         "question": "Chhath Pooja, an ancient festival celebrated in Bihar, Jharkhand, Eastern UP and Nepal's Mithila region is dedicated to Chhathi Maiya and ___________.",
@@ -815,7 +815,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767890724314,
+        "year": 2025, "id": 1767890724314,
         "category": "Arts, literature, culture, movies, sports",
         "type": "text",
         "question": "What is the defining characteristic of a musical 'jam session' compared to a formal rehearsal?",
@@ -831,7 +831,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767891456110,
+        "year": 2025, "id": 1767891456110,
         "category": "International relations",
         "type": "text",
         "question": "What is the meaning of \"Watermelons in the army\" in Myanmar?",
@@ -847,7 +847,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767892642292,
+        "year": 2025, "id": 1767892642292,
         "category": "General",
         "type": "text",
         "question": "When is World Braille Day celebrated every year?",
@@ -863,7 +863,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767925454078,
+        "year": 2025, "id": 1767925454078,
         "category": "Environment",
         "type": "text",
         "question": "The International Day For Clean Energy is celebrated annually on __________________.",
@@ -879,7 +879,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767926713006,
+        "year": 2025, "id": 1767926713006,
         "category": "Arts, literature, culture, movies, sports",
         "type": "image",
         "question": "Name the person the image shown below",
@@ -896,7 +896,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767927500536,
+        "year": 2025, "id": 1767927500536,
         "category": "Environment",
         "type": "image",
         "question": "Name the person in the image below",
@@ -914,7 +914,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1767929931027,
+        "year": 2025, "id": 1767929931027,
         "category": "Personalities",
         "type": "image",
         "question": "Name the person in the image below",
@@ -931,7 +931,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1768026796450,
+        "year": 2025, "id": 1768026796450,
         "category": "Sociology",
         "type": "text",
         "question": "Who coined the term \"Liquid Modernity\" to describe the condition of the contemporary world?",
@@ -949,7 +949,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1768027728933,
+        "year": 2025, "id": 1768027728933,
         "category": "Sociology",
         "type": "text",
         "question": "Which of the following best describes the central characteristic of \"Liquid Modernity\"?",
@@ -965,7 +965,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1768027871363,
+        "year": 2025, "id": 1768027871363,
         "category": "Sociology",
         "type": "text",
         "question": "In the context of Liquid Modernity, how does Bauman describe the shift in individual identity?",
@@ -981,7 +981,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1768029664255,
+        "year": 2025, "id": 1768029664255,
         "category": "Sociology",
         "type": "text",
         "question": "Which two figures does Bauman often use to illustrate the division of people in Liquid Modernity?",
@@ -997,7 +997,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1768030215203,
+        "year": 2025, "id": 1768030215203,
         "category": "Sociology",
         "type": "text",
         "question": "Bauman argues that in a liquid modern society, the 'citizen' is gradually replaced by which figure?",
@@ -1014,7 +1014,7 @@ const quizDatabase = [
     },
 
     {
-        "id": 1715420001,
+        "year": 2025, "id": 1715420001,
         "category": "International Politics",
         "type": "text",
         "question": "In the context of the United States government, what does the acronym 'ICE' stand for?",
@@ -1030,7 +1030,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1715420002,
+        "year": 2025, "id": 1715420002,
         "category": "History",
         "type": "text",
         "question": "Mohammad Reza Pahlavi was the last monarch (Shah) of which country before the 1979 Revolution?",
@@ -1046,7 +1046,7 @@ const quizDatabase = [
         }
     },
     {
-        "id": 1715420003,
+        "year": 2025, "id": 1715420003,
         "category": "International Politics",
         "type": "text",
         "question": "What is the primary responsibility of the U.S. agency known as ICE?",
