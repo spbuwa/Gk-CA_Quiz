@@ -85,6 +85,26 @@ const quizDatabase = [
         }
     },
     {
+        "id": 1768135563486,
+        "year": 2025,
+        "category": "Arts, literature, culture, movies, sports",
+        "type": "video",
+        "question": "Who is the main singer of this song?",
+        "options": [
+            "Imran Hashmi",
+            "Baba Sehegal",
+            "Zubin Garg",
+            "Yo Yo Honey Singh"
+        ],
+        "answer": "Zubin Garg",
+        "media": "assets/assam.mov",
+        "explanation": {
+            "text": "Zubeen Garg[a] (18 November 1972 – 19 September 2025) was an Indian musician, composer, singer, songwriter, instrumentalist, actor, director, filmmaker, poet and philanthropist who primarily worked and sang in the Assamese, Bengali, and Hindi-language films and music industries.[1] He also sang in 40 other languages and dialects, including Bishnupriya Manipuri, Adi, Boro, Dimasa, English, Goalpariya, Gujarati, Kannada, Karbi, Malayalam, Marathi, Mising, Nepali, Bhojpuri, Odia, Sadri, Sanskrit, Sindhi, Tamil, Telugu, Tiwa and Urdu.[2][3][4]",
+            "link": "https://en.wikipedia.org/wiki/Zubeen_Garg",
+            "youtube": "https://www.youtube.com/watch?v=HPzXEB_8Z8M"
+        }
+    },
+    {
         "id": 1768131554672,
         "year": 2025,
         "category": "Indian Constitution",
