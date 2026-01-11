@@ -246,7 +246,6 @@ function startGame() {
     if(gameMode === 'classroom') {
         startNewRound();
     } else {
-        // --- THIS IS THE UPDATED MESSAGE ---
         turnBanner.innerText = `All the best, ${teams[0].name}!`; 
         roundDisplay.innerText = "Single Player";
         loadTurn();
@@ -273,10 +272,9 @@ function resumeGame() {
 }
 
 function loadTurn() {
-    // Determine who is playing
     let currentTeamName = "Player 1";
     if(gameMode === 'single' || teams.length === 1) {
-        currentTeamName = teams[0].name; // Use the stored name
+        currentTeamName = teams[0].name;
         if(qRemaining) qRemaining.innerText = `Q: ${currentQuestionIndex + 1} / ${selectedQuestions.length}`;
     } else {
         if (teamQueue.length === 0) {
@@ -334,14 +332,34 @@ function manualStartTimer() {
     startTimer();
 }
 
+// --- MODIFIED RENDER MEDIA FUNCTION (iPhone Fix) ---
 function renderMedia(data, container) {
     container.innerHTML = '';
     if (!data.media) return;
     let html = '';
-    if (data.type === 'youtube') html = createYouTubeEmbed(data.media);
-    else if (data.type === 'image') html = `<img src="${data.media}" class="img-fluid rounded">`;
-    else if (data.type === 'video') html = `<video controls src="${data.media}" class="w-100 rounded"></video>`;
-    else if (data.type === 'audio') html = `<audio controls src="${data.media}" class="w-100"></audio>`;
+
+    // 1. YouTube
+    if (data.type === 'youtube') {
+        html = createYouTubeEmbed(data.media);
+    } 
+    // 2. Video Files (FIXED for iPhone)
+    else if (data.type === 'video') {
+        // We add 'playsinline' and multiple source tags to force iOS compatibility
+        html = `<video controls playsinline webkit-playsinline preload="auto" class="w-100 rounded" style="max-height:400px; background: #000;">
+                    <source src="${data.media}" type="video/mp4">
+                    <source src="${data.media}" type="video/quicktime">
+                    Your browser does not support the video tag.
+                </video>`;
+    } 
+    // 3. Audio Files
+    else if (data.type === 'audio') {
+        html = `<audio controls src="${data.media}" class="w-100"></audio>`;
+    }
+    // 4. Images (Default)
+    else {
+        html = `<img src="${data.media}" class="img-fluid rounded" style="max-height:400px;">`;
+    }
+    
     container.innerHTML = html;
 }
 
@@ -363,7 +381,7 @@ function timeIsUp() {
     disableOptions();
     
     const currentQ = selectedQuestions[currentQuestionIndex];
-    let teamName = teams[0].name; // Default for Single
+    let teamName = teams[0].name; 
     if(gameMode === 'classroom' && teams.length > 0 && currentTeamIndex >= 0) {
         teamName = teams[currentTeamIndex].name;
     }
@@ -393,7 +411,7 @@ function selectAnswer(selectedBtn, questionData) {
     disableOptions();
     
     let isCorrect = false;
-    let teamName = teams[0].name; // Default for Single
+    let teamName = teams[0].name;
     if(gameMode === 'classroom' && teams.length > 0 && currentTeamIndex >= 0) {
         teamName = teams[currentTeamIndex].name;
     }
@@ -455,9 +473,16 @@ function showExplanation(data) {
         document.getElementById('explain-text').innerHTML = data.explanation.text || "";
         const expMedia = document.getElementById('explain-media');
         const expLink = document.getElementById('explain-link');
+        
         if(expMedia) {
             expMedia.innerHTML = '';
-            if(data.explanation.media) renderMedia({type: data.explanation.type || 'image', media: data.explanation.media}, expMedia);
+            // Pass media to our improved render function
+            if(data.explanation.media) {
+                renderMedia({
+                    type: data.explanation.type || 'image', 
+                    media: data.explanation.media
+                }, expMedia);
+            }
             if(data.explanation.youtube) expMedia.innerHTML += createYouTubeEmbed(data.explanation.youtube);
         }
         if(expLink) {
