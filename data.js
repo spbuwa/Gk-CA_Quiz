@@ -1196,5 +1196,183 @@ const quizDatabase = [
         "explanation": {
             "text": "ICE is a federal law enforcement agency under the U.S. Department of Homeland Security, responsible for cross-border crime and illegal immigration."
         }
+    },
+    {
+        "id": 1768187274008,
+        "year": 2025,
+        "category": "Economics",
+        "type": "text",
+        "question": "India has overtaken which country to become the world’s fourth-largest economy by GDP size?",
+        "options": [
+            "UK",
+            "Germany",
+            "France",
+            "Japan"
+        ],
+        "answer": "Japan",
+        "explanation": {
+            "text": "India surpassed Japan to become the world’s fourth largest economy, with GDP near ~$4.2 trillion.",
+            "link": "https://economictimes.indiatimes.com/news/economy/indicators/india-beats-japan-to-become-worlds-4th-largest-economy/articleshow/126258387.cms"
+        }
+    },
+    {
+        "id": 1768187274009,
+        "year": 2025,
+        "category": "Economics",
+        "type": "text",
+        "question": "Which index reflects ease of living, not income?",
+        "options": [
+            "Consumer Price Index",
+            "Human Development Index",
+            "Happiness Index",
+            "Whole Price Index"
+        ],
+        "answer": "Happiness Index",
+        "explanation": {
+            "text": "The Happiness Index measures life satisfaction, well-being, and ease of living, not just income or education.",
+            "link": "https://www.insightsonindia.com/2025/03/21/the-world-happiness-report-2025/"
+        }
+    },
+    {
+        "id": 1768187274010,
+        "year": 2025,
+        "category": "Economics",
+        "type": "text",
+        "question": "Who is the current Governor of the Reserve Bank of India (RBI)? (As of Jan 2026)",
+        "options": [
+            "Mr.Shaktikanta Das",
+            "Mr.Urjit Patel",
+            "Mr.Sanjay Malhotra",
+            "Mr.Raghuram Rajan"
+        ],
+        "answer": "Mr.Sanjay Malhotra",
+        "explanation": {
+            "text": "Shri Sanjay Malhotra assumed charge as the 26th RBI Governor in December 2024.",
+            "link": "https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=59281"
+        }
+    },
+    {
+        "id": 1768187274011,
+        "year": 2025,
+        "category": "Economics",
+        "type": "text",
+        "question": "Which sector contributes the largest share to India’s GDP (as of 2025–26)?",
+        "options": [
+            "Agriculture",
+            "Industry",
+            "Services",
+            "Manufacturing"
+        ],
+        "answer": "Services",
+        "explanation": {
+            "text": "The services sector contributes around 55–60% of India’s GDP, driven by IT, finance, and trade-related activities.",
+            "link": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2098048&reg=3&lang=2"
+        }
+    },
+    {
+        "id": 1768187274012,
+        "year": 2025,
+        "category": "Economics",
+        "type": "text",
+        "question": "Which organization compiles India’s GDP data?",
+        "options": [
+            "NITI Aayog",
+            "Reserve Bank of India (RBI)",
+            "Ministry of Finance",
+            "National Statistical Office (NSO)"
+        ],
+        "answer": "National Statistical Office (NSO)",
+        "explanation": {
+            "text": "The NSO, under the Ministry of Statistics and Programme Implementation (MoSPI), is responsible for compiling and publishing national income (GDP) data."
+        }
+    },
+    {
+        "id": 1768187274013,
+        "year": 2025,
+        "category": "Economics",
+        "type": "text",
+        "question": "According to the Human Development Index Report 2025, what is India's rank?",
+        "options": [
+            "130",
+            "125",
+            "140",
+            "135"
+        ],
+        "answer": "130",
+        "explanation": {
+            "text": "According to UNDP Human Development Report 2025, India ranks 130/193 countries.India is in Medium Human Development category (HDI 0.685).",
+            "link": "https://www.undp.org/india/press-releases/indias-human-development-continues-make-progress-ranks-130-out-193-countries"
+        }
+    },
+    {
+        "id": 1768187274014,
+        "year": 2025,
+        "category": "Economics",
+        "type": "text",
+        "question": "“Make in India” contributes to which long-term vision of India?",
+        "options": [
+            "Digital India only",
+            "Swachh Bharat only",
+            "Start-Up India only",
+            "Viksit Bharat @ 2047"
+        ],
+        "answer": "Viksit Bharat @ 2047",
+        "explanation": {
+            "text": "Manufacturing expansion under Make in India is a core pillar of Viksit Bharat @ 2047, aimed at making India a developed, high-income, and globally competitive nation by 2047."
+        }
+    },
+    {
+        "id": 1768187274015,
+        "year": 2025,
+        "category": "Economics",
+        "type": "text",
+        "question": "GST reforms in 2025 simplified tax slabs into:",
+        "options": [
+            "One slab",
+            "Two main slabs",
+            "Three slabs",
+            "No GST"
+        ],
+        "answer": "Two main slabs",
+        "explanation": {
+            "text": "The latest reforms mark a major simplification of the GST structure. The shift to a two-slab system of 5% and 18%, removing the earlier 12% and 28% rates, will make taxation more transparent and easier to follow.",
+            "link": "https://www.india.gov.in/spotlight/details/gst-reforms-2025"
+        }
+    },
+    {
+        "id": 1768187274016,
+        "year": 2025,
+        "category": "Economics",
+        "type": "text",
+        "question": "As per the World Happiness Report 2025, India’s global happiness rank is:",
+        "options": [
+            "118",
+            "126",
+            "130",
+            "124"
+        ],
+        "answer": "118",
+        "explanation": {
+            "text": "In the World Happiness Report 2025, India ranked 118th out of 147 countries, an improvement from its 126th position in the previous year. The ranking is based on life satisfaction surveys and factors such as GDP per capita, social support, life expectancy, freedom, generosity, and perceived corruption.The highest rank India recorded historically was 94th in 2011.",
+            "link": "https://www.insightsonindia.com/2025/03/21/the-world-happiness-report-2025/"
+        }
+    },
+    {
+        "id": 1768187274018,
+        "year": 2025,
+        "category": "Economics",
+        "type": "text",
+        "question": "Which income group gets complete tax exemption under the new tax regime in Budget 2025?",
+        "options": [
+            "Up to ₹5 lakh",
+            "Up to ₹8 lakh",
+            "Up to ₹12 lakh",
+            "Up to ₹15 lakh"
+        ],
+        "answer": "Up to ₹12 lakh",
+        "explanation": {
+            "text": "Up to ₹12 lakh",
+            "link": "https://economictimes.indiatimes.com/news/newsblogs/budget-2025-live-updates-union-budget-finance-minister-nirmala-sitharaman-speech-live-key-announcements-customs-duty-tax-takeaways-1-feb-budget-impacts-latest-news/liveblog/117807015.cms"
+        }
     }
 ];
