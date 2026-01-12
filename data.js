@@ -70,7 +70,7 @@ const quizDatabase = [
     {
         "id": 1715420003,
         "year": 2026,
-        "category": "International Politics",
+        "category": "International Relations",
         "type": "text",
         "question": "What is the primary responsibility of the U.S. agency known as ICE?",
         "options": [
@@ -268,7 +268,7 @@ const quizDatabase = [
     {
         "id": 1767891456110,
         "year": 2025,
-        "category": "International relations",
+        "category": "International Relations",
         "type": "text",
         "question": "What is the meaning of \"Watermelons in the army\" in Myanmar?",
         "options": [
@@ -653,7 +653,7 @@ const quizDatabase = [
     {
         "id": 1767409991188,
         "year": 2025,
-        "category": "International relations",
+        "category": "International Relations",
         "type": "text",
         "question": "Security And Growth for All in the Region - The SAGAR doctrine, India's foreign policy initiative, launched in 2015, is mainly related to which of the following regions?",
         "options": [
@@ -1183,7 +1183,7 @@ const quizDatabase = [
     {
         "id": 1715420001,
         "year": 2025,
-        "category": "International Politics",
+        "category": "International Relations",
         "type": "text",
         "question": "In the context of the United States government, what does the acronym 'ICE' stand for?",
         "options": [
@@ -1373,6 +1373,44 @@ const quizDatabase = [
         "explanation": {
             "text": "Up to ₹12 lakh",
             "link": "https://economictimes.indiatimes.com/news/newsblogs/budget-2025-live-updates-union-budget-finance-minister-nirmala-sitharaman-speech-live-key-announcements-customs-duty-tax-takeaways-1-feb-budget-impacts-latest-news/liveblog/117807015.cms"
+        }
+    },
+    {
+        "id": 1768199214520,
+        "year": 2025,
+        "category": "Geography",
+        "type": "text",
+        "question": "The Indus River flows through which of the following groups of countries?",
+        "options": [
+            "India, Pakistan and Afghanistan",
+            "China, India and Afghanistan",
+            "China, Pakistan and Afghanistan",
+            "China, India and Pakistan"
+        ],
+        "answer": "China, India and Pakistan",
+        "explanation": {
+            "text": "Indus River, great trans-Himalayan river of South Asia. It is one of the longest rivers in the world, with a length of some 2,000 miles (3,200 km). Its total drainage area is about 450,000 square miles (1,165,000 square km), of which 175,000 square miles (453,000 square km) lie in the ranges and foothills of the Himalayas, the Hindu Kush, and the Karakoram Range; the rest is in the semiarid plains of Pakistan. The river’s annual flow is about 58 cubic miles (243 cubic km)—twice that of the Nile River and three times that of the Tigris and Euphrates rivers combined. The river’s conventional name derives from the Tibetan and Sanskrit name Sindhu. The earliest chronicles and hymns of the Indo-European-speaking peoples of ancient India, the Rigveda, composed about 1500 bce, mention the river, which is the source of the country’s name.",
+            "link": "https://www.britannica.com/place/Indus-River",
+            "media": "assets/indus.gif",
+            "type": "image"
+        }
+    },
+    {
+        "id": 1768201784290,
+        "year": 2025,
+        "category": "Geography",
+        "type": "image",
+        "question": "Hollywood is situated within the foothills of _____________.",
+        "options": [
+            "Santa Monica Mountains",
+            "Rocky Mountains",
+            "Andies Mountains",
+            "Atlas Mountains"
+        ],
+        "answer": "Santa Monica Mountains",
+        "media": "assets/hollywood.jpg",
+        "explanation": {
+            "link": "https://www.hollywoodsign.org/"
         }
     }
 ];
