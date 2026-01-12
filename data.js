@@ -1412,5 +1412,20 @@ const quizDatabase = [
         "explanation": {
             "link": "https://www.hollywoodsign.org/"
         }
+    },
+    {
+        "id": 1768203485547,
+        "year": 2025,
+        "category": "Arts, literature, culture, movies, sports",
+        "type": "image",
+        "question": "What is the name of the traditional character with a colorful attire in the following image?",
+        "options": [
+            "Varkari",
+            "Govinda",
+            "Vasudeo",
+            "Nagesh"
+        ],
+        "answer": "Vasudeo",
+        "media": "assets/vasudeo.png"
     }
 ];
