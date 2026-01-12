@@ -550,8 +550,9 @@ function endGame() {
     // 1. Generate Answer Sheet
     renderAnswerSheet();
 
-    // 2. Winner Display
+    // 2. Winner Display Logic
     if(gameMode === 'single' || teams.length === 1) {
+        // SINGLE PLAYER LOGIC
         const finalScore = teams[0].score;
         const percentage = (maxScore > 0) ? (finalScore / maxScore) * 100 : 0;
         let color = "text-danger";
@@ -559,17 +560,35 @@ function endGame() {
         else if (percentage >= 60) color = "text-warning";
         fw.innerHTML = `<h2 class="${color} fw-bold">Score: ${finalScore} / ${maxScore}</h2><h4>(${Math.round(percentage)}%)</h4>`;
         
-        document.getElementById('finalChart').parentElement.style.display = 'block';
-        setTimeout(() => updateLeaderboardGraph('finalChart'), 100); 
-
     } else {
+        // CLASSROOM / MULTIPLAYER LOGIC
         const sortedTeams = [...teams].sort((a, b) => b.score - a.score);
-        const winner = sortedTeams[0];
-        fw.innerHTML = `<h2 class="text-success fw-bold">Winner: ${winner.name}</h2>`;
+        const topScore = sortedTeams[0].score;
         
-        document.getElementById('finalChart').parentElement.style.display = 'block';
-        setTimeout(() => updateLeaderboardGraph('finalChart'), 100); 
+        // Find all teams that have the top score (Handle Ties)
+        const winners = sortedTeams.filter(t => t.score === topScore);
+
+        if (winners.length > 1) {
+            // TIE DETECTED
+            const names = winners.map(w => w.name).join(" & ");
+            fw.innerHTML = `
+                <h1 class="text-warning fw-bold" style="font-size: 3rem;">🤝 It's a Tie!</h1>
+                <h2 class="text-dark mt-3">${names}</h2>
+                <h4 class="text-muted">(${topScore} Points each)</h4>
+            `;
+        } else {
+            // SINGLE WINNER
+            fw.innerHTML = `
+                <h1 class="text-success fw-bold" style="font-size: 3rem;">🏆 Winner</h1>
+                <h2 class="text-dark mt-3">${winners[0].name}</h2>
+                <h4 class="text-muted">(${topScore} Points)</h4>
+            `;
+        }
     }
+
+    // 3. Show Graph
+    document.getElementById('finalChart').parentElement.style.display = 'block';
+    setTimeout(() => updateLeaderboardGraph('finalChart'), 100); 
 }
 
 function renderAnswerSheet() {
