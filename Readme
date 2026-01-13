@@ -1,0 +1,81 @@
+# 🎓 Interactive Quiz Application (GK & CA)
+
+A dynamic, web-based quiz application designed for both **individual study** and **classroom competitions**. Built with HTML, Bootstrap, and Vanilla JavaScript, this app allows students to practice General Knowledge and Current Affairs questions in an engaging format.
+
+## ✨ Features
+
+* **Two Game Modes:**
+    * 👤 **Single Player:** Perfect for individual practice and self-assessment.
+    * 🏫 **Classroom Mode:** Team-based competition (e.g., FYBA vs. SYBA) with score tracking and turn-taking.
+* **Dynamic Content:** Filter questions by **Category** and **Year**.
+* **Rich Media Support:** Supports images and video clips (optimized for iPhone/Safari).
+* **Safety Guards:** Prevents accidental tab closing during a game to save progress.
+* **Interactive UI:** Sound effects, timers, visual feedback for correct/wrong answers, and a tie-breaker system.
+* **Mobile Responsive:** Works seamlessly on phones, tablets, and desktops.
+
+---
+
+## 🚀 How to Play
+
+### 1. Setup
+1.  Open the website.
+2.  Read the instruction prompt: **"Please select 'Single Player' or 'Classes' before starting!"**
+3.  Choose your mode:
+    * Click **Single Player** for individual use.
+    * Click **Classes** to enable the Team Selection panel.
+
+### 2. Configuration
+1.  **Select Teams** (If in Classroom Mode): Check the boxes for participating groups (e.g., FYBA, SYBA).
+2.  **Filter Questions:** Choose a specific **Year** and **Category** from the dropdowns (or leave as "All").
+3.  Click **"Start Game"** to begin.
+
+### 3. Gameplay
+* **Answering:** Read the question and click the correct option.
+* **Scoring:**
+    * **Single Player:** Tracks your total score and percentage.
+    * **Classroom Mode:** Tracks points for each team and displays a live leaderboard.
+* **Explanations:** Learn more about the answer after every question.
+
+---
+
+## 📂 File Structure
+
+* `index.html` - The main user interface.
+* `script.js` - Game logic, mode switching, timer, and scoring system.
+* `data.js` - Contains the database of questions (JSON format).
+* `assets/` - Folder for sound effects (`correct.mp3`, `wrong.mp3`) and media files.
+
+---
+
+## ⚙️ Configuration (Adding Questions)
+
+Questions are stored in **`data.js`**. To add a new question, simply add a new object to the `quizDatabase` array.
+
+**Format:**
+```javascript
+{
+    id: 1,
+    question: "Who is the current Prime Minister of India?",
+    options: ["Narendra Modi", "Rahul Gandhi", "Amit Shah", "Manmohan Singh"],
+    answer: "Narendra Modi",
+    category: "Politics",
+    year: 2025,
+    media: "assets/modi.jpg", // Optional: Image or Video path
+    explanation: {
+        text: "Narendra Modi serves as the PM...",
+        link: "[https://wikipedia.org](https://wikipedia.org)" // Optional: "Learn More" link
+    }
+}
+
+🛠️ Technical Details
+Tech Stack: HTML5, CSS3 (Bootstrap 5), JavaScript (ES6).
+
+Data Source: Local Javascript Object (No backend database required).
+
+Hosting: Optimized for GitHub Pages.
+
+Known browser behaviors
+Tab Closing: The app will prompt a "Are you sure?" warning if you try to close the tab or refresh while a game or result screen is active, ensuring you don't lose your score accidentally.
+
+👨‍🏫 Author
+Developed by Shubharaj Buwa Associate Professor, Political Science Dr. T. K. Tope Arts & Commerce Night College, Parel, Mumbai - with the help of Gemini (AI)
