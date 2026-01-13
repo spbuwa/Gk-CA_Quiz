@@ -670,3 +670,21 @@ function downloadGraph() {
         alert("No graph available to save!");
     }
 }
+
+// ==========================================
+// PREVENT ACCIDENTAL CLOSING (Game & Results)
+// ==========================================
+window.addEventListener('beforeunload', function (e) {
+    const quizScreen = document.getElementById('quiz-screen');
+    const resultScreen = document.getElementById('result-screen');
+
+    // Check if user is playing OR looking at the score
+    const isGameActive = quizScreen && !quizScreen.classList.contains('d-none');
+    const isResultActive = resultScreen && !resultScreen.classList.contains('d-none');
+    
+    // If either screen is visible, trigger the warning
+    if (isGameActive || isResultActive) {
+        e.preventDefault();
+        e.returnValue = ''; // Required for Chrome/Edge/Firefox
+    }
+});
