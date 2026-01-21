@@ -1183,7 +1183,7 @@ const quizDatabase = [
     {
         "id": 1715420001,
         "year": 2025,
-        "category": "International Relations",
+        "category": "Tiebreaker",
         "type": "text",
         "question": "In the context of the United States government, what does the acronym 'ICE' stand for?",
         "options": [
@@ -1342,7 +1342,7 @@ const quizDatabase = [
     {
         "id": 1768187274016,
         "year": 2025,
-        "category": "Economics",
+        "category": "Tiebreaker",
         "type": "text",
         "question": "As per the World Happiness Report 2025, India’s global happiness rank is:",
         "options": [
@@ -1398,7 +1398,7 @@ const quizDatabase = [
     {
         "id": 1768201784290,
         "year": 2025,
-        "category": "Geography",
+        "category": "Tiebreaker",
         "type": "image",
         "question": "Hollywood is situated within the foothills of _____________.",
         "options": [
@@ -1416,7 +1416,7 @@ const quizDatabase = [
     {
         "id": 1768203485547,
         "year": 2025,
-        "category": "Arts, literature, culture, movies, sports",
+        "category": "Tiebreaker",
         "type": "image",
         "question": "What is the name of the traditional character with a colorful attire in the following image?",
         "options": [
@@ -1427,5 +1427,148 @@ const quizDatabase = [
         ],
         "answer": "Vasudeo",
         "media": "assets/vasudeo.png"
+    },
+    {
+        "id": 1768962485104,
+        "year": 2025,
+        "category": "Tiebreaker",
+        "type": "text",
+        "question": "Who is the current (Jan 2026) Prime Minister of Japan?",
+        "options": [
+            "Sanae Takaichi",
+            "Ito Hirobumi",
+            "Noboru Takeshita",
+            "Shinzo Abe"
+        ],
+        "answer": "Sanae Takaichi",
+        "explanation": {
+            "link": "https://en.wikipedia.org/wiki/List_of_prime_ministers_of_Japan",
+            "media": "assets/Sanae_Takaichi.jpg",
+            "type": "image"
+        }
+    },
+    {
+        "id": 1768963228234,
+        "year": 2025,
+        "category": "Sample",
+        "type": "text",
+        "question": "Who is the current (Jan 2026) Prime Minister of Russia?",
+        "options": [
+            "Vladimir Putin",
+            "Dmitry Medvedev",
+            "Mikhail Mishustin",
+            "Yevgeny Primakov"
+        ],
+        "answer": "Mikhail Mishustin",
+        "explanation": {
+            "link": "https://en.wikipedia.org/wiki/Prime_Minister_of_Russia",
+            "media": "assets/Mishustin.jpg",
+            "type": "image"
+        }
+    },
+    {
+        "id": 1768963967695,
+        "year": 2025,
+        "category": "Tiebreaker",
+        "type": "text",
+        "question": "The Primakov doctrine ______________.",
+        "options": [
+            "Accepts the idea of unipolar world dominated by the USA.",
+            "Does not favour a multipolar world.",
+            "Favours the RIC concept - friendship between Russia, India & China.",
+            "Accepts India as one of the emerging super power."
+        ],
+        "answer": "Favours the RIC concept - friendship between Russia, India & China.",
+        "explanation": {
+            "text": "The Primakov doctrine, formulated by Yevgeny Primakov upon becoming Russia's Foreign Minister in 1996, was never published as a single, codified document, but rather emerged as a set of principles designed to shift Russian foreign policy away from post-Soviet accommodation with the West toward a \"patriotic pragmatism\".  Its core tenets are widely recognized as a direct reaction against a unipolar world dominated by the United States.  Key Pillars of the Primakov Doctrine Based on analysis of his tenure (1996–1998) and subsequent Russian foreign policy, the doctrine revolves around five main ideas:  Multipolarity: Russia should actively work toward a multipolar world order, preventing the U.S. from acting as the sole global hegemon by fostering multiple centers of power. Post-Soviet Supremacy: Russia must ensure its primacy in the \"near abroad\" (former Soviet republics) and lead Eurasian integration. Opposition to NATO Expansion: Russia should strongly oppose the expansion of NATO into Eastern Europe and the post-Soviet space. Strategic Partnerships: Russia should pursue a \"strategic triangle\" alliance with China and India to balance Western influence. Independent Foreign Policy: Russia should act as an independent, influential global power, rather than a subordinate partner to the West.  Contextual Application The doctrine is perhaps most vividly illustrated by the \"U-turn over the Atlantic\" in March 1999, when Primakov cancelled his visit to Washington in mid-air upon learning that NATO had begun bombing Yugoslavia.  While Primakov himself did not write a single document labeled \"doctrine,\" his principles have remained the foundation of Russian foreign policy under Vladimir Putin, as noted by Foreign Minister Sergey Lavrov. "
+        }
+    },
+    {
+        "id": 1768971239074,
+        "year": 2025,
+        "category": "Tiebreaker",
+        "type": "text",
+        "question": "Who is the current (Jan 2026) Prime Minister of Canada?",
+        "options": [
+            "Justin Trudeau",
+            "Mark Carney",
+            "Paul Martin",
+            "Kim Campbell"
+        ],
+        "answer": "Mark Carney",
+        "explanation": {
+            "media": "assets/MarkCarney.webp",
+            "type": "image"
+        }
+    },
+    {
+        "id": 1768971641007,
+        "year": 2025,
+        "category": "Tiebreaker",
+        "type": "text",
+        "question": "Which of the following countries is the smallest neighbour of India, considering both land and maritime neighbours?",
+        "options": [
+            "Nepal",
+            "Bhutan",
+            "Maldives",
+            "Sri Lanka"
+        ],
+        "answer": "Maldives",
+        "explanation": {
+            "text": "The smallest neighboring country of India depends on whether you mean by land border or overall area; Bhutan is the smallest by land area, while the island nation of Maldives is the smallest overall neighbor due to its tiny size (around 300 sq km) compared to Bhutan's ~38,394 sq km. Bhutan shares a land border with India, making it the smallest land neighbor, but Maldives is a maritime neighbor, making it the smallest overall country near India. "
+        }
+    },
+    {
+        "id": 1768971991636,
+        "year": 2025,
+        "category": "Tiebreaker",
+        "type": "text",
+        "question": "Which of the following country shares the longest border with India?",
+        "options": [
+            "Bangladesh",
+            "China",
+            "Pakistan",
+            "Myanmar"
+        ],
+        "answer": "Bangladesh",
+        "explanation": {
+            "text": "China is India's largest neighbour in terms of land area and significant influence, though Bangladesh shares the longest land border with India. India shares borders with seven countries: Pakistan, Afghanistan, Nepal, China, Bangladesh, Bhutan, and Myanmar.  Largest by Area/Influence: China Longest Border: Bangladesh (around 4,096.7 km) "
+        }
+    },
+    {
+        "id": 1768972524638,
+        "year": 2025,
+        "category": "Tiebreaker",
+        "type": "text",
+        "question": "Which two countries of the following share the longest international border?",
+        "options": [
+            "Kazakhstan & Russia",
+            "China & Mongolia",
+            "Argentina & Chile",
+            "USA & Canada"
+        ],
+        "answer": "USA & Canada",
+        "explanation": {
+            "media": "assets/longestBorder.png",
+            "type": "image"
+        }
+    },
+    {
+        "id": 1768972798601,
+        "year": 2025,
+        "category": "Tiebreaker",
+        "type": "text",
+        "question": "Which of the following countries is closest to Antarctica?",
+        "options": [
+            "Chile",
+            "Australia",
+            "South Africa",
+            "New Zealand"
+        ],
+        "answer": "Chile",
+        "explanation": {
+            "media": "assets/Chile.png",
+            "type": "image"
+        }
     }
 ];
