@@ -1398,7 +1398,7 @@ const quizDatabase = [
     {
         "id": 1768201784290,
         "year": 2025,
-        "category": "Tiebreaker",
+        "category": "Geography",
         "type": "image",
         "question": "Hollywood is situated within the foothills of _____________.",
         "options": [
@@ -1416,7 +1416,7 @@ const quizDatabase = [
     {
         "id": 1768203485547,
         "year": 2025,
-        "category": "Tiebreaker",
+        "category": "Arts, literature, culture, movies, sports",
         "type": "image",
         "question": "What is the name of the traditional character with a colorful attire in the following image?",
         "options": [
@@ -1431,7 +1431,7 @@ const quizDatabase = [
     {
         "id": 1768962485104,
         "year": 2025,
-        "category": "Tiebreaker",
+        "category": "International Relations",
         "type": "text",
         "question": "Who is the current (Jan 2026) Prime Minister of Japan?",
         "options": [
@@ -1468,8 +1468,8 @@ const quizDatabase = [
     },
     {
         "id": 1768963967695,
-        "year": 2025,
-        "category": "Tiebreaker",
+        "year": 2026,
+        "category": "International Relations",
         "type": "text",
         "question": "The Primakov doctrine ______________.",
         "options": [
@@ -1486,7 +1486,7 @@ const quizDatabase = [
     {
         "id": 1768971239074,
         "year": 2025,
-        "category": "Tiebreaker",
+        "category": "International Relations",
         "type": "text",
         "question": "Who is the current (Jan 2026) Prime Minister of Canada?",
         "options": [
@@ -1504,7 +1504,7 @@ const quizDatabase = [
     {
         "id": 1768971641007,
         "year": 2025,
-        "category": "Tiebreaker",
+        "category": "Geography",
         "type": "text",
         "question": "Which of the following countries is the smallest neighbour of India, considering both land and maritime neighbours?",
         "options": [
@@ -1520,8 +1520,8 @@ const quizDatabase = [
     },
     {
         "id": 1768971991636,
-        "year": 2025,
-        "category": "Tiebreaker",
+        "year": 2026,
+        "category": "Geography",
         "type": "text",
         "question": "Which of the following country shares the longest border with India?",
         "options": [
@@ -1537,8 +1537,8 @@ const quizDatabase = [
     },
     {
         "id": 1768972524638,
-        "year": 2025,
-        "category": "Tiebreaker",
+        "year": 2026,
+        "category": "Geography",
         "type": "text",
         "question": "Which two countries of the following share the longest international border?",
         "options": [
@@ -1555,8 +1555,8 @@ const quizDatabase = [
     },
     {
         "id": 1768972798601,
-        "year": 2025,
-        "category": "Tiebreaker",
+        "year": 2026,
+        "category": "Geography",
         "type": "text",
         "question": "Which of the following countries is closest to Antarctica?",
         "options": [
@@ -1568,6 +1568,26 @@ const quizDatabase = [
         "answer": "Chile",
         "explanation": {
             "media": "assets/Chile.png",
+            "type": "image"
+        }
+    },
+    {
+        "id": 1769221909386,
+        "year": 2026,
+        "category": "Commerce and Economy",
+        "type": "text",
+        "question": "Which of the following companies own Tiktok?",
+        "options": [
+            "Meta",
+            "Alphabet",
+            "ByteDance",
+            "Microsoft"
+        ],
+        "answer": "ByteDance",
+        "explanation": {
+            "text": "Dear Users,  On June 29, 2020 the Govt. of India decided to block 59 apps, including TikTok. We are in the process of complying with the Government of India's directive and also working with the government to better understand the issue and explore a course of action.  Ensuring the privacy and security of all our users in India remains our utmost priority.  TikTok India Team.",
+            "link": "https://www.bbc.com/news/articles/c3edd1l328lo",
+            "media": "assets/ByteDance.png",
             "type": "image"
         }
     }

@@ -9,12 +9,24 @@
 </head>
 <body class="bg-light">
 
-    <nav class="navbar navbar-light bg-white shadow-sm mb-4">
-        <div class="container-fluid justify-content-end gap-2">
-            <button onclick="toggleLeaderboard()" class="btn btn-outline-primary btn-sm">📊 Live Graph</button>
-            <button onclick="toggleFullScreen()" class="btn btn-outline-dark btn-sm">⛶ Full Screen</button>
+   <nav class="navbar navbar-light bg-white shadow-sm sticky-top py-2 mb-4" style="z-index: 1030;">
+    <div class="container-fluid d-flex justify-content-between align-items-center position-relative">
+        
+        <div id="header-stats" class="d-flex align-items-center gap-2 d-none">
+            <span id="round-display" class="badge bg-secondary fs-6">Round: 1</span>
+            <span id="q-remaining" class="badge bg-info text-dark fs-6">Q: 1/10</span>
         </div>
-    </nav>
+
+        <div id="header-timer" class="position-absolute start-50 translate-middle-x d-none">
+            <span id="timer-display" class="fs-2 fw-bold text-primary">60s</span>
+        </div>
+
+        <div class="d-flex gap-2 ms-auto">
+            <button onclick="toggleLeaderboard()" class="btn btn-outline-primary btn-sm">📊 Graph</button>
+            <button onclick="toggleFullScreen()" class="btn btn-outline-dark btn-sm">⛶ Full</button>
+        </div>
+    </div>
+</nav>
 
     <audio id="sfx-round" src="round-change.mp3"></audio>
     <audio id="sfx-final" src="final-question.mp3"></audio>
@@ -81,15 +93,7 @@
 
         <div id="quiz-screen" class="d-none">
             <div id="last-q-banner" class="alert alert-warning text-center fw-bold mb-3 d-none">⚠️ FINAL QUESTION! ⚠️</div>
-            <div class="card mb-3 border-0 bg-transparent">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <span id="round-display" class="badge bg-secondary fs-6">Round: 1</span>
-                        <span id="q-remaining" class="badge bg-info text-dark fs-6">Q: 1/10</span>
-                    </div>
-                    <div id="timer-display" class="fs-2 fw-bold text-primary">60s</div>
-                </div>
-            </div>
+            
             <div id="turn-banner" class="alert alert-light border text-center fw-bold fs-4 shadow-sm mb-4">Player's Turn</div>
             
             <div class="card shadow-sm mb-4">

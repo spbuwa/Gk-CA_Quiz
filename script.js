@@ -10,7 +10,7 @@ const MASTER_CLASS_LIST = [
 ];
 
 // State Variables
-let gameMode = 'classroom'; 
+let gameMode = 'single'; // Default to Single Player
 let teams = [];          
 let teamQueue = [];      
 let currentRound = 1;
@@ -20,7 +20,7 @@ let timerInterval;
 let timeLeft = 60;
 let userWantsExplanations = true;
 let currentTeamIndex = -1;
-let matchHistory = []; // Stores the log of every answer
+let matchHistory = []; 
 
 // CHART VARIABLES
 let leaderboardChartInstance = null;
@@ -51,6 +51,8 @@ const answerSheetBody = document.getElementById('answer-sheet-body');
 
 // --- INIT ---
 window.onload = function() {
+    setGameMode('single');
+
     if(typeof quizDatabase === 'undefined') return;
     
     // 1. Populate Teams Checkboxes
@@ -83,16 +85,15 @@ window.onload = function() {
         categoryList.innerHTML = catHtml;
     }
 
-    // 3. Populate Years (NEW)
+    // 3. Populate Years
     const years = new Set();
-    quizDatabase.forEach(q => years.add(q.year || 2025)); // Default to 2025 if missing
+    quizDatabase.forEach(q => years.add(q.year || 2025)); 
     
     const yearList = document.getElementById('year-list');
     if(yearList) {
         let yearHtml = `<label class="list-group-item bg-light fw-bold">
                         <input class="form-check-input me-2" type="checkbox" checked onchange="toggleAllYears(this)"> Select All
                     </label>`;
-        // Sort years numerically
         Array.from(years).sort().forEach(yr => {
             yearHtml += `<label class="list-group-item">
                         <input class="form-check-input me-2 year-chk" type="checkbox" value="${yr}" checked> ${yr}
@@ -132,16 +133,53 @@ function setGameMode(mode) {
     const btnSingle = document.getElementById('btn-mode-single');
     
     if(mode === 'classroom') {
-        btnClass.classList.add('active', 'bg-primary', 'text-white');
-        btnSingle.classList.remove('active', 'bg-primary', 'text-white');
+        if(btnClass) {
+            btnClass.classList.add('active', 'btn-primary');
+            btnClass.classList.remove('btn-outline-primary');
+        }
+        if(btnSingle) {
+            btnSingle.classList.remove('active', 'btn-primary');
+            btnSingle.classList.add('btn-outline-primary');
+        }
         document.getElementById('classroom-panel').classList.remove('d-none');
         document.getElementById('single-panel').classList.add('d-none');
     } else {
-        btnSingle.classList.add('active', 'bg-primary', 'text-white');
-        btnClass.classList.remove('active', 'bg-primary', 'text-white');
+        if(btnSingle) {
+            btnSingle.classList.add('active', 'btn-primary');
+            btnSingle.classList.remove('btn-outline-primary');
+        }
+        if(btnClass) {
+            btnClass.classList.remove('active', 'btn-primary');
+            btnClass.classList.add('btn-outline-primary');
+        }
         document.getElementById('classroom-panel').classList.add('d-none');
         document.getElementById('single-panel').classList.remove('d-none');
     }
+}
+
+function addNewTeam() {
+    const input = document.getElementById('new-team-input');
+    const container = document.getElementById('team-list');
+    const teamName = input.value.trim();
+
+    if (teamName === "") {
+        alert("Please enter a team name!");
+        return;
+    }
+
+    const newLabel = document.createElement('label');
+    newLabel.className = 'list-group-item';
+
+    const newCheckbox = document.createElement('input');
+    newCheckbox.type = 'checkbox';
+    newCheckbox.className = 'form-check-input me-2 team-chk';
+    newCheckbox.value = teamName;
+    newCheckbox.checked = true;
+
+    newLabel.appendChild(newCheckbox);
+    newLabel.appendChild(document.createTextNode(" " + teamName));
+    container.appendChild(newLabel);
+    input.value = '';
 }
 
 function toggleAllTeams(source) { document.querySelectorAll('.team-chk').forEach(cb => cb.checked = source.checked); }
@@ -170,12 +208,11 @@ function closeLeaderboard() {
     if(currentRound > MAX_ROUNDS) resultScreen.classList.remove('d-none');
     else quizScreen.classList.remove('d-none');
 }
-
 // --- GAME LOGIC ---
 function startGame() {
     errorMsg.classList.add('d-none');
 
-    // 1. CAPTURE PLAYER NAME (Only for Single Player)
+    // 1. CAPTURE PLAYER NAME
     let playerNameInput = "Player 1";
     const nameField = document.getElementById('player-name-input');
     if (gameMode === 'single' && nameField && nameField.value.trim() !== "") {
@@ -198,27 +235,40 @@ function startGame() {
     // 3. CHECK CATEGORIES
     const catCheckboxes = document.querySelectorAll('.cat-chk:checked');
     const allowedCats = Array.from(catCheckboxes).map(cb => cb.value);
+
+    // 4. CHECK YEARS (UPDATED STRICT LOGIC)
+    const yearCheckboxes = document.querySelectorAll('.year-chk:checked');
+    // Convert checkbox values to Strings to ensure safe comparison
+    const allowedYears = Array.from(yearCheckboxes).map(cb => cb.value.toString());
+
     if(allowedCats.length === 0) {
         errorMsg.innerText = "Please select at least one category!";
         errorMsg.classList.remove('d-none');
         return;
     }
 
-    // 4. CHECK YEARS
-    const yearCheckboxes = document.querySelectorAll('.year-chk:checked');
-    const allowedYears = Array.from(yearCheckboxes).map(cb => parseInt(cb.value));
-    
-    if(yearCheckboxes.length > 0 && allowedYears.length === 0) {
-        errorMsg.innerText = "Please select at least one Year!";
-        errorMsg.classList.remove('d-none');
-        return;
+    // Check if years are available but none selected
+    if(document.getElementById('year-list') && document.querySelectorAll('.year-chk').length > 0 && allowedYears.length === 0) {
+         errorMsg.innerText = "Please select at least one Year!";
+         errorMsg.classList.remove('d-none');
+         return;
     }
 
     // 5. FILTER DATABASE
     const filteredDB = quizDatabase.filter(q => {
         const catMatch = allowedCats.includes(q.category || "Uncategorized");
-        const qYear = q.year || 2025; 
-        const yearMatch = (yearCheckboxes.length === 0) ? true : allowedYears.includes(qYear);
+        
+        // STRICT YEAR MATCHING
+        // 1. Get the year from data, or default to 2025 if missing
+        let rawYear = q.year || 2025; 
+        
+        // 2. Convert database year to String (so 2026 becomes "2026")
+        const qYear = rawYear.toString();
+        
+        // 3. Check if this string exists in our allowed list
+        // If the user selected nothing (impossible due to check above, but safe), allow all.
+        const yearMatch = (allowedYears.length === 0) ? true : allowedYears.includes(qYear);
+        
         return catMatch && yearMatch;
     });
     
@@ -242,6 +292,12 @@ function startGame() {
     startScreen.classList.add('d-none');
     resultScreen.classList.add('d-none');
     quizScreen.classList.remove('d-none');
+
+    // SHOW HEADER STATS
+    const hStats = document.getElementById('header-stats');
+    const hTimer = document.getElementById('header-timer');
+    if(hStats) hStats.classList.remove('d-none');
+    if(hTimer) hTimer.classList.remove('d-none');
     
     if(gameMode === 'classroom') {
         startNewRound();
@@ -303,7 +359,6 @@ function loadTurn() {
     qTag.innerText = currentData.category || "General"; 
     renderMedia(currentData, mediaContainer);
 
-    // Randomize Options
     let shuffledOptions = [...currentData.options];
     shuffledOptions.sort(() => Math.random() - 0.5);
 
@@ -332,30 +387,24 @@ function manualStartTimer() {
     startTimer();
 }
 
-// --- MODIFIED RENDER MEDIA FUNCTION (iPhone Fix) ---
 function renderMedia(data, container) {
     container.innerHTML = '';
     if (!data.media) return;
     let html = '';
 
-    // 1. YouTube
     if (data.type === 'youtube') {
         html = createYouTubeEmbed(data.media);
     } 
-    // 2. Video Files (FIXED for iPhone)
     else if (data.type === 'video') {
-        // We add 'playsinline' and multiple source tags to force iOS compatibility
         html = `<video controls playsinline webkit-playsinline preload="auto" class="w-100 rounded" style="max-height:400px; background: #000;">
                     <source src="${data.media}" type="video/mp4">
                     <source src="${data.media}" type="video/quicktime">
                     Your browser does not support the video tag.
                 </video>`;
     } 
-    // 3. Audio Files
     else if (data.type === 'audio') {
         html = `<audio controls src="${data.media}" class="w-100"></audio>`;
     }
-    // 4. Images (Default)
     else {
         html = `<img src="${data.media}" class="img-fluid rounded" style="max-height:400px;">`;
     }
@@ -476,7 +525,6 @@ function showExplanation(data) {
         
         if(expMedia) {
             expMedia.innerHTML = '';
-            // Pass media to our improved render function
             if(data.explanation.media) {
                 renderMedia({
                     type: data.explanation.type || 'image', 
@@ -542,17 +590,21 @@ function updateLeaderboardGraph(canvasId) {
 function endGame() {
     quizScreen.classList.add('d-none');
     resultScreen.classList.remove('d-none');
+    
+    // HIDE TOP BAR STATS
+    const hStats = document.getElementById('header-stats');
+    const hTimer = document.getElementById('header-timer');
+    if(hStats) hStats.classList.add('d-none');
+    if(hTimer) hTimer.classList.add('d-none');
+
     playSound('sfx-gameover'); 
     
     const maxScore = selectedQuestions.length * POINTS_PER_Q;
     const fw = document.getElementById('final-winner');
 
-    // 1. Generate Answer Sheet
     renderAnswerSheet();
 
-    // 2. Winner Display Logic
     if(gameMode === 'single' || teams.length === 1) {
-        // SINGLE PLAYER LOGIC
         const finalScore = teams[0].score;
         const percentage = (maxScore > 0) ? (finalScore / maxScore) * 100 : 0;
         let color = "text-danger";
@@ -561,15 +613,11 @@ function endGame() {
         fw.innerHTML = `<h2 class="${color} fw-bold">Score: ${finalScore} / ${maxScore}</h2><h4>(${Math.round(percentage)}%)</h4>`;
         
     } else {
-        // CLASSROOM / MULTIPLAYER LOGIC
         const sortedTeams = [...teams].sort((a, b) => b.score - a.score);
         const topScore = sortedTeams[0].score;
-        
-        // Find all teams that have the top score (Handle Ties)
         const winners = sortedTeams.filter(t => t.score === topScore);
 
         if (winners.length > 1) {
-            // TIE DETECTED
             const names = winners.map(w => w.name).join(" & ");
             fw.innerHTML = `
                 <h1 class="text-warning fw-bold" style="font-size: 3rem;">🤝 It's a Tie!</h1>
@@ -577,7 +625,6 @@ function endGame() {
                 <h4 class="text-muted">(${topScore} Points each)</h4>
             `;
         } else {
-            // SINGLE WINNER
             fw.innerHTML = `
                 <h1 class="text-success fw-bold" style="font-size: 3rem;">🏆 Winner</h1>
                 <h2 class="text-dark mt-3">${winners[0].name}</h2>
@@ -586,7 +633,6 @@ function endGame() {
         }
     }
 
-    // 3. Show Graph
     document.getElementById('finalChart').parentElement.style.display = 'block';
     setTimeout(() => updateLeaderboardGraph('finalChart'), 100); 
 }
@@ -613,6 +659,13 @@ function restartGame() {
     startScreen.classList.remove('d-none');
     resultScreen.classList.add('d-none');
     leaderboardScreen.classList.add('d-none');
+
+    // HIDE TOP BAR STATS
+    const hStats = document.getElementById('header-stats');
+    const hTimer = document.getElementById('header-timer');
+    if(hStats) hStats.classList.add('d-none');
+    if(hTimer) hTimer.classList.add('d-none');
+
     if(leaderboardChartInstance) leaderboardChartInstance.destroy();
     if(finalChartInstance) finalChartInstance.destroy();
 }
@@ -627,10 +680,6 @@ function resetState() {
     timerDisplay.innerText = '';
     clearInterval(timerInterval);
 }
-
-// ==========================================
-// SAVE / EXPORT FUNCTIONS
-// ==========================================
 
 function downloadCSV() {
     const now = new Date();
@@ -671,20 +720,15 @@ function downloadGraph() {
     }
 }
 
-// ==========================================
-// PREVENT ACCIDENTAL CLOSING (Game & Results)
-// ==========================================
+// PREVENT ACCIDENTAL CLOSING
 window.addEventListener('beforeunload', function (e) {
     const quizScreen = document.getElementById('quiz-screen');
     const resultScreen = document.getElementById('result-screen');
-
-    // Check if user is playing OR looking at the score
     const isGameActive = quizScreen && !quizScreen.classList.contains('d-none');
     const isResultActive = resultScreen && !resultScreen.classList.contains('d-none');
     
-    // If either screen is visible, trigger the warning
     if (isGameActive || isResultActive) {
         e.preventDefault();
-        e.returnValue = ''; // Required for Chrome/Edge/Firefox
+        e.returnValue = ''; 
     }
 });
